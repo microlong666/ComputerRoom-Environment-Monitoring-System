@@ -1,33 +1,20 @@
 package com.example.bighomework2;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.example.bighomework2.Connect.BodyConnect;
 import com.example.bighomework2.Connect.FanConect;
 import com.example.bighomework2.Connect.TempHumConnect;
 import com.example.bighomework2.databinding.ActivityMainBinding;
-import com.example.bighomework2.util.FROIOControl;
-import com.example.bighomework2.util.GetSocket;
-import com.example.bighomework2.util.StreamUtil;
 import com.example.bighomework2.viewModel.DataViewModel;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.InetSocketAddress;
-import java.net.Socket;
-import java.net.SocketAddress;
-import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
 
 public class MainActivity extends AppCompatActivity {
     private DataViewModel data;
@@ -54,12 +41,12 @@ public class MainActivity extends AppCompatActivity {
 //        }
 //        tempHumConnect = new TempHumConnect(this, data);
 //        tempHumConnect.execute();
-        if (bodyConnect == null) {
-            bodyConnect = new BodyConnect(this, data);
-        }
-        if (fanConnect == null) {
-            fanConnect = new FanConect(this, data);
-        }
+        bodyConnect = new BodyConnect(this, data);
+        bodyConnect.execute();
+        fanConnect = new FanConect(this, data);
+        fanConnect.execute();
+        tempHumConnect = new TempHumConnect(this, data);
+        tempHumConnect.execute();
     }
 
     @Override
@@ -85,10 +72,12 @@ public class MainActivity extends AppCompatActivity {
     public void switchTempHumConnect(View view) {
         Boolean isConnect = data.getTempHumIsConnect().getValue();
         if (isConnect) {
+            Log.d("abc", "doInBackground: 温湿度传感器打开");
             tempHumConnect.cancel(true);
             tempHumConnect.closeSocket();
             data.getTempHumIsConnect().setValue(false);
         } else {
+            Log.d("abc", "doInBackground: 温湿度传感器关闭");
             tempHumConnect = new TempHumConnect(this, data);
             tempHumConnect.execute();
         }

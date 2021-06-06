@@ -46,6 +46,7 @@ public class BodyConnect extends AsyncTask<Void, Void, Void> {
                         dataViewModel.getHasHuman().postValue(body);
                     }
                 } else {
+                    Log.d("abc", "doInBackground: 人体传感器连接失败");
                     Looper.prepare();
                     Toast.makeText(context, "连接失败", Toast.LENGTH_SHORT).show();
                     Looper.loop();

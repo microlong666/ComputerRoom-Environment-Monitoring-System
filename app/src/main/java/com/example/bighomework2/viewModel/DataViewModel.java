@@ -3,8 +3,6 @@ package com.example.bighomework2.viewModel;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.bighomework2.Connect.TempHumConnect;
-
 public class DataViewModel extends ViewModel {
 
     private MutableLiveData<Double> temperature;

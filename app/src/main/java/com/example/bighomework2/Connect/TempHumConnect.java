@@ -26,17 +26,19 @@ public class TempHumConnect extends AsyncTask<Void, Void, Void> {
 
     public TempHumConnect(Context context, DataViewModel dataViewModel) {
         this.dataViewModel = dataViewModel;
-        this.context =context;
+        this.context = context;
     }
 
     @Override
     protected Void doInBackground(Void... voids) {
         Looper looper = Looper.myLooper();
         temHumSocket = GetSocket.get(Const.TEMHUM_IP, Const.TEMHUM_PORT);
+        Log.d("abc", "doInBackground: 温湿度传感器isCancelled：" + isCancelled());
         while (!isCancelled()) {
             try {
                 // 如果连接成功
                 if (temHumSocket != null) {
+                    Log.d("abc", "doInBackground: 温湿度传感器连接成功");
                     dataViewModel.getTempHumIsConnect().postValue(true);
                     // 查询温湿度
                     StreamUtil.writeCommand(temHumSocket.getOutputStream(), Const.TEMHUM_CHK);
@@ -47,6 +49,7 @@ public class TempHumConnect extends AsyncTask<Void, Void, Void> {
                     dataViewModel.getTemperature().postValue(((int)(tem * 100)/ 100.0));
                     dataViewModel.getHumidity().postValue(((int)(hum * 100)/ 100.0));
                 } else {
+                    Log.d("abc", "doInBackground: 温湿度传感器连接失败");
                     Looper.prepare();
                     Toast.makeText(context, "连接失败", Toast.LENGTH_SHORT).show();
                     Looper.loop();
