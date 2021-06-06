@@ -18,7 +18,8 @@ import java.net.Socket;
 /**
  * 用于连接并自动获取检测到人体数据
  */
-public class BodyConnect extends AsyncTask<Void, Void, Void> {
+public class BodyConnect extends Thread {
+    public volatile boolean exit = false;
 
     private final DataViewModel dataViewModel;
     private Context context;
@@ -29,11 +30,10 @@ public class BodyConnect extends AsyncTask<Void, Void, Void> {
         this.context = context;
     }
 
-    @Override
-    protected Void doInBackground(Void... voids) {
+    public void run() {
         Looper looper = Looper.myLooper();
         bodySocket = GetSocket.get(Const.BODY_IP, Const.BODY_port);
-        while (!isCancelled()) {
+        while (!exit) {
             try {
                 // 如果连接成功
                 if (bodySocket != null) {
@@ -48,16 +48,16 @@ public class BodyConnect extends AsyncTask<Void, Void, Void> {
                 } else {
                     Log.d("abc", "doInBackground: 人体传感器连接失败");
                     Looper.prepare();
-                    Toast.makeText(context, "连接失败", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "人体传感器连接失败", Toast.LENGTH_SHORT).show();
                     Looper.loop();
                     looper.quit();
-                    return null;
+                    return;
                 }
             } catch (InterruptedException | IOException e) {
                 e.printStackTrace();
             }
         }
-        return null;
+        closeSocket();
     }
 
     public void closeSocket() {

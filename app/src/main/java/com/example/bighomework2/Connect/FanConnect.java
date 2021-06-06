@@ -14,23 +14,24 @@ import com.example.bighomework2.viewModel.DataViewModel;
 import java.io.IOException;
 import java.net.Socket;
 
-public class FanConect extends AsyncTask<Void, Void, Void> {
+public class FanConnect extends Thread {
+    public volatile boolean exit = false;
 
     private final DataViewModel dataViewModel;
     private Context context;
     private Socket fanConnect;
 
-    public FanConect(Context context, DataViewModel dataViewModel) {
+    public FanConnect(Context context, DataViewModel dataViewModel) {
         this.dataViewModel = dataViewModel;
         this.context = context;
     }
 
-    @Override
-    protected Void doInBackground(Void... voids) {
+    public void run() {
+        super.run();
         Looper looper = Looper.myLooper();
         fanConnect = GetSocket.get(Const.BODY_IP, Const.BODY_port);
         Log.d("abc", "doInBackground: fan connect");
-        while (!isCancelled()) {
+        while (!exit) {
             try {
                 // 如果连接成功
                 if (fanConnect != null) {
@@ -46,16 +47,23 @@ public class FanConect extends AsyncTask<Void, Void, Void> {
                 } else {
                     Log.d("abc", "doInBackground: 风扇连接失败");
                     Looper.prepare();
-                    Toast.makeText(context, "连接失败", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "风扇连接失败", Toast.LENGTH_SHORT).show();
                     Looper.loop();
                     looper.quit();
-                    return null;
+                    return;
                 }
             } catch (InterruptedException | IOException e) {
                 e.printStackTrace();
             }
         }
-        return null;
+        try {
+            Log.d("abc", "doInBackground: fan close");
+            StreamUtil.writeCommand(fanConnect.getOutputStream(), Const.FAN_OFF);
+            closeSocket();
+            Thread.sleep(Const.time);
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public void closeSocket() {

@@ -1,7 +1,6 @@
 package com.example.bighomework2.Connect;
 
 import android.content.Context;
-import android.os.AsyncTask;
 import android.os.Looper;
 import android.util.Log;
 import android.widget.Toast;
@@ -18,7 +17,8 @@ import java.net.Socket;
 /**
  * 用于连接并自动获取温湿度数据
  */
-public class TempHumConnect extends AsyncTask<Void, Void, Void> {
+public class TempHumConnect extends Thread{
+    public volatile boolean exit = false;
 
     private final DataViewModel dataViewModel;
     private Context context;
@@ -30,15 +30,13 @@ public class TempHumConnect extends AsyncTask<Void, Void, Void> {
     }
 
     @Override
-    protected Void doInBackground(Void... voids) {
+    public void run() {
         Looper looper = Looper.myLooper();
         temHumSocket = GetSocket.get(Const.TEMHUM_IP, Const.TEMHUM_PORT);
-        Log.d("abc", "doInBackground: 温湿度传感器isCancelled：" + isCancelled());
-        while (!isCancelled()) {
+        while (!exit) {
             try {
                 // 如果连接成功
                 if (temHumSocket != null) {
-                    Log.d("abc", "doInBackground: 温湿度传感器连接成功");
                     dataViewModel.getTempHumIsConnect().postValue(true);
                     // 查询温湿度
                     StreamUtil.writeCommand(temHumSocket.getOutputStream(), Const.TEMHUM_CHK);
@@ -51,16 +49,16 @@ public class TempHumConnect extends AsyncTask<Void, Void, Void> {
                 } else {
                     Log.d("abc", "doInBackground: 温湿度传感器连接失败");
                     Looper.prepare();
-                    Toast.makeText(context, "连接失败", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "温湿度传感器连接失败", Toast.LENGTH_SHORT).show();
                     Looper.loop();
                     looper.quit();
-                    return null;
+                    return ;
                 }
             } catch (InterruptedException | IOException e) {
                 e.printStackTrace();
             }
         }
-        return null;
+        closeSocket();
     }
 
     public void closeSocket() {

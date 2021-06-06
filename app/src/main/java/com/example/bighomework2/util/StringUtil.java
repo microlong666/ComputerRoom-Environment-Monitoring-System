@@ -21,8 +21,6 @@ public class StringUtil {
     }
 
     public static String getTempHunIsConnect(Boolean data) {
-        Log.d("ABC", "getTempHunIsConnect: isConnect " + data);
-
         if (data) {
             return "温湿度传感器已连接";
         } else {
