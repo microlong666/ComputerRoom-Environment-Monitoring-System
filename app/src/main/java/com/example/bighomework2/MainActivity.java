@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.bighomework2.Connect.BodyConnect;
+import com.example.bighomework2.Connect.FanConect;
 import com.example.bighomework2.Connect.TempHumConnect;
 import com.example.bighomework2.databinding.ActivityMainBinding;
 import com.example.bighomework2.util.FROIOControl;
@@ -31,8 +32,8 @@ import java.util.TimerTask;
 public class MainActivity extends AppCompatActivity {
     private DataViewModel data;
     private TempHumConnect tempHumConnect;
-    private Socket fanConnect;
     private BodyConnect bodyConnect;
+    private FanConect fanConnect;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
             bodyConnect = new BodyConnect(this, data);
         }
         if (fanConnect == null) {
-            fanConnect = GetSocket.get(Const.FAN_IP, Const.FAN_PORT);
+            fanConnect = new FanConect(this, data);
         }
     }
 
@@ -75,10 +76,8 @@ public class MainActivity extends AppCompatActivity {
     public void switchFans(View view) throws InterruptedException, IOException {
         Boolean isOpen = data.getFans().getValue();
         if (isOpen) {
-            StreamUtil.writeCommand(fanConnect.getOutputStream(), Const.FAN_OFF);
             data.getFans().setValue(false);
         } else {
-            StreamUtil.writeCommand(fanConnect.getOutputStream(), Const.FAN_ON);
             data.getFans().setValue(true);
         }
     }
@@ -96,9 +95,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void closeAllSocket() throws IOException {
-        fanConnect.close();
         tempHumConnect.cancel(true);
         tempHumConnect.closeSocket();
+        bodyConnect.cancel(true);
+        bodyConnect.closeSocket();
+        fanConnect.cancel(true);
+        fanConnect.closeSocket();
     }
 
 }
