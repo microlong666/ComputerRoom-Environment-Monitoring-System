@@ -37,6 +37,7 @@ public class TempHumConnect extends AsyncTask<Void, Void, Void> {
             try {
                 // 如果连接成功
                 if (temHumSocket != null) {
+                    dataViewModel.getTempHumIsConnect().postValue(true);
                     // 查询温湿度
                     StreamUtil.writeCommand(temHumSocket.getOutputStream(), Const.TEMHUM_CHK);
                     Thread.sleep(Const.time);
