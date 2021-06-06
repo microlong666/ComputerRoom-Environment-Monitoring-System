@@ -37,7 +37,6 @@ public class BodyConnect extends AsyncTask<Void, Void, Void> {
             try {
                 // 如果连接成功
                 if (bodySocket != null) {
-                    dataViewModel.getBodyIsConnect().postValue(true);
                     // 查询是否有人
                     StreamUtil.writeCommand(bodySocket.getOutputStream(), Const.BODY_CHK);
                     Thread.sleep(Const.time);
