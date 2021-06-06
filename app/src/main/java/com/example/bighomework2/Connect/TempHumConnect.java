@@ -15,6 +15,9 @@ import com.example.bighomework2.viewModel.DataViewModel;
 import java.io.IOException;
 import java.net.Socket;
 
+/**
+ * 用于连接并自动获取温湿度数据
+ */
 public class TempHumConnect extends AsyncTask<Void, Void, Void> {
 
     private final DataViewModel dataViewModel;
@@ -28,13 +31,12 @@ public class TempHumConnect extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected Void doInBackground(Void... voids) {
+        Looper looper = Looper.myLooper();
         temHumSocket = GetSocket.get(Const.TEMHUM_IP, Const.TEMHUM_PORT);
         while (!isCancelled()) {
-            Log.d("ABC", "doInBackground: running");
             try {
-                // 如果全部连接成功
+                // 如果连接成功
                 if (temHumSocket != null) {
-                    dataViewModel.getTempHumIsConnect().postValue(true);
                     // 查询温湿度
                     StreamUtil.writeCommand(temHumSocket.getOutputStream(), Const.TEMHUM_CHK);
                     Thread.sleep(Const.time);
@@ -47,6 +49,8 @@ public class TempHumConnect extends AsyncTask<Void, Void, Void> {
                     Looper.prepare();
                     Toast.makeText(context, "连接失败", Toast.LENGTH_SHORT).show();
                     Looper.loop();
+                    looper.quit();
+                    return null;
                 }
             } catch (InterruptedException | IOException e) {
                 e.printStackTrace();

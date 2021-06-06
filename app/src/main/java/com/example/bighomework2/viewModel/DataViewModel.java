@@ -13,6 +13,15 @@ public class DataViewModel extends ViewModel {
     private MutableLiveData<Integer> PM;
     private MutableLiveData<Boolean> fans;
     private MutableLiveData<Boolean> hasHuman;
+    private MutableLiveData<Integer> health;
+
+    public MutableLiveData<Integer> getHealth() {
+        if (health == null) {
+            health = new MutableLiveData<>();
+            health.setValue(0);
+        }
+        return health;
+    }
 
     public MutableLiveData<Boolean> getTempHumIsConnect() {
         if (tempHumIsConnect == null) {

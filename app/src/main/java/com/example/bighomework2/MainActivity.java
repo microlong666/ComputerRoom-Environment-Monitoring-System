@@ -10,9 +10,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.bighomework2.Connect.BodyConnect;
 import com.example.bighomework2.Connect.TempHumConnect;
 import com.example.bighomework2.databinding.ActivityMainBinding;
 import com.example.bighomework2.util.FROIOControl;
+import com.example.bighomework2.util.GetSocket;
 import com.example.bighomework2.util.StreamUtil;
 import com.example.bighomework2.viewModel.DataViewModel;
 
@@ -29,6 +31,8 @@ import java.util.TimerTask;
 public class MainActivity extends AppCompatActivity {
     private DataViewModel data;
     private TempHumConnect tempHumConnect;
+    private Socket fanConnect;
+    private BodyConnect bodyConnect;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,39 +53,52 @@ public class MainActivity extends AppCompatActivity {
 //        }
 //        tempHumConnect = new TempHumConnect(this, data);
 //        tempHumConnect.execute();
+        if (bodyConnect == null) {
+            bodyConnect = new BodyConnect(this, data);
+        }
+        if (fanConnect == null) {
+            fanConnect = GetSocket.get(Const.FAN_IP, Const.FAN_PORT);
+        }
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         data.getFans().setValue(false);
-        tempHumConnect.cancel(true);
-        tempHumConnect.closeSocket();
+        try {
+            closeAllSocket();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void switchFans(View view) throws InterruptedException {
+    public void switchFans(View view) throws InterruptedException, IOException {
         Boolean isOpen = data.getFans().getValue();
         if (isOpen) {
+            StreamUtil.writeCommand(fanConnect.getOutputStream(), Const.FAN_OFF);
             data.getFans().setValue(false);
-            return;
-
         } else {
+            StreamUtil.writeCommand(fanConnect.getOutputStream(), Const.FAN_ON);
             data.getFans().setValue(true);
-            return;
         }
     }
 
     public void switchTempHumConnect(View view) {
         Boolean isConnect = data.getTempHumIsConnect().getValue();
         if (isConnect) {
-            data.getTempHumIsConnect().setValue(false);
             tempHumConnect.cancel(true);
             tempHumConnect.closeSocket();
+            data.getTempHumIsConnect().setValue(false);
         } else {
             tempHumConnect = new TempHumConnect(this, data);
             tempHumConnect.execute();
-            data.getTempHumIsConnect().setValue(true);
         }
+    }
+
+    public void closeAllSocket() throws IOException {
+        fanConnect.close();
+        tempHumConnect.cancel(true);
+        tempHumConnect.closeSocket();
     }
 
 }
