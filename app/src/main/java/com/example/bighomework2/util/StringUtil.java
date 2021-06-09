@@ -33,4 +33,8 @@ public class StringUtil {
             return "PM2.5传感器未连接";
         }
     }
+
+    public static String getColorOfHealth(int data) {
+        return "";
+    }
 }

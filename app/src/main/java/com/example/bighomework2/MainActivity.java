@@ -26,23 +26,20 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         data = new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(getApplication())).get(DataViewModel.class);
-        data.getTempHumIsConnect();
         ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-        binding.setData(data);
-        binding.setLifecycleOwner(this);
         bodyConnect = new BodyConnect(this, data);
         bodyConnect.start();
         tempHumConnect = new TempHumConnect(this, data);
         tempHumConnect.start();
         pm25Connect = new Pm25Connect(this, data);
         pm25Connect.start();
+
+
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        data.getFans().setValue(false);
-        closeAllSocket();
     }
 
     public void switchFans(View view){
@@ -77,13 +74,6 @@ public class MainActivity extends AppCompatActivity {
             pm25Connect = new Pm25Connect(this, data);
             pm25Connect.start();
         }
-    }
-
-    public void closeAllSocket() {
-        tempHumConnect.exit = true;
-        bodyConnect.exit = true;
-        fanConnect.exit = true;
-        pm25Connect.exit = true;
     }
 
 }
