@@ -34,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
         pm25Connect = new Pm25Connect(this, data);
         pm25Connect.start();
 
-
     }
 
     @Override
@@ -44,35 +43,41 @@ public class MainActivity extends AppCompatActivity {
 
     public void switchFans(View view){
         Boolean isOpen = data.getFans().getValue();
-        if (isOpen) {
-            data.getFans().setValue(false);
-            fanConnect.exit = true;
-        } else {
-            data.getFans().setValue(true);
-            fanConnect = new FanConnect(this, data);
-            fanConnect.start();
+        if (isOpen != null) {
+            if (isOpen) {
+                data.getFans().setValue(false);
+                fanConnect.exit = true;
+            } else {
+                data.getFans().setValue(true);
+                fanConnect = new FanConnect(this, data);
+                fanConnect.start();
+            }
         }
     }
 
     public void switchTempHumConnect(View view) {
         Boolean isConnect = data.getTempHumIsConnect().getValue();
-        if (isConnect) {
-            tempHumConnect.exit = true;
-            data.getTempHumIsConnect().setValue(false);
-        } else {
-            tempHumConnect = new TempHumConnect(this, data);
-            tempHumConnect.start();
+        if (isConnect != null) {
+            if (isConnect) {
+                tempHumConnect.exit = true;
+                data.getTempHumIsConnect().setValue(false);
+            } else {
+                tempHumConnect = new TempHumConnect(this, data);
+                tempHumConnect.start();
+            }
         }
     }
 
     public void switchPm25Connect(View view) {
         Boolean isConnect = data.getPm25IsConnect().getValue();
-        if (isConnect) {
-            pm25Connect.exit = true;
-            data.getPm25IsConnect().postValue(false);
-        } else {
-            pm25Connect = new Pm25Connect(this, data);
-            pm25Connect.start();
+        if (isConnect != null) {
+            if (isConnect) {
+                pm25Connect.exit = true;
+                data.getPm25IsConnect().postValue(false);
+            } else {
+                pm25Connect = new Pm25Connect(this, data);
+                pm25Connect.start();
+            }
         }
     }
 
