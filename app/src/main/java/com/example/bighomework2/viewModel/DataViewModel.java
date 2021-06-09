@@ -11,6 +11,7 @@ public class DataViewModel extends ViewModel {
     private MutableLiveData<Boolean> pm25IsConnect;
     private MutableLiveData<Integer> pm25;
     private MutableLiveData<Boolean> fans;
+    private MutableLiveData<Boolean> fansIsConnect;
     private MutableLiveData<Boolean> hasHuman;
     private MutableLiveData<Integer> health;
 
@@ -77,6 +78,14 @@ public class DataViewModel extends ViewModel {
             fans.setValue(false);
         }
         return fans;
+    }
+
+    public MutableLiveData<Boolean> getFansIsConnect() {
+        if (fansIsConnect == null) {
+            fansIsConnect = new MutableLiveData<>();
+            fansIsConnect.setValue(false);
+        }
+        return fansIsConnect;
     }
 
 }

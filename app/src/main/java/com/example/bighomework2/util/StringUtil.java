@@ -37,4 +37,20 @@ public class StringUtil {
     public static String getColorOfHealth(int data) {
         return "";
     }
+
+    public static String getStringOfConnect(Boolean data) {
+        if (data) {
+            return "已连接";
+        } else {
+            return "未连接";
+        }
+    }
+
+    public static String getShapePfConnect(Boolean data) {
+        if (data) {
+            return "@drawable/unconnect_dot_shape";
+        } else {
+            return "@drawable/connect_dot_shape";
+        }
+    }
 }

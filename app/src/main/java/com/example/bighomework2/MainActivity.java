@@ -1,6 +1,11 @@
 package com.example.bighomework2;
 
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.OvalShape;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.example.bighomework2.Connect.BodyConnect;
@@ -11,7 +16,9 @@ import com.example.bighomework2.databinding.ActivityMainBinding;
 import com.example.bighomework2.viewModel.DataViewModel;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 public class MainActivity extends AppCompatActivity {
@@ -34,7 +41,8 @@ public class MainActivity extends AppCompatActivity {
         pm25Connect = new Pm25Connect(this, data);
         pm25Connect.start();
 
-
+        // 设置监听
+        setLiveData();
     }
 
     @Override
@@ -74,6 +82,43 @@ public class MainActivity extends AppCompatActivity {
             pm25Connect = new Pm25Connect(this, data);
             pm25Connect.start();
         }
+    }
+
+    private void setLiveData() {
+        Log.d("abc", "setLiveData: 设置温度连接图标");
+//        AppCompatImageView imageView = findViewById(R.id.appCompatImageView2);
+//        imageView.setImageResource(R.drawable.connect_dot_shape);
+        data.getTempHumIsConnect().observe(this, isConnect -> {
+//            GradientDrawable shape = (GradientDrawable) findViewById(R.id.appCompatImageView2).getBackground();
+//            GradientDrawable shape2 = (GradientDrawable) findViewById(R.id.appCompatImageView4).getBackground();
+//            if (isConnect) {
+//                shape.setColor(getResources().getColor(R.color.colorAccent));
+//                shape2.setColor(getResources().getColor(R.color.colorAccent));
+//            } else {
+//                shape.setColor(getResources().getColor(R.color.unConnect));
+//                shape2.setColor(getResources().getColor(R.color.unConnect));
+//            }
+        });
+
+        Log.d("abc", "setLiveData: 设置风扇连接图标");
+        data.getFansIsConnect().observe(this, isConnect -> {
+//            GradientDrawable shape = (GradientDrawable) findViewById(R.id.appCompatImageView5).getBackground();
+//            if (isConnect) {
+//                shape.setColor(getResources().getColor(R.color.colorAccent));
+//            } else {
+//                shape.setColor(getResources().getColor(R.color.unConnect));
+//            }
+        });
+
+        Log.d("abc", "setLiveData: 设置PM2.5连接图标");
+        data.getPm25IsConnect().observe(this, isConnect -> {
+//            GradientDrawable shape = (GradientDrawable) findViewById(R.id.appCompatImageView7).getBackground();
+//            if (isConnect) {
+//                shape.setColor(getResources().getColor(R.color.colorAccent));
+//            } else {
+//                shape.setColor(getResources().getColor(R.color.unConnect));
+//            }
+        });
     }
 
 }
