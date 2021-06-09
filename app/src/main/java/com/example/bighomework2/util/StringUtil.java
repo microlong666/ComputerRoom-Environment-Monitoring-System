@@ -1,7 +1,5 @@
 package com.example.bighomework2.util;
 
-import android.util.Log;
-
 public class StringUtil {
 
     public static String getHasHumanString(Boolean data){
@@ -25,6 +23,14 @@ public class StringUtil {
             return "温湿度传感器已连接";
         } else {
             return "温湿度传感器未连接";
+        }
+    }
+
+    public static String getPm25IsConnect(Boolean data) {
+        if (data) {
+            return "PM2.5传感器已连接";
+        } else {
+            return "PM2.5传感器未连接";
         }
     }
 }

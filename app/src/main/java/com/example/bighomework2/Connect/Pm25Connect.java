@@ -32,7 +32,8 @@ public class Pm25Connect extends Thread {
             try {
                 // 如果连接成功
                 if (pm25Socket != null) {
-                    // 查询是否连接
+                    dataViewModel.getPm25IsConnect().postValue(true);
+                    // 查询PM2.5
                     StreamUtil.writeCommand(pm25Socket.getOutputStream(), Const.PM25_CHK);
                     Thread.sleep(Const.time);
                     byte[] read_buff = StreamUtil.readData(pm25Socket.getInputStream());

@@ -68,6 +68,17 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void switchPm25Connect(View view) {
+        Boolean isConnect = data.getPm25IsConnect().getValue();
+        if (isConnect) {
+            pm25Connect.exit = true;
+            data.getPm25IsConnect().postValue(false);
+        } else {
+            pm25Connect = new Pm25Connect(this, data);
+            pm25Connect.start();
+        }
+    }
+
     public void closeAllSocket() {
         tempHumConnect.exit = true;
         bodyConnect.exit = true;

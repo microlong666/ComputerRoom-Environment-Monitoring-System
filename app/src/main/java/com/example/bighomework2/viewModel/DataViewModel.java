@@ -8,6 +8,7 @@ public class DataViewModel extends ViewModel {
     private MutableLiveData<Double> temperature;
     private MutableLiveData<Double> humidity;
     private MutableLiveData<Boolean> tempHumIsConnect;
+    private MutableLiveData<Boolean> pm25IsConnect;
     private MutableLiveData<Integer> pm25;
     private MutableLiveData<Boolean> fans;
     private MutableLiveData<Boolean> hasHuman;
@@ -53,6 +54,13 @@ public class DataViewModel extends ViewModel {
         return humidity;
     }
 
+    public MutableLiveData<Boolean> getPm25IsConnect() {
+        if (pm25IsConnect == null) {
+            pm25IsConnect = new MutableLiveData<>();
+            pm25IsConnect.setValue(false);
+        }
+        return pm25IsConnect;
+    }
 
     public MutableLiveData<Integer> getPm25() {
         if (pm25 == null) {
