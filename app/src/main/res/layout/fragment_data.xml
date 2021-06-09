@@ -8,6 +8,7 @@
             name="data"
             type="com.example.bighomework2.viewModel.DataViewModel" />
         <import type="com.example.bighomework2.util.StringUtil" />
+        <import type="com.example.bighomework2.util.ShapeUtil" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -109,10 +110,12 @@
             android:id="@+id/titleTop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:text="计算间环境"
             android:textSize="34sp"
             app:layout_constraintStart_toStartOf="@+id/guideline1"
             app:layout_constraintTop_toTopOf="parent"
+            android:textColor="#333"
             tools:text="计算间环境" />
 
         <TextView
@@ -122,6 +125,7 @@
             android:layout_marginTop="4dp"
             android:text="@{StringUtil.getHasHumanString(data.hasHuman)}"
             android:textSize="20sp"
+            android:textColor="#333"
             app:layout_constraintStart_toStartOf="@+id/guideline1"
             app:layout_constraintTop_toBottomOf="@+id/titleTop"
             tools:text="人已离开计算间" />
@@ -162,6 +166,7 @@
                     android:layout_height="wrap_content"
                     android:text="@{data.temperature + `°C`}"
                     android:textSize="24sp"
+                    android:textColor="#333"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.72"
@@ -176,6 +181,7 @@
                     android:layout_height="wrap_content"
                     android:text="温度"
                     android:textSize="10sp"
+                    android:textColor="#333"
                     app:layout_constraintEnd_toEndOf="@+id/appCompatImageView"
                     app:layout_constraintStart_toStartOf="@+id/appCompatImageView"
                     app:layout_constraintTop_toBottomOf="@+id/appCompatImageView" />
@@ -185,7 +191,7 @@
                     android:layout_width="8dp"
                     android:layout_height="8dp"
                     android:layout_marginStart="25dp"
-                    android:src="@drawable/unconnect_dot_shape"
+                    android:src="@{ShapeUtil.getConnectShape(data.tempHumIsConnect)}"
                     app:layout_constraintBottom_toBottomOf="@+id/textView2"
                     app:layout_constraintStart_toEndOf="@+id/textView2"
                     app:layout_constraintTop_toTopOf="@+id/textView2" />
@@ -197,6 +203,7 @@
                     android:layout_marginStart="4dp"
                     android:text="@{StringUtil.getStringOfConnect(data.tempHumIsConnect)}"
                     android:textSize="10sp"
+                    android:textColor="#333"
                     app:layout_constraintBaseline_toBaselineOf="@+id/textView2"
                     app:layout_constraintStart_toEndOf="@+id/appCompatImageView2"
                     tools:text="已连接" />
@@ -239,6 +246,7 @@
                     android:layout_height="wrap_content"
                     android:text="@{data.humidity + `%`}"
                     android:textSize="24sp"
+                    android:textColor="#333"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.72"
@@ -251,6 +259,7 @@
                     android:id="@+id/textView4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="#333"
                     android:text="湿度"
                     android:textSize="10sp"
                     app:layout_constraintEnd_toEndOf="@+id/appCompatImageView3"
@@ -262,7 +271,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="25dp"
-                    android:src="@drawable/unconnect_dot_shape"
+                    android:src="@{ShapeUtil.getConnectShape(data.tempHumIsConnect)}"
                     app:layout_constraintBottom_toBottomOf="@+id/textView4"
                     app:layout_constraintStart_toEndOf="@+id/textView4"
                     app:layout_constraintTop_toTopOf="@+id/textView4"
@@ -275,6 +284,7 @@
                     android:layout_marginStart="4dp"
                     android:text="@{StringUtil.getStringOfConnect(data.tempHumIsConnect)}"
                     android:textSize="10sp"
+                    android:textColor="#333"
                     app:layout_constraintBaseline_toBaselineOf="@+id/textView4"
                     app:layout_constraintStart_toEndOf="@+id/appCompatImageView4"
                     tools:text="已连接" />
@@ -304,6 +314,7 @@
                     android:layout_width="40sp"
                     android:layout_height="40sp"
                     android:layout_marginStart="20dp"
+                    android:textColor="#333"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -316,6 +327,7 @@
                     android:layout_height="wrap_content"
                     android:text="@{data.pm25 + `μg/m³`}"
                     android:textSize="20sp"
+                    android:textColor="#333"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.75"
@@ -329,7 +341,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="25dp"
-                    android:src="@drawable/unconnect_dot_shape"
+                    android:src="@{ShapeUtil.getConnectShape(data.fansIsConnect)}"
                     app:layout_constraintBottom_toBottomOf="@+id/textView10"
                     app:layout_constraintStart_toEndOf="@+id/textView10"
                     app:layout_constraintTop_toTopOf="@+id/textView10"
@@ -341,6 +353,7 @@
                     android:layout_height="wrap_content"
                     android:text="PM2.5"
                     android:textSize="10sp"
+                    android:textColor="#333"
                     app:layout_constraintEnd_toEndOf="@+id/appCompatImageView8"
                     app:layout_constraintStart_toStartOf="@+id/appCompatImageView8"
                     app:layout_constraintTop_toBottomOf="@+id/appCompatImageView8" />
@@ -350,8 +363,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
-                    android:text="@{StringUtil.getStringOfConnect(data.tempHumIsConnect)}"
+                    android:text="@{StringUtil.getStringOfConnect(data.fansIsConnect)}"
                     android:textSize="10sp"
+                    android:textColor="#333"
                     app:layout_constraintBottom_toBottomOf="@+id/textView10"
                     app:layout_constraintStart_toEndOf="@+id/appCompatImageView7"
                     app:layout_constraintTop_toTopOf="@+id/textView10"
@@ -395,6 +409,7 @@
                     android:layout_height="wrap_content"
                     android:text="@{StringUtil.getFansString(data.fans)}"
                     android:textSize="18sp"
+                    android:textColor="#333"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.8"
@@ -409,6 +424,7 @@
                     android:layout_height="wrap_content"
                     android:text="制冷"
                     android:textSize="10sp"
+                    android:textColor="#333"
                     app:layout_constraintEnd_toEndOf="@+id/appCompatImageView6"
                     app:layout_constraintStart_toStartOf="@+id/appCompatImageView6"
                     app:layout_constraintTop_toBottomOf="@+id/appCompatImageView6" />
@@ -418,7 +434,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
-                    android:src="@drawable/unconnect_dot_shape"
+                    android:src="@{ShapeUtil.getConnectShape(data.pm25IsConnect)}"
                     app:layout_constraintBottom_toBottomOf="@+id/textView7"
                     app:layout_constraintStart_toEndOf="@+id/textView7"
                     app:layout_constraintTop_toBottomOf="@+id/appCompatImageView6"
@@ -429,8 +445,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
-                    android:text="@{StringUtil.getStringOfConnect(data.tempHumIsConnect)}"
+                    android:text="@{StringUtil.getStringOfConnect(data.pm25IsConnect)}"
                     android:textSize="10sp"
+                    android:textColor="#333"
                     app:layout_constraintBaseline_toBaselineOf="@+id/textView7"
                     app:layout_constraintStart_toEndOf="@+id/appCompatImageView5"
                     tools:text="已连接" />
