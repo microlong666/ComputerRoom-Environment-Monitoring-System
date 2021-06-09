@@ -83,7 +83,7 @@ public class ConnectTask extends AsyncTask<Void, Void, Void> {
         temHumSocket = getSocket(Const.TEMHUM_IP, Const.TEMHUM_PORT);
         bodySocket = getSocket(Const.BODY_IP, Const.BODY_port);
         fansSocket = getSocket(Const.FAN_IP, Const.FAN_PORT);
-        buzzerSocket = getSocket(Const.BUZZER_IP, Const.BUZZER_PORT);
+        buzzerSocket = getSocket(Const.RGB_BUZZER_IP, Const.RGB_BUZZER_PORT);
         try {
             assert fansSocket != null;
             // 得到输入流

@@ -1,7 +1,6 @@
 package com.example.bighomework2.Connect;
 
 import android.content.Context;
-import android.os.AsyncTask;
 import android.os.Looper;
 import android.util.Log;
 import android.widget.Toast;
@@ -19,6 +18,7 @@ import java.net.Socket;
  * 用于连接并自动获取检测到人体数据
  */
 public class BodyConnect extends Thread {
+
     public volatile boolean exit = false;
 
     private final DataViewModel dataViewModel;

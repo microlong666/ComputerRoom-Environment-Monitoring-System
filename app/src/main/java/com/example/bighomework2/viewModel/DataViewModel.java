@@ -26,7 +26,7 @@ public class DataViewModel extends ViewModel {
     public MutableLiveData<Boolean> getTempHumIsConnect() {
         if (tempHumIsConnect == null) {
             tempHumIsConnect = new MutableLiveData<>();
-            tempHumIsConnect.setValue(false);
+            tempHumIsConnect.postValue(false);
         }
         return tempHumIsConnect;
     }
@@ -58,7 +58,7 @@ public class DataViewModel extends ViewModel {
     public MutableLiveData<Boolean> getPm25IsConnect() {
         if (pm25IsConnect == null) {
             pm25IsConnect = new MutableLiveData<>();
-            pm25IsConnect.setValue(false);
+            pm25IsConnect.postValue(false);
         }
         return pm25IsConnect;
     }
