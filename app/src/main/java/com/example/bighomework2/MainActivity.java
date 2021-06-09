@@ -1,24 +1,25 @@
 package com.example.bighomework2;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import com.example.bighomework2.Connect.BodyConnect;
 import com.example.bighomework2.Connect.FanConnect;
+import com.example.bighomework2.Connect.Pm25Connect;
 import com.example.bighomework2.Connect.TempHumConnect;
 import com.example.bighomework2.databinding.ActivityMainBinding;
 import com.example.bighomework2.viewModel.DataViewModel;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
 
 public class MainActivity extends AppCompatActivity {
     private DataViewModel data;
     private TempHumConnect tempHumConnect;
     private BodyConnect bodyConnect;
     private FanConnect fanConnect;
+    private Pm25Connect pm25Connect;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,20 +30,12 @@ public class MainActivity extends AppCompatActivity {
         ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         binding.setData(data);
         binding.setLifecycleOwner(this);
-//        connectTask = new ConnectTask(this, data);
-//        connectTask.setCIRCLE(true);
-//        connectTask.execute();
-//        if (data.getTempHumConnect() == null) {
-//            TempHumConnect tempHumConnect = new TempHumConnect(this, data);
-//            data.getTempHumConnect().setValue(tempHumConnect);
-//            tempHumConnect.execute();
-//        }
-//        tempHumConnect = new TempHumConnect(this, data);
-//        tempHumConnect.execute();
         bodyConnect = new BodyConnect(this, data);
         bodyConnect.start();
         tempHumConnect = new TempHumConnect(this, data);
         tempHumConnect.start();
+        pm25Connect = new Pm25Connect(this, data);
+        pm25Connect.start();
     }
 
     @Override
@@ -79,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
         tempHumConnect.exit = true;
         bodyConnect.exit = true;
         fanConnect.exit = true;
+        pm25Connect.exit = true;
     }
 
 }

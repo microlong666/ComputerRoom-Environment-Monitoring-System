@@ -8,7 +8,7 @@ public class DataViewModel extends ViewModel {
     private MutableLiveData<Double> temperature;
     private MutableLiveData<Double> humidity;
     private MutableLiveData<Boolean> tempHumIsConnect;
-    private MutableLiveData<Integer> PM;
+    private MutableLiveData<Integer> pm25;
     private MutableLiveData<Boolean> fans;
     private MutableLiveData<Boolean> hasHuman;
     private MutableLiveData<Integer> health;
@@ -54,12 +54,12 @@ public class DataViewModel extends ViewModel {
     }
 
 
-    public MutableLiveData<Integer> getPM() {
-        if (PM == null) {
-            PM = new MutableLiveData<>();
-            PM.setValue(0);
+    public MutableLiveData<Integer> getPm25() {
+        if (pm25 == null) {
+            pm25 = new MutableLiveData<>();
+            pm25.setValue(0);
         }
-        return PM;
+        return pm25;
     }
 
 

@@ -138,32 +138,6 @@ public class ConnectTask extends AsyncTask<Void, Void, Void> {
                         Log.d(TAG, "doInBackground: fan close");
                         StreamUtil.writeCommand(fansOutputStream, Const.FAN_OFF);
                     }
-
-                    // 如果联动打开状态并且超过上限，蜂鸣器报警1s，打开风扇
-                    Log.i(Const.TAG, "Const.linkage=" + Const.linkage);
-                    Log.i(Const.TAG, "Const.tem=" + Const.tem);
-                    Log.i(Const.TAG, "Const.hum=" + Const.hum);
-                    Log.i(Const.TAG, "Const.maxLim=" + Const.maxLim);
-                    if (Const.linkage && Const.tem > Const.maxLim) {
-                        // 蜂鸣器
-                        if (!Const.isBuzzerOn) {
-                            StreamUtil.writeCommand(buzzerSocket.getOutputStream(), Const.BUZZER_ON);
-                            Thread.sleep(1000);
-                            StreamUtil.writeCommand(buzzerSocket.getOutputStream(), Const.BUZZER_OFF);
-                            Thread.sleep(Const.time);
-                        }
-                        // 风扇
-                        if (!fanIsOpen) {
-                            StreamUtil.writeCommand(fansOutputStream, Const.FAN_ON);
-                            Thread.sleep(Const.time);
-                        }
-                    } else {
-                        if (fanIsOpen) {
-                            StreamUtil.writeCommand(fansOutputStream, Const.FAN_OFF);
-                            Thread.sleep(Const.time);
-                        }
-                    }
-
                 } else {
                     Looper.prepare();
                     Toast.makeText(context, "连接失败", Toast.LENGTH_SHORT).show();
@@ -172,20 +146,6 @@ public class ConnectTask extends AsyncTask<Void, Void, Void> {
             } catch (InterruptedException | IOException e) {
                 e.printStackTrace();
             }
-        }
-        // 最后关闭蜂鸣器，关闭风扇
-        try {
-            if (buzzerOutputStream != null) {
-                Const.isBuzzerOn = false;
-                StreamUtil.writeCommand(buzzerOutputStream, Const.BUZZER_OFF);
-                Thread.sleep(200);
-                StreamUtil.writeCommand(fansOutputStream, Const.FAN_OFF);
-                Thread.sleep(200);
-            }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } finally {
-            closeSocket();
         }
         return null;
     }
