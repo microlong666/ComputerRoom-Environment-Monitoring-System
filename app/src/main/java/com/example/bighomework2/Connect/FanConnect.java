@@ -35,6 +35,7 @@ public class FanConnect extends Thread {
             try {
                 // 如果连接成功
                 if (fanConnect != null) {
+                    dataViewModel.getFansIsConnect().postValue(true);
                     // 判断应该开风扇还是关风扇
                     if (dataViewModel.getFans().getValue()) {
                         Log.d("abc", "doInBackground: fan open");
@@ -67,6 +68,7 @@ public class FanConnect extends Thread {
     }
 
     public void closeSocket() {
+        dataViewModel.getFansIsConnect().postValue(false);
         try {
             if (fanConnect != null) {
                 fanConnect.close();
@@ -74,5 +76,37 @@ public class FanConnect extends Thread {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void fanOn() {
+        class MyThread extends Thread {
+            public void run() {
+                if (fanConnect != null) {
+                    try {
+                        StreamUtil.writeCommand(fanConnect.getOutputStream(), Const.FAN_ON);
+                        dataViewModel.getFans().postValue(true);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+        (new MyThread()).start();
+    }
+
+    public void fanOff() {
+        class MyThread extends Thread {
+            public void run() {
+                if (fanConnect != null) {
+                    try {
+                        StreamUtil.writeCommand(fanConnect.getOutputStream(), Const.FAN_OFF);
+                        dataViewModel.getFans().postValue(false);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+        (new MyThread()).start();
     }
 }

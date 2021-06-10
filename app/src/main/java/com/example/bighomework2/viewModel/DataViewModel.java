@@ -14,6 +14,15 @@ public class DataViewModel extends ViewModel {
     private MutableLiveData<Boolean> fansIsConnect;
     private MutableLiveData<Boolean> hasHuman;
     private MutableLiveData<Integer> health;
+    private MutableLiveData<Boolean> connectVisibility;
+
+    public MutableLiveData<Boolean> getConnectVisibility() {
+        if (connectVisibility == null) {
+            connectVisibility = new MutableLiveData<>();
+            connectVisibility.setValue(true);
+        }
+        return connectVisibility;
+    }
 
     public MutableLiveData<Integer> getHealth() {
         if (health == null) {
@@ -86,6 +95,29 @@ public class DataViewModel extends ViewModel {
             fansIsConnect.setValue(false);
         }
         return fansIsConnect;
+    }
+
+    public void initData() {
+        temperature = new MutableLiveData<>();
+        temperature.setValue(0.0);
+        humidity = new MutableLiveData<>();
+        humidity.setValue(0.0);
+        pm25 = new MutableLiveData<>();
+        pm25.setValue(0);
+        fans = new MutableLiveData<>();
+        fans.setValue(false);
+        hasHuman = new MutableLiveData<>();
+        hasHuman.setValue(false);
+        tempHumIsConnect = new MutableLiveData<>();
+        tempHumIsConnect.setValue(false);
+        pm25IsConnect = new MutableLiveData<>();
+        pm25IsConnect.setValue(false);
+        fansIsConnect = new MutableLiveData<>();
+        fansIsConnect.setValue(false);
+        health = new MutableLiveData<>();
+        health.setValue(0);
+        connectVisibility = new MutableLiveData<>();
+        connectVisibility.setValue(true);
     }
 
 }

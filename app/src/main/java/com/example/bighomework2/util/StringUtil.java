@@ -1,5 +1,7 @@
 package com.example.bighomework2.util;
 
+import android.view.View;
+
 public class StringUtil {
 
     public static String getHasHumanString(Boolean data){
@@ -51,6 +53,14 @@ public class StringUtil {
             return "@drawable/unconnect_dot_shape";
         } else {
             return "@drawable/connect_dot_shape";
+        }
+    }
+
+    public static int getConnectVisible(Boolean data) {
+        if (data) {
+            return View.VISIBLE;
+        } else {
+            return View.INVISIBLE;
         }
     }
 }

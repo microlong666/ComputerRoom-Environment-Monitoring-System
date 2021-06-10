@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         data = new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(getApplication())).get(DataViewModel.class);
+        data.initData();
         ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         bodyConnect = new BodyConnect(this, data);
         bodyConnect.start();
@@ -53,12 +54,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void switchFans(View view){
+        Boolean isConnect= data.getFansIsConnect().getValue();
         Boolean isOpen = data.getFans().getValue();
-        if (isOpen) {
-            data.getFans().setValue(false);
-            fanConnect.exit = true;
+        if (isConnect) {
+            if (isOpen) {
+                fanConnect.fanOff();
+            } else {
+                fanConnect.fanOn();
+            }
         } else {
-            data.getFans().setValue(true);
             fanConnect = new FanConnect(this, data);
             fanConnect.start();
         }
@@ -88,12 +92,25 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void startTimer() {
+//        new Timer().schedule(new TimerTask() {
+//            @Override
+//            public void run() {
+//                data.getTempHumIsConnect().postValue(!data.getTempHumIsConnect().getValue());
+//            }
+//        }, 1000, 1000);
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
-                data.getTempHumIsConnect().postValue(!data.getTempHumIsConnect().getValue());
+                Boolean fanIsConnect = data.getFansIsConnect().getValue();
+                Boolean tempHumIsConnect = data.getTempHumIsConnect().getValue();
+                Boolean pm25IsConnect = data.getPm25IsConnect().getValue();
+                if (fanIsConnect && tempHumIsConnect && pm25IsConnect) {
+                    data.getConnectVisibility().postValue(false);
+                } else {
+                    data.getConnectVisibility().postValue(true);
+                }
             }
-        }, 1000, 1000);
+        }, 0, 50);
     }
 
 }
