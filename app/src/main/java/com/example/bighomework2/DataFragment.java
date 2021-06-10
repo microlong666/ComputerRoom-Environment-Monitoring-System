@@ -2,6 +2,8 @@ package com.example.bighomework2;
 
 import android.os.Bundle;
 
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.databinding.BindingAdapter;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -35,4 +37,8 @@ public class DataFragment extends Fragment {
         return binding.getRoot();
     }
 
+    @BindingAdapter("android:src")
+    public static void setSrc(AppCompatImageView view, int resId) {
+        view.setImageResource(resId);
+    }
 }
