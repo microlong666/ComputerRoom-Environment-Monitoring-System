@@ -5,7 +5,7 @@ import android.os.Looper;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.bighomework2.Const;
+import com.example.bighomework2.util.Const;
 import com.example.bighomework2.util.FROTemHum;
 import com.example.bighomework2.util.GetSocket;
 import com.example.bighomework2.util.StreamUtil;

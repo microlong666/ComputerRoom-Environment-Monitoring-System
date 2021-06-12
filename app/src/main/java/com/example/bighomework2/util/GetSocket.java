@@ -2,8 +2,6 @@ package com.example.bighomework2.util;
 
 import android.util.Log;
 
-import com.example.bighomework2.Const;
-
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;

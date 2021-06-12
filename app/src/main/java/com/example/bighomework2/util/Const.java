@@ -1,4 +1,4 @@
-package com.example.bighomework2;
+package com.example.bighomework2.util;
 
 public class Const {
 
