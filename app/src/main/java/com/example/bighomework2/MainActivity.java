@@ -3,6 +3,7 @@ package com.example.bighomework2;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.example.bighomework2.connect.BodyConnect;
@@ -10,6 +11,7 @@ import com.example.bighomework2.connect.FanConnect;
 import com.example.bighomework2.connect.Pm25Connect;
 import com.example.bighomework2.connect.TempHumConnect;
 import com.example.bighomework2.databinding.ActivityMainBinding;
+import com.example.bighomework2.fragment.ConnectSettingFragment;
 import com.example.bighomework2.fragment.DataFragment;
 import com.example.bighomework2.fragment.MineFragment;
 import com.example.bighomework2.util.Const;
@@ -40,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         dataViewModel = new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(getApplication())).get(DataViewModel.class);
         dataViewModel.initData();
+        Log.d("abc", "onCreate: pm25ip:" + dataViewModel.getPM25SensorIp().getValue());
         ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         bodyConnect = new BodyConnect(this, dataViewModel);
         bodyConnect.start();
@@ -165,6 +168,16 @@ public class MainActivity extends AppCompatActivity {
             fragmentTransaction.replace(R.id.fragmentContainerView, mineFragment);
             fragmentTransaction.commit();
         }
+    }
+
+    public void toConnectSetting() {
+        if (fragmentManager == null) {
+            fragmentManager = getSupportFragmentManager();
+        }
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        ConnectSettingFragment fragment = new ConnectSettingFragment();
+        fragmentTransaction.replace(R.id.fragmentContainerView, fragment);
+        fragmentTransaction.commit();
     }
 
 }
