@@ -192,28 +192,34 @@ public class MainActivity extends AppCompatActivity {
     private void useLocalSetting() {
         Log.d("abc", "useLocalSetting: tempHumSensorIP"+getSettingData("tempHumSensorIP"));
         if (!"".equals(getSettingData("tempHumSensorIP"))) {
-            dataViewModel.getTempHumSensorIp().setValue(getSettingData("tempHumSensorIP"));
+            dataViewModel.getTempHumSensorIP().setValue(getSettingData("tempHumSensorIP"));
         }
         if (!"".equals(getSettingData("tempHumSensorPort"))) {
             dataViewModel.getTempHumSensorPort().setValue(getSettingData("tempHumSensorPort"));
         }
         if (!"".equals(getSettingData("PM25SensorIP"))) {
-            dataViewModel.getPM25SensorIp().setValue(getSettingData("PM25SensorIP"));
+            dataViewModel.getPM25SensorIP().setValue(getSettingData("PM25SensorIP"));
         }
         if (!"".equals(getSettingData("PM25SensorPort"))) {
             dataViewModel.getPM25SensorPort().setValue(getSettingData("PM25SensorPort"));
         }
         if (!"".equals(getSettingData("bodySensorIP"))) {
-            dataViewModel.getBodySensorIp().setValue(getSettingData("bodySensorIP"));
+            dataViewModel.getBodySensorIP().setValue(getSettingData("bodySensorIP"));
         }
         if (!"".equals(getSettingData("bodySensorPort"))) {
             dataViewModel.getBodySensorPort().setValue(getSettingData("bodySensorPort"));
         }
         if (!"".equals(getSettingData("fanIP"))) {
-            dataViewModel.getFanIp().setValue(getSettingData("fanIP"));
+            dataViewModel.getFanIP().setValue(getSettingData("fanIP"));
         }
         if (!"".equals(getSettingData("fanPort"))) {
             dataViewModel.getFanPort().setValue(getSettingData("fanPort"));
+        }
+        if (!"".equals(getSettingData("buzzerIP"))) {
+            dataViewModel.getFanIP().setValue(getSettingData("buzzerIP"));
+        }
+        if (!"".equals(getSettingData("buzzerPort"))) {
+            dataViewModel.getFanPort().setValue(getSettingData("buzzerPort"));
         }
     }
 
@@ -256,14 +262,16 @@ public class MainActivity extends AppCompatActivity {
 
     public void setConnect(View view) {
         // 保存设置
-        setSettingData("tempHumSensorIP", dataViewModel.getTempHumSensorIp().getValue());
+        setSettingData("tempHumSensorIP", dataViewModel.getTempHumSensorIP().getValue());
         setSettingData("tempHumSensorPort", dataViewModel.getTempHumSensorPort().getValue());
-        setSettingData("PM25SensorIP", dataViewModel.getPM25SensorIp().getValue());
+        setSettingData("PM25SensorIP", dataViewModel.getPM25SensorIP().getValue());
         setSettingData("PM25SensorPort", dataViewModel.getPM25SensorPort().getValue());
-        setSettingData("bodySensorIP", dataViewModel.getBodySensorIp().getValue());
+        setSettingData("bodySensorIP", dataViewModel.getBodySensorIP().getValue());
         setSettingData("bodySensorPort", dataViewModel.getBodySensorPort().getValue());
-        setSettingData("fanIP", dataViewModel.getFanIp().getValue());
+        setSettingData("fanIP", dataViewModel.getFanIP().getValue());
         setSettingData("fanPort", dataViewModel.getFanPort().getValue());
+        setSettingData("buzzerIp", dataViewModel.getBuzzerIP().getValue());
+        setSettingData("buzzerPort", dataViewModel.getBuzzerPort().getValue());
 
         Toast.makeText(this, "设置保存成功", Toast.LENGTH_SHORT).show();
 

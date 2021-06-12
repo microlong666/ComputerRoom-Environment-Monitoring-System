@@ -28,7 +28,7 @@ public class Pm25Connect extends Thread {
     @Override
     public void run() {
         Looper looper = Looper.myLooper();
-        pm25Socket = GetSocket.get(Const.PM25_IP, Const.PM25_port);
+        pm25Socket = GetSocket.get(dataViewModel.getPM25SensorIP().getValue(), Integer.parseInt(dataViewModel.getPM25SensorPort().getValue()));
         while (!exit) {
             try {
                 // 如果连接成功

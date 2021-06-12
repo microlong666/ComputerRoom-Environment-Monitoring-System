@@ -33,7 +33,7 @@ public class BodyConnect extends Thread {
     @Override
     public void run() {
         Looper looper = Looper.myLooper();
-        bodySocket = GetSocket.get(dataViewModel.getBodySensorIp().getValue(), Integer.valueOf(dataViewModel.getBodySensorPort().getValue()));
+        bodySocket = GetSocket.get(dataViewModel.getBodySensorIP().getValue(), Integer.parseInt(dataViewModel.getBodySensorPort().getValue()));
         while (!exit) {
             try {
                 // 如果连接成功

@@ -24,15 +24,16 @@ public class DataViewModel extends ViewModel {
     private MutableLiveData<Boolean> connectVisibility;
 
 
-    private MutableLiveData<String> tempHumSensorIp;
+    private MutableLiveData<String> tempHumSensorIP;
     private MutableLiveData<String> tempHumSensorPort;
-    private MutableLiveData<String> bodySensorIp;
+    private MutableLiveData<String> bodySensorIP;
     private MutableLiveData<String> bodySensorPort;
-    private MutableLiveData<String> PM25SensorIp;
+    private MutableLiveData<String> PM25SensorIP;
     private MutableLiveData<String> PM25SensorPort;
-    private MutableLiveData<String> fanIp;
+    private MutableLiveData<String> fanIP;
     private MutableLiveData<String> fanPort;
-
+    private MutableLiveData<String> buzzerIP;
+    private MutableLiveData<String> buzzerPort;
 
     public void initData() {
         temperature = new MutableLiveData<>(0.0);
@@ -46,14 +47,16 @@ public class DataViewModel extends ViewModel {
         wind = new MutableLiveData<>(0.0);
         health = new MutableLiveData<>(0);
         connectVisibility = new MutableLiveData<>(true);
-        tempHumSensorIp = new MutableLiveData<>(Const.TEMHUM_IP);
+        tempHumSensorIP = new MutableLiveData<>(Const.TEMHUM_IP);
         tempHumSensorPort = new MutableLiveData<>(String.valueOf(Const.TEMHUM_PORT));
-        bodySensorIp = new MutableLiveData<>(Const.BODY_IP);
+        bodySensorIP = new MutableLiveData<>(Const.BODY_IP);
         bodySensorPort = new MutableLiveData<>(String.valueOf(Const.BODY_port));
-        PM25SensorIp = new MutableLiveData<>(Const.PM25_IP);
+        PM25SensorIP = new MutableLiveData<>(Const.PM25_IP);
         PM25SensorPort = new MutableLiveData<>(String.valueOf(Const.PM25_port));
-        fanIp = new MutableLiveData<>(Const.FAN_IP);
+        fanIP = new MutableLiveData<>(Const.FAN_IP);
         fanPort = new MutableLiveData<>(String.valueOf(Const.FAN_PORT));
+        buzzerIP = new MutableLiveData<>(Const.RGB_BUZZER_IP);
+        buzzerPort = new MutableLiveData<>(String.valueOf(Const.RGB_BUZZER_PORT));
     }
 
     public MutableLiveData<Boolean> getConnectVisibility() {
@@ -141,67 +144,83 @@ public class DataViewModel extends ViewModel {
         return wind;
     }
 
-    public MutableLiveData<String> getTempHumSensorIp() {
-        return tempHumSensorIp;
+    public MutableLiveData<String> getTempHumSensorIP() {
+        return tempHumSensorIP;
     }
 
     public MutableLiveData<String> getTempHumSensorPort() {
         return tempHumSensorPort;
     }
 
-    public MutableLiveData<String> getBodySensorIp() {
-        return bodySensorIp;
+    public MutableLiveData<String> getBodySensorIP() {
+        return bodySensorIP;
     }
 
     public MutableLiveData<String> getBodySensorPort() {
         return bodySensorPort;
     }
 
-    public MutableLiveData<String> getPM25SensorIp() {
-        return PM25SensorIp;
+    public MutableLiveData<String> getPM25SensorIP() {
+        return PM25SensorIP;
     }
 
     public MutableLiveData<String> getPM25SensorPort() {
         return PM25SensorPort;
     }
 
-    public MutableLiveData<String> getFanIp() {
-        return fanIp;
+    public MutableLiveData<String> getFanIP() {
+        return fanIP;
     }
 
     public MutableLiveData<String> getFanPort() {
         return fanPort;
     }
 
-    public void setTempHumSensorIp(MutableLiveData<String> tempHumSensorIp) {
-        this.tempHumSensorIp = tempHumSensorIp;
+    public void setTempHumSensorIP(MutableLiveData<String> tempHumSensorIP) {
+        this.tempHumSensorIP = tempHumSensorIP;
     }
 
     public void setTempHumSensorPort(MutableLiveData<String> tempHumSensorPort) {
         this.tempHumSensorPort = tempHumSensorPort;
     }
 
-    public void setBodySensorIp(MutableLiveData<String> bodySensorIp) {
-        this.bodySensorIp = bodySensorIp;
+    public void setBodySensorIP(MutableLiveData<String> bodySensorIP) {
+        this.bodySensorIP = bodySensorIP;
     }
 
     public void setBodySensorPort(MutableLiveData<String> bodySensorPort) {
         this.bodySensorPort = bodySensorPort;
     }
 
-    public void setPM25SensorIp(MutableLiveData<String> PM25SensorIp) {
-        this.PM25SensorIp = PM25SensorIp;
+    public void setPM25SensorIP(MutableLiveData<String> PM25SensorIP) {
+        this.PM25SensorIP = PM25SensorIP;
     }
 
     public void setPM25SensorPort(MutableLiveData<String> PM25SensorPort) {
         this.PM25SensorPort = PM25SensorPort;
     }
 
-    public void setFanIp(MutableLiveData<String> fanIp) {
-        this.fanIp = fanIp;
+    public void setFanIP(MutableLiveData<String> fanIP) {
+        this.fanIP = fanIP;
     }
 
     public void setFanPort(MutableLiveData<String> fanPort) {
         this.fanPort = fanPort;
+    }
+
+    public MutableLiveData<String> getBuzzerIP() {
+        return buzzerIP;
+    }
+
+    public void setBuzzerIP(MutableLiveData<String> buzzerIP) {
+        this.buzzerIP = buzzerIP;
+    }
+
+    public MutableLiveData<String> getBuzzerPort() {
+        return buzzerPort;
+    }
+
+    public void setBuzzerPort(MutableLiveData<String> buzzerPort) {
+        this.buzzerPort = buzzerPort;
     }
 }

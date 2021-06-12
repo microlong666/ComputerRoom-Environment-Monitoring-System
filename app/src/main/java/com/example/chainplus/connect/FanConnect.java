@@ -29,7 +29,7 @@ public class FanConnect extends Thread {
     public void run() {
         super.run();
         Looper looper = Looper.myLooper();
-        fanConnect = GetSocket.get(Const.FAN_IP, Const.FAN_PORT);
+        fanConnect = GetSocket.get(dataViewModel.getFanIP().getValue(), Integer.parseInt(dataViewModel.getFanPort().getValue()));
         Log.d("abc", "doInBackground: fan connect");
         while (!exit) {
             // 如果连接成功
