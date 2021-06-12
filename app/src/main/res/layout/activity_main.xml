@@ -28,6 +28,7 @@
             android:id="@+id/bottomNavigation"
             app:menu="@menu/navigation"
             app:labelVisibilityMode="labeled"
+            android:theme="@style/BottomBarTheme"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent" />
