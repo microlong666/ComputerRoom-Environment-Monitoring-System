@@ -3,7 +3,7 @@ package com.example.bighomework2.Connect;
 import android.content.Context;
 import android.os.Looper;
 
-import com.example.bighomework2.Const;
+import com.example.bighomework2.util.Const;
 import com.example.bighomework2.util.GetSocket;
 import com.example.bighomework2.viewModel.DataViewModel;
 

@@ -1,4 +1,4 @@
-package com.example.bighomework2;
+package com.example.bighomework2.fragment;
 
 import android.os.Bundle;
 
@@ -12,12 +12,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.bighomework2.R;
 import com.example.bighomework2.databinding.FragmentDataBinding;
 import com.example.bighomework2.viewModel.DataViewModel;
 
 public class DataFragment extends Fragment {
-    private FragmentDataBinding binding;
-    private DataViewModel data;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -28,8 +27,8 @@ public class DataFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_data, container, false);
-        data = new ViewModelProvider(getActivity(), new ViewModelProvider.AndroidViewModelFactory(getActivity().getApplication())).get(DataViewModel.class);
+        com.example.bighomework2.databinding.FragmentDataBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_data, container, false);
+        DataViewModel data = new ViewModelProvider(getActivity(), new ViewModelProvider.AndroidViewModelFactory(getActivity().getApplication())).get(DataViewModel.class);
         binding.setData(data);
         binding.setLifecycleOwner(this);
 

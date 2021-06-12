@@ -10,6 +10,9 @@ import com.example.bighomework2.Connect.FanConnect;
 import com.example.bighomework2.Connect.Pm25Connect;
 import com.example.bighomework2.Connect.TempHumConnect;
 import com.example.bighomework2.databinding.ActivityMainBinding;
+import com.example.bighomework2.fragment.DataFragment;
+import com.example.bighomework2.fragment.MineFragment;
+import com.example.bighomework2.util.Const;
 import com.example.bighomework2.viewModel.DataViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -25,7 +28,7 @@ import androidx.lifecycle.ViewModelProvider;
 public class MainActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
     private FragmentManager fragmentManager;
-    private DataViewModel data;
+    private DataViewModel dataViewModel;
     private TempHumConnect tempHumConnect;
     private BodyConnect bodyConnect;
     private FanConnect fanConnect;
@@ -35,16 +38,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-        data = new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(getApplication())).get(DataViewModel.class);
-        data.initData();
+        dataViewModel = new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(getApplication())).get(DataViewModel.class);
+        dataViewModel.initData();
         ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-        bodyConnect = new BodyConnect(this, data);
+        bodyConnect = new BodyConnect(this, dataViewModel);
         bodyConnect.start();
-        tempHumConnect = new TempHumConnect(this, data);
+        tempHumConnect = new TempHumConnect(this, dataViewModel);
         tempHumConnect.start();
-        pm25Connect = new Pm25Connect(this, data);
+        pm25Connect = new Pm25Connect(this, dataViewModel);
         pm25Connect.start();
-        fanConnect = new FanConnect(this, data);
+        fanConnect = new FanConnect(this, dataViewModel);
         fanConnect.start();
         startTimer();
 
@@ -69,38 +72,38 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void switchFans(View view){
-        Boolean isConnect= data.getFansIsConnect().getValue();
-        Boolean isOpen = data.getFans().getValue();
+        Boolean isConnect= dataViewModel.getFansIsConnect().getValue();
+        Boolean isOpen = dataViewModel.getFans().getValue();
         Const.linkage = false;
         if (isConnect) {
             if (isOpen) {
                 fanConnect.fanOff();
-                data.getFans().postValue(false);
+                dataViewModel.getFans().postValue(false);
             } else {
                 fanConnect.fanOn();
-                data.getFans().postValue(true);
+                dataViewModel.getFans().postValue(true);
             }
         }
     }
 
     public void switchTempHumConnect(View view) {
-        Boolean isConnect = data.getTempHumIsConnect().getValue();
+        Boolean isConnect = dataViewModel.getTempHumIsConnect().getValue();
         if (isConnect) {
             tempHumConnect.exit = true;
-            data.getTempHumIsConnect().setValue(false);
+            dataViewModel.getTempHumIsConnect().setValue(false);
         } else {
-            tempHumConnect = new TempHumConnect(this, data);
+            tempHumConnect = new TempHumConnect(this, dataViewModel);
             tempHumConnect.start();
         }
     }
 
     public void switchPm25Connect(View view) {
-        Boolean isConnect = data.getPm25IsConnect().getValue();
+        Boolean isConnect = dataViewModel.getPm25IsConnect().getValue();
         if (isConnect) {
             pm25Connect.exit = true;
-            data.getPm25IsConnect().postValue(false);
+            dataViewModel.getPm25IsConnect().postValue(false);
         } else {
-            pm25Connect = new Pm25Connect(this, data);
+            pm25Connect = new Pm25Connect(this, dataViewModel);
             pm25Connect.start();
         }
     }
@@ -119,13 +122,13 @@ public class MainActivity extends AppCompatActivity {
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
-                Boolean fanIsConnect = data.getFansIsConnect().getValue();
-                Boolean tempHumIsConnect = data.getTempHumIsConnect().getValue();
-                Boolean pm25IsConnect = data.getPm25IsConnect().getValue();
+                Boolean fanIsConnect = dataViewModel.getFansIsConnect().getValue();
+                Boolean tempHumIsConnect = dataViewModel.getTempHumIsConnect().getValue();
+                Boolean pm25IsConnect = dataViewModel.getPm25IsConnect().getValue();
                 if (fanIsConnect && tempHumIsConnect && pm25IsConnect) {
-                    data.getConnectVisibility().postValue(false);
+                    dataViewModel.getConnectVisibility().postValue(false);
                 } else {
-                    data.getConnectVisibility().postValue(true);
+                    dataViewModel.getConnectVisibility().postValue(true);
                 }
             }
         }, 0, 50);

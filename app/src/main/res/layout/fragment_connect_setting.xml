@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="setting"
+            type="com.example.bighomework2.viewModel.DataViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <!-- TODO: Update blank fragment layout -->
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:text="连接设置"
+            android:textSize="34sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="修改后自动保存"
+            app:layout_constraintStart_toStartOf="@+id/textView13"
+            app:layout_constraintTop_toBottomOf="@+id/textView13" />
+
+        <TextView
+            android:id="@+id/TempHumText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="64dp"
+            android:text="温湿度传感器IP:端口"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/textView16"
+            app:layout_constraintTop_toBottomOf="@+id/textView16" />
+
+        <EditText
+            android:id="@+id/tempHumSensorIp"
+            android:layout_width="160dp"
+            android:layout_height="40dp"
+            android:ems="10"
+            android:text="@{setting.tempHumSensorIp}"
+            tools:text="192.168.0.1"
+            app:layout_constraintStart_toStartOf="@+id/TempHumText"
+            app:layout_constraintTop_toBottomOf="@+id/TempHumText" />
+
+        <TextView
+            android:id="@+id/textView17"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginStart="8dp"
+            android:text=":"
+            android:textSize="25dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tempHumSensorIp"
+            app:layout_constraintStart_toEndOf="@+id/tempHumSensorIp"
+            app:layout_constraintTop_toTopOf="@+id/tempHumSensorIp" />
+
+        <EditText
+            android:id="@+id/tempHumSensorPort"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="8dp"
+            android:ems="10"
+            android:text="@{setting.tempHumSensorPort}"
+            tools:text="4001"
+            app:layout_constraintBottom_toBottomOf="@+id/tempHumSensorIp"
+            app:layout_constraintStart_toEndOf="@+id/textView17"
+            app:layout_constraintTop_toTopOf="@+id/tempHumSensorIp" />
+
+        <TextView
+            android:id="@+id/PM25Text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="PM2.5传感器IP:端口"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/tempHumSensorIp"
+            app:layout_constraintTop_toBottomOf="@+id/tempHumSensorIp" />
+
+        <EditText
+            android:id="@+id/PM25SensorIp"
+            android:layout_width="160dp"
+            android:layout_height="40dp"
+            android:ems="10"
+            android:text="@{setting.PM25SensorIp}"
+            app:layout_constraintStart_toStartOf="@+id/PM25Text"
+            app:layout_constraintTop_toBottomOf="@+id/PM25Text"
+            tools:text="192.168.0.1" />
+
+        <TextView
+            android:id="@+id/textView19"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginStart="8dp"
+            android:text=":"
+            android:textSize="25dp"
+            app:layout_constraintBottom_toBottomOf="@+id/PM25SensorIp"
+            app:layout_constraintStart_toEndOf="@+id/PM25SensorIp"
+            app:layout_constraintTop_toTopOf="@+id/PM25SensorIp" />
+
+        <EditText
+            android:id="@+id/PM25SensorPort"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="8dp"
+            android:ems="10"
+            android:text="@{setting.PM25SensorPort}"
+            app:layout_constraintBottom_toBottomOf="@+id/PM25SensorIp"
+            app:layout_constraintStart_toEndOf="@+id/textView19"
+            app:layout_constraintTop_toTopOf="@+id/PM25SensorIp"
+            app:layout_constraintVertical_bias="1.0"
+            tools:text="4001" />
+
+        <TextView
+            android:id="@+id/bodyText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="人体传感器IP:端口"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/PM25SensorIp"
+            app:layout_constraintTop_toBottomOf="@+id/PM25SensorIp" />
+
+
+        <EditText
+            android:id="@+id/bodySensorIp"
+            android:layout_width="160dp"
+            android:layout_height="40dp"
+            android:ems="10"
+            android:text="@{setting.bodySensorIp}"
+            app:layout_constraintStart_toStartOf="@+id/bodyText"
+            app:layout_constraintTop_toBottomOf="@+id/bodyText"
+            tools:text="192.168.0.1" />
+
+        <TextView
+            android:id="@+id/textView21"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginStart="8dp"
+            android:text=":"
+            android:textSize="25dp"
+            app:layout_constraintBottom_toBottomOf="@+id/bodySensorIp"
+            app:layout_constraintStart_toEndOf="@+id/bodySensorIp"
+            app:layout_constraintTop_toTopOf="@+id/bodySensorIp" />
+
+        <EditText
+            android:id="@+id/bodySensorPort"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="8dp"
+            android:ems="10"
+            android:text="@{setting.bodySensorPort}"
+            app:layout_constraintBottom_toBottomOf="@+id/bodySensorIp"
+            app:layout_constraintStart_toEndOf="@+id/textView21"
+            app:layout_constraintTop_toTopOf="@+id/bodySensorIp"
+            app:layout_constraintVertical_bias="1.0"
+            tools:text="4001" />
+
+        <TextView
+            android:id="@+id/fanText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="风扇IP:端口"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/bodySensorIp"
+            app:layout_constraintTop_toBottomOf="@+id/bodySensorIp" />
+
+        <EditText
+            android:id="@+id/fanIp"
+            android:layout_width="160dp"
+            android:layout_height="40dp"
+            android:ems="10"
+            android:text="@{setting.fanIp}"
+            app:layout_constraintStart_toStartOf="@+id/fanText"
+            app:layout_constraintTop_toBottomOf="@+id/fanText"
+            tools:text="192.168.0.1" />
+
+        <TextView
+            android:id="@+id/textView22"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginStart="8dp"
+            android:text=":"
+            android:textSize="25dp"
+            app:layout_constraintBottom_toBottomOf="@+id/fanIp"
+            app:layout_constraintStart_toEndOf="@+id/fanIp"
+            app:layout_constraintTop_toTopOf="@+id/fanIp" />
+
+        <EditText
+            android:id="@+id/fanPort"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="8dp"
+            android:ems="10"
+            android:text="@{setting.fanPort}"
+            app:layout_constraintBottom_toBottomOf="@+id/fanIp"
+            app:layout_constraintStart_toEndOf="@+id/textView22"
+            app:layout_constraintTop_toTopOf="@+id/fanIp"
+            app:layout_constraintVertical_bias="1.0"
+            tools:text="4001" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floatingActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="64dp"
+            android:clickable="true"
+            android:src="@drawable/ic_back"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fanIp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
