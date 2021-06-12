@@ -28,7 +28,6 @@ public class ConnectSettingFragment extends Fragment {
         com.example.bighomework2.databinding.FragmentConnectSettingBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_connect_setting, container, false);
         DataViewModel data = new ViewModelProvider(getActivity(), new ViewModelProvider.AndroidViewModelFactory(getActivity().getApplication())).get(DataViewModel.class);
         binding.setSetting(data);
-        binding.setLifecycleOwner(this);
         return binding.getRoot();
     }
 }

@@ -20,13 +20,13 @@ public class DataViewModel extends ViewModel {
 
 
     private MutableLiveData<String> tempHumSensorIp;
-    private MutableLiveData<Integer> tempHumSensorPort;
+    private MutableLiveData<String> tempHumSensorPort;
     private MutableLiveData<String> bodySensorIp;
-    private MutableLiveData<Integer> bodySensorPort;
+    private MutableLiveData<String> bodySensorPort;
     private MutableLiveData<String> PM25SensorIp;
-    private MutableLiveData<Integer> PM25SensorPort;
+    private MutableLiveData<String> PM25SensorPort;
     private MutableLiveData<String> fanIp;
-    private MutableLiveData<Integer> fanPort;
+    private MutableLiveData<String> fanPort;
 
 
     public void initData() {
@@ -41,13 +41,13 @@ public class DataViewModel extends ViewModel {
         health = new MutableLiveData<>(0);
         connectVisibility = new MutableLiveData<>(true);
         tempHumSensorIp = new MutableLiveData<>(Const.TEMHUM_IP);
-        tempHumSensorPort = new MutableLiveData<>(Const.TEMHUM_PORT);
+        tempHumSensorPort = new MutableLiveData<String>(String.valueOf(Const.TEMHUM_PORT));
         bodySensorIp = new MutableLiveData<>(Const.BODY_IP);
-        bodySensorPort = new MutableLiveData<>(Const.BODY_port);
+        bodySensorPort = new MutableLiveData<String>(String.valueOf(Const.BODY_port));
         PM25SensorIp = new MutableLiveData<>(Const.PM25_IP);
-        PM25SensorPort = new MutableLiveData<>(Const.PM25_port);
+        PM25SensorPort = new MutableLiveData<String>(String.valueOf(Const.PM25_port));
         fanIp = new MutableLiveData<>(Const.FAN_IP);
-        fanPort = new MutableLiveData<>(Const.FAN_PORT);
+        fanPort = new MutableLiveData<String>(String.valueOf(Const.FAN_PORT));
     }
 
     public MutableLiveData<Boolean> getConnectVisibility() {
@@ -136,7 +136,7 @@ public class DataViewModel extends ViewModel {
         return tempHumSensorIp;
     }
 
-    public MutableLiveData<Integer> getTempHumSensorPort() {
+    public MutableLiveData<String> getTempHumSensorPort() {
         return tempHumSensorPort;
     }
 
@@ -144,7 +144,7 @@ public class DataViewModel extends ViewModel {
         return bodySensorIp;
     }
 
-    public MutableLiveData<Integer> getBodySensorPort() {
+    public MutableLiveData<String> getBodySensorPort() {
         return bodySensorPort;
     }
 
@@ -152,7 +152,7 @@ public class DataViewModel extends ViewModel {
         return PM25SensorIp;
     }
 
-    public MutableLiveData<Integer> getPM25SensorPort() {
+    public MutableLiveData<String> getPM25SensorPort() {
         return PM25SensorPort;
     }
 
@@ -160,8 +160,39 @@ public class DataViewModel extends ViewModel {
         return fanIp;
     }
 
-    public MutableLiveData<Integer> getFanPort() {
+    public MutableLiveData<String> getFanPort() {
         return fanPort;
     }
 
+    public void setTempHumSensorIp(MutableLiveData<String> tempHumSensorIp) {
+        this.tempHumSensorIp = tempHumSensorIp;
+    }
+
+    public void setTempHumSensorPort(MutableLiveData<String> tempHumSensorPort) {
+        this.tempHumSensorPort = tempHumSensorPort;
+    }
+
+    public void setBodySensorIp(MutableLiveData<String> bodySensorIp) {
+        this.bodySensorIp = bodySensorIp;
+    }
+
+    public void setBodySensorPort(MutableLiveData<String> bodySensorPort) {
+        this.bodySensorPort = bodySensorPort;
+    }
+
+    public void setPM25SensorIp(MutableLiveData<String> PM25SensorIp) {
+        this.PM25SensorIp = PM25SensorIp;
+    }
+
+    public void setPM25SensorPort(MutableLiveData<String> PM25SensorPort) {
+        this.PM25SensorPort = PM25SensorPort;
+    }
+
+    public void setFanIp(MutableLiveData<String> fanIp) {
+        this.fanIp = fanIp;
+    }
+
+    public void setFanPort(MutableLiveData<String> fanPort) {
+        this.fanPort = fanPort;
+    }
 }

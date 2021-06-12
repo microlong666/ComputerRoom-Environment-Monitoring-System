@@ -47,7 +47,7 @@
             android:layout_width="160dp"
             android:layout_height="40dp"
             android:ems="10"
-            android:text="@{setting.tempHumSensorIp}"
+            android:text="@={setting.tempHumSensorIp}"
             tools:text="192.168.0.1"
             app:layout_constraintStart_toStartOf="@+id/TempHumText"
             app:layout_constraintTop_toBottomOf="@+id/TempHumText" />
@@ -69,7 +69,7 @@
             android:layout_height="40dp"
             android:layout_marginStart="8dp"
             android:ems="10"
-            android:text="@{setting.tempHumSensorPort}"
+            android:text="@={setting.tempHumSensorPort}"
             tools:text="4001"
             app:layout_constraintBottom_toBottomOf="@+id/tempHumSensorIp"
             app:layout_constraintStart_toEndOf="@+id/textView17"
@@ -212,12 +212,12 @@
             android:id="@+id/floatingActionButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="64dp"
+            android:layout_marginBottom="64dp"
             android:clickable="true"
             android:src="@drawable/ic_back"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fanIp" />
+            app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
