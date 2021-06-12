@@ -1,6 +1,10 @@
 package com.example.bighomework2;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.example.bighomework2.Connect.BodyConnect;
@@ -9,15 +13,23 @@ import com.example.bighomework2.Connect.Pm25Connect;
 import com.example.bighomework2.Connect.TempHumConnect;
 import com.example.bighomework2.databinding.ActivityMainBinding;
 import com.example.bighomework2.viewModel.DataViewModel;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
+import org.jetbrains.annotations.NotNull;
+
 public class MainActivity extends AppCompatActivity {
+    private SharedPreferences sharedPreferences;
+    private FragmentManager fragmentManager;
     private DataViewModel data;
     private TempHumConnect tempHumConnect;
     private BodyConnect bodyConnect;
@@ -39,6 +51,20 @@ public class MainActivity extends AppCompatActivity {
         pm25Connect.start();
 
         startTimer();
+
+        BottomNavigationView bar = findViewById(R.id.bottomNavigation);
+        bar.setOnNavigationItemSelectedListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.index:
+                    switchToFragment("index");
+                    return false;
+                case R.id.user:
+                    switchToFragment("user");
+                    return false;
+            }
+            return false;
+        });
+
     }
 
     @Override
@@ -85,12 +111,15 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void startTimer() {
+        // 随机数据生成
 //        new Timer().schedule(new TimerTask() {
 //            @Override
 //            public void run() {
 //                data.getTempHumIsConnect().postValue(!data.getTempHumIsConnect().getValue());
 //            }
 //        }, 1000, 1000);
+
+        // 判定是否全部连接，如果是那么一键全部连接消失
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
@@ -104,6 +133,39 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }, 0, 50);
+    }
+
+    private String getSettingData(String key) {
+        if (sharedPreferences == null) {
+            sharedPreferences = getSharedPreferences("setting", Context.MODE_PRIVATE);
+        }
+        return sharedPreferences.getString(key, "");
+    }
+
+    private void setSettingData(String key, String value) {
+        if (sharedPreferences == null) {
+            sharedPreferences = getSharedPreferences("setting", Context.MODE_PRIVATE);
+        }
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(key, value);
+        editor.apply();
+    }
+
+    // 切换fragment
+    private void switchToFragment(String fragment) {
+        if (fragmentManager == null) {
+            fragmentManager = getSupportFragmentManager();
+        }
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        if ("index".equals(fragment)) {
+            DataFragment dataFragment = new DataFragment();
+            fragmentTransaction.replace(R.id.fragmentContainerView, dataFragment);
+            fragmentTransaction.commit();
+        } else if ("user".equals(fragment)) {
+            MineFragment mineFragment = new MineFragment();
+            fragmentTransaction.replace(R.id.fragmentContainerView, mineFragment);
+            fragmentTransaction.commit();
+        }
     }
 
 }
