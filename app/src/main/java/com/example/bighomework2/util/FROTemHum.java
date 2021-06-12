@@ -17,7 +17,7 @@ public class FROTemHum {
     public static Float getHumData(int rightLen, int nodeNum, byte[] read_buff) {
 
         Float data = null;
-        if (read_buff!=null) {
+        if (read_buff != null) {
             // 长度是否正确，节点号是否正确，CRC是否正确
             if ((read_buff.length == rightLen && read_buff[0] == nodeNum) && CRCValidate.isCRCConfig(read_buff)) {
                 /******************** CRC校验正确之后做的，解析数据 ********************/
@@ -29,9 +29,9 @@ public class FROTemHum {
                 //解析数据data_buff（16进制转10进制）
                 data = ByteToFloatUtil.hBytesToFloat(data_buff);
                 /*********除以10返回数据**********/
-                data=(data / 10.0f);
+                data = (data / 10.0f);
                 //在正常范围内才返回
-                if(data>-100 && data<100) {
+                if (data > -100 && data < 100) {
                     return data;
                 }
             }
@@ -50,7 +50,7 @@ public class FROTemHum {
     public static Float getTemData(int rightLen, int nodeNum, byte[] read_buff) {
 
         Float data = null;
-        if (read_buff!=null) {
+        if (read_buff != null) {
             // 长度是否正确，节点号是否正确，CRC是否正确
             if ((read_buff.length == rightLen && read_buff[0] == nodeNum) && CRCValidate.isCRCConfig(read_buff)) {
                 /******************** CRC校验正确之后做的，解析数据 ********************/
@@ -62,9 +62,9 @@ public class FROTemHum {
                 //解析数据data_buff（16进制转10进制）
                 data = ByteToFloatUtil.hBytesToFloat(data_buff);
                 /*********除以10返回数据**********/
-                data=(data / 10.0f);
+                data = (data / 10.0f);
                 //在正常范围内才返回
-                if(data>0 && data<100) {
+                if (data > 0 && data < 100) {
                     return data;
                 }
             }

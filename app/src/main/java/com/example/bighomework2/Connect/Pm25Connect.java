@@ -25,6 +25,7 @@ public class Pm25Connect extends Thread {
         this.context = context;
     }
 
+    @Override
     public void run() {
         Looper looper = Looper.myLooper();
         pm25Socket = GetSocket.get(Const.PM25_IP, Const.PM25_port);

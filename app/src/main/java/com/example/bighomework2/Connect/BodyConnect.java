@@ -30,6 +30,7 @@ public class BodyConnect extends Thread {
         this.context = context;
     }
 
+    @Override
     public void run() {
         Looper looper = Looper.myLooper();
         bodySocket = GetSocket.get(Const.BODY_IP, Const.BODY_port);

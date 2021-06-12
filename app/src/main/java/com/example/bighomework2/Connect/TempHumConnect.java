@@ -53,21 +53,22 @@ public class TempHumConnect extends Thread{
                         dataViewModel.getHumidity().postValue(((int) (hum * 100) / 100.0));
                     }
 
-                    // 联动
-                    Const.linkage = true;
-                    if (Const.linkage && dataViewModel.getTemperature().getValue() >= Const.maxTem) {
-                        // 风扇
-                        if (!dataViewModel.getFans().getValue()) {
+                    // TODO 联动
+                    if (Const.linkage) {
+                        if (dataViewModel.getTemperature().getValue() >= Const.maxTem || dataViewModel.getHumidity().getValue() >= Const.maxHum) {
+                            // 风扇
                             StreamUtil.writeCommand(fanSocket.getOutputStream(), Const.FAN_ON);
+                            dataViewModel.getFans().postValue(true);
                             StreamUtil.writeCommand(buzzerSocket.getOutputStream(), Const.RED_CMD);
                             Thread.sleep(1000);
                             StreamUtil.writeCommand(buzzerSocket.getOutputStream(), Const.BUZZER_ON);
                             Thread.sleep(1000);
                             StreamUtil.writeCommand(buzzerSocket.getOutputStream(), Const.BUZZER_OFF);
+                        } else {
+                            StreamUtil.writeCommand(fanSocket.getOutputStream(), Const.FAN_OFF);
+                            dataViewModel.getFans().postValue(false);
+                            StreamUtil.writeCommand(buzzerSocket.getOutputStream(), Const.BUZZER_OFF);
                         }
-                    } else {
-                        StreamUtil.writeCommand(fanSocket.getOutputStream(), Const.FAN_OFF);
-                        StreamUtil.writeCommand(buzzerSocket.getOutputStream(), Const.BUZZER_OFF);
                     }
 
                 } else {

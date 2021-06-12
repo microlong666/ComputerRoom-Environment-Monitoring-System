@@ -3,8 +3,6 @@ package com.example.bighomework2;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 
 import com.example.bighomework2.Connect.BodyConnect;
@@ -18,14 +16,11 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
-
-import org.jetbrains.annotations.NotNull;
 
 public class MainActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
@@ -49,7 +44,8 @@ public class MainActivity extends AppCompatActivity {
         tempHumConnect.start();
         pm25Connect = new Pm25Connect(this, data);
         pm25Connect.start();
-
+        fanConnect = new FanConnect(this, data);
+        fanConnect.start();
         startTimer();
 
         BottomNavigationView bar = findViewById(R.id.bottomNavigation);
@@ -75,15 +71,15 @@ public class MainActivity extends AppCompatActivity {
     public void switchFans(View view){
         Boolean isConnect= data.getFansIsConnect().getValue();
         Boolean isOpen = data.getFans().getValue();
+        Const.linkage = false;
         if (isConnect) {
             if (isOpen) {
                 fanConnect.fanOff();
+                data.getFans().postValue(false);
             } else {
                 fanConnect.fanOn();
+                data.getFans().postValue(true);
             }
-        } else {
-            fanConnect = new FanConnect(this, data);
-            fanConnect.start();
         }
     }
 

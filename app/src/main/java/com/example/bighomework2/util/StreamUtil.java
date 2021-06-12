@@ -19,11 +19,12 @@ public class StreamUtil {
     /**
      * 写命令
      * 传入参数的形式="01 03 00 3c 00 01 44 06"
+     *
      * @param command
      */
-    public static void writeCommand(OutputStream mos,String command) {
+    public static void writeCommand(OutputStream mos, String command) {
         byte[] writeBuff = null;
-        if(mos!=null) {
+        if (mos != null) {
             try {
                 if (writeBuff == null) {
                     // 将指定字符串src，以每两个字符分割转换为16进制形式
@@ -39,12 +40,13 @@ public class StreamUtil {
 
     /**
      * 读取返回数据
+     *
      * @return read_buff
      */
-    public static byte[] readData(InputStream mis){
-        int len=0;
-        byte[] read_buff=null;
-        if(mis!=null) {
+    public static byte[] readData(InputStream mis) {
+        int len = 0;
+        byte[] read_buff = null;
+        if (mis != null) {
             try {
                 len = mis.available();
                 read_buff = new byte[len];

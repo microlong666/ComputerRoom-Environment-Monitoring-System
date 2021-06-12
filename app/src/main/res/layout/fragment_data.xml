@@ -108,24 +108,22 @@
                     android:orientation="horizontal"
                     app:layout_constraintGuide_percent="0.80" />
 
-
-
-
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.cardview.widget.CardView>
 
-        <TextView
-            android:id="@+id/titleTop"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="计算间环境"
-            android:textSize="34sp"
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:background="@drawable/btn_shape"
+            android:text="连接"
+            android:visibility="@{StringUtil.getConnectVisible(data.connectVisibility)}"
+            android:theme="@style/ButtonStyle"
+            app:layout_constraintBottom_toTopOf="@+id/guideline10"
+            app:layout_constraintEnd_toStartOf="@+id/guideline4"
             app:layout_constraintStart_toStartOf="@+id/guideline1"
-            app:layout_constraintTop_toTopOf="parent"
-            android:textColor="#333"
-            tools:text="计算间环境" />
+            app:layout_constraintTop_toTopOf="@+id/guideline9" />
 
         <TextView
             android:id="@+id/titleBottom"
@@ -133,7 +131,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:text="@{StringUtil.getHasHumanString(data.hasHuman)}"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:textColor="#333"
             app:layout_constraintStart_toStartOf="@+id/guideline1"
             app:layout_constraintTop_toBottomOf="@+id/titleTop"
@@ -464,20 +462,17 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:background="@drawable/btn_shape"
-            android:text="连接"
-            android:visibility="@{StringUtil.getConnectVisible(data.connectVisibility)}"
-            android:theme="@style/ButtonStyle"
-            app:layout_constraintBottom_toTopOf="@+id/guideline10"
-            app:layout_constraintEnd_toStartOf="@+id/guideline4"
-            app:layout_constraintHorizontal_bias="0.0"
+        <TextView
+            android:id="@+id/titleTop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="计算间环境"
+            android:textSize="32sp"
             app:layout_constraintStart_toStartOf="@+id/guideline1"
-            app:layout_constraintTop_toTopOf="@+id/guideline9"
-            app:layout_constraintVertical_bias="0.4" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:textColor="#333"
+            tools:text="计算间环境" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
