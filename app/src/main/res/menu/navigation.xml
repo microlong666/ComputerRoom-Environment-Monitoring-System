@@ -3,7 +3,7 @@
     <item android:id="@+id/index"
         android:title="环境"
         android:icon="@drawable/ic_index" />
-    <item android:id="@+id/user"
+    <item android:id="@+id/mine"
         android:title="我的"
         android:icon="@drawable/ic_user" />
 

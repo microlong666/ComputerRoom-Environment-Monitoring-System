@@ -57,10 +57,10 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.index:
                     switchToFragment("index");
-                    return false;
-                case R.id.user:
-                    switchToFragment("user");
-                    return false;
+                    return true;
+                case R.id.mine:
+                    switchToFragment("mine");
+                    return true;
             }
             return false;
         });
@@ -161,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
             DataFragment dataFragment = new DataFragment();
             fragmentTransaction.replace(R.id.fragmentContainerView, dataFragment);
             fragmentTransaction.commit();
-        } else if ("user".equals(fragment)) {
+        } else if ("mine".equals(fragment)) {
             MineFragment mineFragment = new MineFragment();
             fragmentTransaction.replace(R.id.fragmentContainerView, mineFragment);
             fragmentTransaction.commit();
