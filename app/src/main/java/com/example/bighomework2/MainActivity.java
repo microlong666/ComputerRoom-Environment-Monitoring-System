@@ -170,7 +170,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void toConnectSetting() {
+    public void toConnectSetting(View view) {
         if (fragmentManager == null) {
             fragmentManager = getSupportFragmentManager();
         }
