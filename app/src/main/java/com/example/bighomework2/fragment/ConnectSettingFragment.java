@@ -1,7 +1,10 @@
 package com.example.bighomework2.fragment;
 
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
+import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -12,6 +15,7 @@ import android.view.ViewGroup;
 
 import com.example.bighomework2.R;
 import com.example.bighomework2.viewModel.DataViewModel;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
 public class ConnectSettingFragment extends Fragment {

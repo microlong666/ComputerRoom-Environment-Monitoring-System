@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.bighomework2.connect.BodyConnect;
 import com.example.bighomework2.connect.FanConnect;
@@ -43,12 +45,20 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+
+        // 创建ViewModel
         dataViewModel = new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(getApplication())).get(DataViewModel.class);
+        // 使用代码的设置
         dataViewModel.initData();
+        // 使用已经保存的设置进行替换
+        useLocalSetting();
+
+        // 创建试图
         ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
         dialogBuilder = new AlertDialog.Builder(this);
 
+        // 启动时默认创建连接
         bodyConnect = new BodyConnect(this, dataViewModel);
         bodyConnect.start();
         tempHumConnect = new TempHumConnect(this, dataViewModel);
@@ -57,8 +67,11 @@ public class MainActivity extends AppCompatActivity {
         pm25Connect.start();
         fanConnect = new FanConnect(this, dataViewModel);
         fanConnect.start();
+
+        // 开启定时任务
         startTimer();
 
+        // 设置点击事件
         BottomNavigationView bar = findViewById(R.id.bottomNavigation);
         bar.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
@@ -175,6 +188,34 @@ public class MainActivity extends AppCompatActivity {
         editor.apply();
     }
 
+    private void useLocalSetting() {
+        if ("".equals(getSettingData("tempHumSensorIP"))) {
+            Log.d("abc", "useLocalSetting: tempHumSensorIP"+getSettingData("tempHumSensorIP"));
+            dataViewModel.getTempHumSensorIp().setValue(getSettingData("tempHumSensorIP"));
+        }
+        if ("".equals(getSettingData("tempHumSensorPort"))) {
+            dataViewModel.getTempHumSensorPort().setValue(getSettingData("tempHumSensorPort"));
+        }
+        if ("".equals(getSettingData("PM25SensorIP"))) {
+            dataViewModel.getPM25SensorIp().setValue(getSettingData("PM25SensorIP"));
+        }
+        if ("".equals(getSettingData("PM25SensorPort"))) {
+            dataViewModel.getPM25SensorPort().setValue(getSettingData("PM25SensorPort"));
+        }
+        if ("".equals(getSettingData("bodySensorIP"))) {
+            dataViewModel.getBodySensorIp().setValue(getSettingData("bodySensorIP"));
+        }
+        if ("".equals(getSettingData("bodySensorPort"))) {
+            dataViewModel.getBodySensorPort().setValue(getSettingData("bodySensorPort"));
+        }
+        if ("".equals(getSettingData("fanIP"))) {
+            dataViewModel.getFanIp().setValue(getSettingData("fanIP"));
+        }
+        if ("".equals(getSettingData("fanPort"))) {
+            dataViewModel.getFanPort().setValue(getSettingData("fanPort"));
+        }
+    }
+
     // 切换fragment
     private void switchToFragment(String fragment) {
         if (fragmentManager == null) {
@@ -198,6 +239,39 @@ public class MainActivity extends AppCompatActivity {
         }
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         ConnectSettingFragment fragment = new ConnectSettingFragment();
+        fragmentTransaction.replace(R.id.fragmentContainerView, fragment);
+        fragmentTransaction.commit();
+    }
+
+    public void backToMind(View view) {
+        if (fragmentManager == null) {
+            fragmentManager = getSupportFragmentManager();
+        }
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        MineFragment fragment = new MineFragment();
+        fragmentTransaction.replace(R.id.fragmentContainerView, fragment);
+        fragmentTransaction.commit();
+    }
+
+    public void setConnect(View view) {
+        // 保存设置
+        setSettingData("tempHumSensorIP", dataViewModel.getTempHumSensorIp().getValue());
+        setSettingData("tempHumSensorPort", dataViewModel.getTempHumSensorPort().getValue());
+        setSettingData("PM25SensorIP", dataViewModel.getPM25SensorIp().getValue());
+        setSettingData("PM25SensorPort", dataViewModel.getPM25SensorPort().getValue());
+        setSettingData("bodySensorIP", dataViewModel.getBodySensorIp().getValue());
+        setSettingData("bodySensorPort", dataViewModel.getBodySensorPort().getValue());
+        setSettingData("fanIP", dataViewModel.getFanIp().getValue());
+        setSettingData("fanPort", dataViewModel.getFanPort().getValue());
+
+        Toast.makeText(this, "设置保存成功", Toast.LENGTH_SHORT).show();
+
+        // 返回
+        if (fragmentManager == null) {
+            fragmentManager = getSupportFragmentManager();
+        }
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        MineFragment fragment = new MineFragment();
         fragmentTransaction.replace(R.id.fragmentContainerView, fragment);
         fragmentTransaction.commit();
     }

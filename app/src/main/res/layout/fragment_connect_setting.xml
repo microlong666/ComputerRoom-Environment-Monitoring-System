@@ -20,6 +20,7 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
             android:text="连接设置"
+            android:textColor="#000000"
             android:textSize="34sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -28,7 +29,8 @@
             android:id="@+id/textView16"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="修改后自动保存"
+            android:text="修改后点击打勾按钮确认并返回"
+            android:textColor="#000000"
             app:layout_constraintStart_toStartOf="@+id/textView13"
             app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
@@ -38,6 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="64dp"
             android:text="温湿度传感器IP:端口"
+            android:textColor="#000000"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@+id/textView16"
             app:layout_constraintTop_toBottomOf="@+id/textView16" />
@@ -82,6 +85,7 @@
             android:layout_marginTop="32dp"
             android:text="PM2.5传感器IP:端口"
             android:textSize="16sp"
+            android:textColor="#000000"
             app:layout_constraintStart_toStartOf="@+id/tempHumSensorIp"
             app:layout_constraintTop_toBottomOf="@+id/tempHumSensorIp" />
 
@@ -125,6 +129,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:text="人体传感器IP:端口"
+            android:textColor="#000000"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@+id/PM25SensorIp"
             app:layout_constraintTop_toBottomOf="@+id/PM25SensorIp" />
@@ -171,6 +176,7 @@
             android:layout_marginTop="32dp"
             android:text="风扇IP:端口"
             android:textSize="16sp"
+            android:textColor="#000000"
             app:layout_constraintStart_toStartOf="@+id/bodySensorIp"
             app:layout_constraintTop_toBottomOf="@+id/bodySensorIp" />
 
@@ -209,15 +215,31 @@
             tools:text="4001" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/floatingActionButton"
+            android:id="@+id/backToMine"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="64dp"
             android:clickable="true"
             android:src="@drawable/ic_back"
+            app:backgroundTint="#FFFFFF"
+            android:onClick="backToMind"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintHorizontal_bias="0.3"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/setConnect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="64dp"
+            android:clickable="true"
+            android:src="@drawable/ic_check"
+            android:onClick="setConnect"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.7"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
