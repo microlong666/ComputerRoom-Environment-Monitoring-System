@@ -49,8 +49,8 @@ public class TempHumConnect extends Thread{
                     Float tem = FROTemHum.getTemData(Const.TEMHUM_LEN, Const.TEMHUM_NUM, read_buff);
                     Float hum = FROTemHum.getHumData(Const.TEMHUM_LEN, Const.TEMHUM_NUM, read_buff);
                     if (tem != null && hum != null) {
-                        dataViewModel.getTemperature().postValue(((int) (tem * 100) / 100.0));
-                        dataViewModel.getHumidity().postValue(((int) (hum * 100) / 100.0));
+                        dataViewModel.getTemperature().postValue((int) (tem * 100) / 100.0);
+                        dataViewModel.getHumidity().postValue((int) (hum * 100) / 100.0);
                     }
 
                     // TODO 联动
@@ -60,14 +60,13 @@ public class TempHumConnect extends Thread{
                             StreamUtil.writeCommand(fanSocket.getOutputStream(), Const.FAN_ON);
                             dataViewModel.getFanIsOpen().postValue(true);
                             StreamUtil.writeCommand(buzzerSocket.getOutputStream(), Const.RED_CMD);
-                            Thread.sleep(1000);
+                            Thread.sleep(200);
                             StreamUtil.writeCommand(buzzerSocket.getOutputStream(), Const.BUZZER_ON);
-                            Thread.sleep(1000);
+                            Thread.sleep(200);
                             StreamUtil.writeCommand(buzzerSocket.getOutputStream(), Const.BUZZER_OFF);
                         } else {
                             StreamUtil.writeCommand(fanSocket.getOutputStream(), Const.FAN_OFF);
                             dataViewModel.getFanIsOpen().postValue(false);
-                            StreamUtil.writeCommand(buzzerSocket.getOutputStream(), Const.BUZZER_OFF);
                         }
                     }
 

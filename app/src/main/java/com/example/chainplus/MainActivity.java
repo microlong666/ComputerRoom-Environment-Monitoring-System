@@ -93,6 +93,9 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
+    /**
+     * 连接按钮点击事件
+     */
     public void oneClickConnect(View view) {
         // WLAN 状态检测
         WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
@@ -106,10 +109,23 @@ public class MainActivity extends AppCompatActivity {
                     .create()
                     .show();
         }
-        // TODO 一键连接
-
+        tempHumConnect.exit = true;
+        fanConnect.exit = true;
+        pm25Connect.exit = true;
+        bodyConnect.exit = true;
+        tempHumConnect = new TempHumConnect(this, dataViewModel);
+        tempHumConnect.start();
+        fanConnect = new FanConnect(this, dataViewModel);
+        fanConnect.start();
+        pm25Connect = new Pm25Connect(this, dataViewModel);
+        pm25Connect.start();
+        bodyConnect = new BodyConnect(this, dataViewModel);
+        bodyConnect.start();
     }
 
+    /**
+     * 风扇开关点击事件
+     */
     public void switchFans(View view){
         Boolean isConnect= dataViewModel.getFanIsConnect().getValue();
         Boolean isOpen = dataViewModel.getFanIsOpen().getValue();
@@ -125,6 +141,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * 温湿度连接点击事件
+     */
     public void switchTempHumConnect(View view) {
         Boolean isConnect = dataViewModel.getTempHumIsConnect().getValue();
         if (isConnect) {
@@ -136,6 +155,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * PM2.5连接点击事件
+     */
     public void switchPm25Connect(View view) {
         Boolean isConnect = dataViewModel.getPm25IsConnect().getValue();
         if (isConnect) {
