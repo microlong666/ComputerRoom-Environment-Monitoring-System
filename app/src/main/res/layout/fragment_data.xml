@@ -4,11 +4,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <import type="com.example.chainplus.util.StringUtil" />
+        <import type="com.example.chainplus.util.ShapeUtil" />
         <variable
             name="data"
-            type="com.example.bighomework2.viewModel.DataViewModel" />
-        <import type="com.example.bighomework2.util.StringUtil" />
-        <import type="com.example.bighomework2.util.ShapeUtil" />
+            type="com.example.chainplus.viewModel.DataViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

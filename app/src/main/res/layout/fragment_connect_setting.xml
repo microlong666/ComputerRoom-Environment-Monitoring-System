@@ -6,7 +6,7 @@
     <data>
         <variable
             name="setting"
-            type="com.example.bighomework2.viewModel.DataViewModel" />
+            type="com.example.chainplus.viewModel.DataViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
