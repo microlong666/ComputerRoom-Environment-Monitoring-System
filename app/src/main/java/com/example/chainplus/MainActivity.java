@@ -32,6 +32,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 public class MainActivity extends AppCompatActivity {
+    private ActivityMainBinding binding;
     private SharedPreferences sharedPreferences;
     private FragmentManager fragmentManager;
     private DataViewModel dataViewModel;
@@ -54,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         useLocalSetting();
 
         // 创建试图
-        ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
         dialogBuilder = new AlertDialog.Builder(this);
 
@@ -189,29 +190,29 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void useLocalSetting() {
-        if ("".equals(getSettingData("tempHumSensorIP"))) {
-            Log.d("abc", "useLocalSetting: tempHumSensorIP"+getSettingData("tempHumSensorIP"));
+        Log.d("abc", "useLocalSetting: tempHumSensorIP"+getSettingData("tempHumSensorIP"));
+        if (!"".equals(getSettingData("tempHumSensorIP"))) {
             dataViewModel.getTempHumSensorIp().setValue(getSettingData("tempHumSensorIP"));
         }
-        if ("".equals(getSettingData("tempHumSensorPort"))) {
+        if (!"".equals(getSettingData("tempHumSensorPort"))) {
             dataViewModel.getTempHumSensorPort().setValue(getSettingData("tempHumSensorPort"));
         }
-        if ("".equals(getSettingData("PM25SensorIP"))) {
+        if (!"".equals(getSettingData("PM25SensorIP"))) {
             dataViewModel.getPM25SensorIp().setValue(getSettingData("PM25SensorIP"));
         }
-        if ("".equals(getSettingData("PM25SensorPort"))) {
+        if (!"".equals(getSettingData("PM25SensorPort"))) {
             dataViewModel.getPM25SensorPort().setValue(getSettingData("PM25SensorPort"));
         }
-        if ("".equals(getSettingData("bodySensorIP"))) {
+        if (!"".equals(getSettingData("bodySensorIP"))) {
             dataViewModel.getBodySensorIp().setValue(getSettingData("bodySensorIP"));
         }
-        if ("".equals(getSettingData("bodySensorPort"))) {
+        if (!"".equals(getSettingData("bodySensorPort"))) {
             dataViewModel.getBodySensorPort().setValue(getSettingData("bodySensorPort"));
         }
-        if ("".equals(getSettingData("fanIP"))) {
+        if (!"".equals(getSettingData("fanIP"))) {
             dataViewModel.getFanIp().setValue(getSettingData("fanIP"));
         }
-        if ("".equals(getSettingData("fanPort"))) {
+        if (!"".equals(getSettingData("fanPort"))) {
             dataViewModel.getFanPort().setValue(getSettingData("fanPort"));
         }
     }

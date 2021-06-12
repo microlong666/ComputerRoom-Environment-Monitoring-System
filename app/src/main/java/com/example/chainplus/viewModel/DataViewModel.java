@@ -43,13 +43,13 @@ public class DataViewModel extends ViewModel {
         health = new MutableLiveData<>(0);
         connectVisibility = new MutableLiveData<>(true);
         tempHumSensorIp = new MutableLiveData<>(Const.TEMHUM_IP);
-        tempHumSensorPort = new MutableLiveData<String>(String.valueOf(Const.TEMHUM_PORT));
+        tempHumSensorPort = new MutableLiveData<>(String.valueOf(Const.TEMHUM_PORT));
         bodySensorIp = new MutableLiveData<>(Const.BODY_IP);
-        bodySensorPort = new MutableLiveData<String>(String.valueOf(Const.BODY_port));
+        bodySensorPort = new MutableLiveData<>(String.valueOf(Const.BODY_port));
         PM25SensorIp = new MutableLiveData<>(Const.PM25_IP);
-        PM25SensorPort = new MutableLiveData<String>(String.valueOf(Const.PM25_port));
+        PM25SensorPort = new MutableLiveData<>(String.valueOf(Const.PM25_port));
         fanIp = new MutableLiveData<>(Const.FAN_IP);
-        fanPort = new MutableLiveData<String>(String.valueOf(Const.FAN_PORT));
+        fanPort = new MutableLiveData<>(String.valueOf(Const.FAN_PORT));
     }
 
     public MutableLiveData<Boolean> getConnectVisibility() {
