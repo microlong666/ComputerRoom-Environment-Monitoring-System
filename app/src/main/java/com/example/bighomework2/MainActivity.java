@@ -8,10 +8,10 @@ import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.view.View;
 
-import com.example.bighomework2.Connect.BodyConnect;
-import com.example.bighomework2.Connect.FanConnect;
-import com.example.bighomework2.Connect.Pm25Connect;
-import com.example.bighomework2.Connect.TempHumConnect;
+import com.example.bighomework2.connect.BodyConnect;
+import com.example.bighomework2.connect.FanConnect;
+import com.example.bighomework2.connect.Pm25Connect;
+import com.example.bighomework2.connect.TempHumConnect;
 import com.example.bighomework2.databinding.ActivityMainBinding;
 import com.example.bighomework2.viewModel.DataViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;

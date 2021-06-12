@@ -1,4 +1,4 @@
-package com.example.bighomework2.Connect;
+package com.example.bighomework2.connect;
 
 import android.content.Context;
 import android.os.Looper;
