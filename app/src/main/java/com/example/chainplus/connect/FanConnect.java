@@ -36,9 +36,9 @@ public class FanConnect extends Thread {
             if (fanConnect != null) {
                 dataViewModel.getFanIsConnect().postValue(true);
             } else {
-                Log.d("abc", "doInBackground: 风扇连接失败");
+                Log.d("abc", "doInBackground: 空调连接失败");
                 Looper.prepare();
-                Toast.makeText(context, "风扇连接失败", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "空调连接失败", Toast.LENGTH_SHORT).show();
                 Looper.loop();
                 looper.quit();
                 return;

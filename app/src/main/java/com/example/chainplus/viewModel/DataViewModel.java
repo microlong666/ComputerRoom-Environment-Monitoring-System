@@ -13,6 +13,7 @@ public class DataViewModel extends ViewModel {
 
     private MutableLiveData<Double> temperature;
     private MutableLiveData<Double> humidity;
+    private MutableLiveData<Boolean> bodyIsConnect;
     private MutableLiveData<Boolean> tempHumIsConnect;
     private MutableLiveData<Boolean> pm25IsConnect;
     private MutableLiveData<Integer> pm25;
@@ -22,7 +23,6 @@ public class DataViewModel extends ViewModel {
     private MutableLiveData<Boolean> hasHuman;
     private MutableLiveData<Integer> health;
     private MutableLiveData<Boolean> connectVisibility;
-
 
     private MutableLiveData<String> tempHumSensorIP;
     private MutableLiveData<String> tempHumSensorPort;
@@ -41,6 +41,7 @@ public class DataViewModel extends ViewModel {
         pm25 = new MutableLiveData<>(0);
         fanIsOpen = new MutableLiveData<>(false);
         hasHuman = new MutableLiveData<>(false);
+        bodyIsConnect = new MutableLiveData<>(false);
         tempHumIsConnect = new MutableLiveData<>(false);
         pm25IsConnect = new MutableLiveData<>(false);
         fanIsConnect = new MutableLiveData<>(false);
@@ -73,6 +74,14 @@ public class DataViewModel extends ViewModel {
             health.setValue(0);
         }
         return health;
+    }
+
+    public MutableLiveData<Boolean> getBodyIsConnect() {
+        if (bodyIsConnect == null) {
+            bodyIsConnect = new MutableLiveData<>();
+            bodyIsConnect.postValue(false);
+        }
+        return bodyIsConnect;
     }
 
     public MutableLiveData<Boolean> getTempHumIsConnect() {

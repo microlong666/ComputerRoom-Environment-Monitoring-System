@@ -37,11 +37,15 @@ public class StringUtil {
     }
 
 
-    public static String getHasHumanString(Boolean data){
-        if (data) {
-            return "有人进入计算间";
+    public static String getHasHumanString(Boolean data, Boolean isConnect) {
+        if (isConnect) {
+            if (data) {
+                return "有人进入计算间";
+            } else {
+                return "人已离开计算间";
+            }
         } else {
-            return "人已离开计算间";
+            return "人体传感器未连接";
         }
     }
 

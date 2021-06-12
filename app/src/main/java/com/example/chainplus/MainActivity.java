@@ -171,14 +171,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void startTimer() {
-        // 随机数据生成
-//        new Timer().schedule(new TimerTask() {
-//            @Override
-//            public void run() {
-//                data.getTempHumIsConnect().postValue(!data.getTempHumIsConnect().getValue());
-//            }
-//        }, 1000, 1000);
-
         // 判定是否全部连接，如果是那么一键全部连接消失
         new Timer().schedule(new TimerTask() {
             @Override
