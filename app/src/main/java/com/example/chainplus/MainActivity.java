@@ -216,10 +216,10 @@ public class MainActivity extends AppCompatActivity {
             dataViewModel.getFanPort().setValue(getSettingData("fanPort"));
         }
         if (!"".equals(getSettingData("buzzerIP"))) {
-            dataViewModel.getFanIP().setValue(getSettingData("buzzerIP"));
+            dataViewModel.getBuzzerIP().setValue(getSettingData("buzzerIP"));
         }
         if (!"".equals(getSettingData("buzzerPort"))) {
-            dataViewModel.getFanPort().setValue(getSettingData("buzzerPort"));
+            dataViewModel.getBuzzerPort().setValue(getSettingData("buzzerPort"));
         }
     }
 
@@ -270,7 +270,7 @@ public class MainActivity extends AppCompatActivity {
         setSettingData("bodySensorPort", dataViewModel.getBodySensorPort().getValue());
         setSettingData("fanIP", dataViewModel.getFanIP().getValue());
         setSettingData("fanPort", dataViewModel.getFanPort().getValue());
-        setSettingData("buzzerIp", dataViewModel.getBuzzerIP().getValue());
+        setSettingData("buzzerIP", dataViewModel.getBuzzerIP().getValue());
         setSettingData("buzzerPort", dataViewModel.getBuzzerPort().getValue());
 
         Toast.makeText(this, "设置保存成功", Toast.LENGTH_SHORT).show();
