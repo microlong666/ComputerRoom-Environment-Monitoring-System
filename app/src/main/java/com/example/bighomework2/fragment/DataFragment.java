@@ -31,8 +31,6 @@ public class DataFragment extends Fragment {
         DataViewModel data = new ViewModelProvider(getActivity(), new ViewModelProvider.AndroidViewModelFactory(getActivity().getApplication())).get(DataViewModel.class);
         binding.setData(data);
         binding.setLifecycleOwner(this);
-
-
         return binding.getRoot();
     }
 
