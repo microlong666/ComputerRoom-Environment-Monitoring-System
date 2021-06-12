@@ -34,7 +34,7 @@ public class TempHumConnect extends Thread{
     @Override
     public void run() {
         Looper looper = Looper.myLooper();
-        temHumSocket = GetSocket.get(Const.TEMHUM_IP, Const.TEMHUM_PORT);
+        temHumSocket = GetSocket.get(dataViewModel.getTempHumSensorIp().getValue(), Integer.valueOf(dataViewModel.getTempHumSensorPort().getValue()));
         fanSocket = GetSocket.get(Const.FAN_IP, Const.FAN_PORT);
         buzzerSocket = GetSocket.get(Const.RGB_BUZZER_IP, Const.RGB_BUZZER_PORT);
         while (!exit) {

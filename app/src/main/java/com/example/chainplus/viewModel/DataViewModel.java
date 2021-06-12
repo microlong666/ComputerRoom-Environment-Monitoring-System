@@ -5,6 +5,10 @@ import com.example.chainplus.util.Const;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+/**
+ * MainActivity存储数据的对象
+ * 初始化后请立刻执行initData方法，再执行其他操作，预防空指针错误
+ */
 public class DataViewModel extends ViewModel {
 
     private MutableLiveData<Double> temperature;
