@@ -1,9 +1,10 @@
 package com.example.bighomework2;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import com.example.bighomework2.connect.BodyConnect;
@@ -21,6 +22,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentManager;
@@ -35,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private BodyConnect bodyConnect;
     private FanConnect fanConnect;
     private Pm25Connect pm25Connect;
+    private AlertDialog.Builder dialogBuilder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +45,10 @@ public class MainActivity extends AppCompatActivity {
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         dataViewModel = new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(getApplication())).get(DataViewModel.class);
         dataViewModel.initData();
-        Log.d("abc", "onCreate: pm25ip:" + dataViewModel.getPM25SensorIp().getValue());
         ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+
+        dialogBuilder = new AlertDialog.Builder(this);
+
         bodyConnect = new BodyConnect(this, dataViewModel);
         bodyConnect.start();
         tempHumConnect = new TempHumConnect(this, dataViewModel);
@@ -72,6 +77,23 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
+
+    public void oneClickConnect(View view) {
+        // WLAN 状态检测
+        WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        if (wifiManager == null || !wifiManager.isWifiEnabled()) {
+            dialogBuilder
+                    .setTitle("WLAN未开启")
+                    .setMessage("请先开启手机WLAN，再重新连接设备。")
+                    .setNegativeButton("取消", (dialog, which) -> {
+                    })
+                    .setPositiveButton("确定", (dialog, which) -> startActivity(new Intent(android.provider.Settings.ACTION_WIFI_SETTINGS)))
+                    .create()
+                    .show();
+        }
+        // TODO 一键连接
+
     }
 
     public void switchFans(View view){
