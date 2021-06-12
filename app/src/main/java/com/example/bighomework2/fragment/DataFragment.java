@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.bighomework2.R;
-import com.example.bighomework2.databinding.FragmentDataBinding;
 import com.example.bighomework2.viewModel.DataViewModel;
 
 public class DataFragment extends Fragment {
