@@ -100,12 +100,13 @@
         </androidx.cardview.widget.CardView>
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/connect"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_marginBottom="16dp"
             android:background="@drawable/btn_shape"
             android:text="连接"
+            android:onClick="oneClickConnect"
             android:theme="@style/ButtonStyle"
             android:visibility="@{StringUtil.getConnectVisible(data.connectVisibility)}"
             app:layout_constraintBottom_toBottomOf="parent"

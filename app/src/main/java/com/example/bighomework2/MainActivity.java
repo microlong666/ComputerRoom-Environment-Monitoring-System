@@ -1,7 +1,10 @@
 package com.example.bighomework2;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.view.View;
 
@@ -30,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private BodyConnect bodyConnect;
     private FanConnect fanConnect;
     private Pm25Connect pm25Connect;
+    private AlertDialog.Builder dialogBuilder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +42,9 @@ public class MainActivity extends AppCompatActivity {
         data = new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(getApplication())).get(DataViewModel.class);
         data.initData();
         ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+
+        dialogBuilder = new AlertDialog.Builder(this);
+
         bodyConnect = new BodyConnect(this, data);
         bodyConnect.start();
         tempHumConnect = new TempHumConnect(this, data);
@@ -68,8 +75,25 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
-    public void switchFans(View view){
-        Boolean isConnect= data.getFansIsConnect().getValue();
+    public void oneClickConnect(View view) {
+        // WLAN 状态检测
+        WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        if (wifiManager == null || !wifiManager.isWifiEnabled()) {
+            dialogBuilder
+                    .setTitle("WLAN未开启")
+                    .setMessage("请先开启手机WLAN，再重新连接设备。")
+                    .setNegativeButton("取消", (dialog, which) -> {
+                    })
+                    .setPositiveButton("确定", (dialog, which) -> startActivity(new Intent(android.provider.Settings.ACTION_WIFI_SETTINGS)))
+                    .create()
+                    .show();
+        }
+        // TODO 一键连接
+
+    }
+
+    public void switchFans(View view) {
+        Boolean isConnect = data.getFansIsConnect().getValue();
         Boolean isOpen = data.getFans().getValue();
         Const.linkage = false;
         if (isConnect) {
