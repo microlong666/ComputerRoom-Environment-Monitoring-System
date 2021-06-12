@@ -99,20 +99,6 @@
 
         </androidx.cardview.widget.CardView>
 
-        <Button
-            android:id="@+id/connect"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_marginBottom="16dp"
-            android:background="@drawable/btn_shape"
-            android:text="连接"
-            android:onClick="oneClickConnect"
-            android:theme="@style/ButtonStyle"
-            android:visibility="@{StringUtil.getConnectVisible(data.connectVisibility)}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/guideline4"
-            app:layout_constraintStart_toStartOf="@+id/guideline1" />
-
         <TextView
             android:id="@+id/titleBottom"
             android:layout_width="wrap_content"
@@ -152,14 +138,14 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.32999998"
+                    app:layout_constraintVertical_bias="0.33"
                     app:srcCompat="@drawable/ic_temperature" />
 
                 <TextView
                     android:id="@+id/textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{data.temperature + `°C`}"
+                    android:text="@{StringUtil.getTempString(data.temperature, data.tempHumIsConnect)}"
                     android:textSize="24sp"
                     android:textColor="#333"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -167,7 +153,7 @@
                     app:layout_constraintHorizontal_bias="0.72"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.33999997"
+                    app:layout_constraintVertical_bias="0.34"
                     tools:text="27.4°C" />
 
                 <TextView
@@ -239,7 +225,7 @@
                     android:id="@+id/textView6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{data.humidity + `%`}"
+                    android:text="@{StringUtil.getHumidityString(data.humidity, data.tempHumIsConnect)}"
                     android:textSize="24sp"
                     android:textColor="#333"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -320,12 +306,12 @@
                     android:id="@+id/textView12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{data.pm25 + `μg/m³`}"
-                    android:textSize="20sp"
+                    android:text="@{StringUtil.getPM25String(data.pm25, data.pm25IsConnect)}"
                     android:textColor="#333"
+                    android:textSize="20sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.75"
+                    app:layout_constraintHorizontal_bias="0.85"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.25"
@@ -402,7 +388,7 @@
                     android:id="@+id/textView9"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{StringUtil.getFansString(data.fans)}"
+                    android:text="@{StringUtil.getFanString(data.wind, data.fanIsConnect, data.fanIsOpen)}"
                     android:textSize="18sp"
                     android:textColor="#333"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -429,7 +415,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
-                    android:src="@{ShapeUtil.getConnectShape(data.fansIsConnect)}"
+                    android:src="@{ShapeUtil.getConnectShape(data.fanIsConnect)}"
                     app:layout_constraintBottom_toBottomOf="@+id/textView7"
                     app:layout_constraintStart_toEndOf="@+id/textView7"
                     app:layout_constraintTop_toBottomOf="@+id/appCompatImageView6"
@@ -440,7 +426,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
-                    android:text="@{StringUtil.getStringOfConnect(data.fansIsConnect)}"
+                    android:text="@{StringUtil.getStringOfConnect(data.fanIsConnect)}"
                     android:textSize="10sp"
                     android:textColor="#333"
                     app:layout_constraintBaseline_toBaselineOf="@+id/textView7"
@@ -461,6 +447,20 @@
             app:layout_constraintTop_toTopOf="parent"
             android:textColor="#333"
             tools:text="计算间环境" />
+
+        <Button
+            android:id="@+id/connect"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/btn_shape"
+            android:onClick="oneClickConnect"
+            android:text="连接"
+            android:theme="@style/ButtonStyle"
+            android:visibility="@{StringUtil.getConnectVisible(data.connectVisibility)}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline4"
+            app:layout_constraintStart_toStartOf="@+id/guideline1" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

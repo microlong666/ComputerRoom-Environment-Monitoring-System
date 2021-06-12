@@ -4,19 +4,44 @@ import android.view.View;
 
 public class StringUtil {
 
+    public static String getTempString(Double data, Boolean isConnect) {
+        if (isConnect) {
+            return data + "°C";
+        } else {
+            return "--.-°C";
+        }
+    }
+
+    public static String getHumidityString(Double data, Boolean isConnect) {
+        if (isConnect) {
+            return data + "%";
+        } else {
+            return "--.-%";
+        }
+    }
+
+    public static String getPM25String(int data, Boolean isConnect) {
+        if (isConnect) {
+            return data + "μg/m³";
+        } else {
+            return "--μg/m³";
+        }
+    }
+
+    public static String getFanString(double data, Boolean isConnect, Boolean isOpen) {
+        if (isConnect && isOpen) {
+            return data + "m³/s";
+        } else {
+            return "--m³/s";
+        }
+    }
+
+
     public static String getHasHumanString(Boolean data){
         if (data) {
             return "有人进入计算间";
         } else {
             return "人已离开计算间";
-        }
-    }
-
-    public static String getFansString(Boolean data) {
-        if (data) {
-            return "制冷已开启";
-        } else {
-            return "制冷已关闭";
         }
     }
 

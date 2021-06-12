@@ -12,8 +12,9 @@ public class DataViewModel extends ViewModel {
     private MutableLiveData<Boolean> tempHumIsConnect;
     private MutableLiveData<Boolean> pm25IsConnect;
     private MutableLiveData<Integer> pm25;
-    private MutableLiveData<Boolean> fans;
-    private MutableLiveData<Boolean> fansIsConnect;
+    private MutableLiveData<Boolean> fanIsOpen;
+    private MutableLiveData<Boolean> fanIsConnect;
+    private MutableLiveData<Double> wind;
     private MutableLiveData<Boolean> hasHuman;
     private MutableLiveData<Integer> health;
     private MutableLiveData<Boolean> connectVisibility;
@@ -33,11 +34,12 @@ public class DataViewModel extends ViewModel {
         temperature = new MutableLiveData<>(0.0);
         humidity = new MutableLiveData<>(0.0);
         pm25 = new MutableLiveData<>(0);
-        fans = new MutableLiveData<>(false);
+        fanIsOpen = new MutableLiveData<>(false);
         hasHuman = new MutableLiveData<>(false);
         tempHumIsConnect = new MutableLiveData<>(false);
         pm25IsConnect = new MutableLiveData<>(false);
-        fansIsConnect = new MutableLiveData<>(false);
+        fanIsConnect = new MutableLiveData<>(false);
+        wind = new MutableLiveData<>(0.0);
         health = new MutableLiveData<>(0);
         connectVisibility = new MutableLiveData<>(true);
         tempHumSensorIp = new MutableLiveData<>(Const.TEMHUM_IP);
@@ -115,22 +117,25 @@ public class DataViewModel extends ViewModel {
     }
 
 
-    public MutableLiveData<Boolean> getFans() {
-        if (fans == null) {
-            fans = new MutableLiveData<>();
-            fans.setValue(false);
+    public MutableLiveData<Boolean> getFanIsOpen() {
+        if (fanIsOpen == null) {
+            fanIsOpen = new MutableLiveData<>();
+            fanIsOpen.setValue(false);
         }
-        return fans;
+        return fanIsOpen;
     }
 
-    public MutableLiveData<Boolean> getFansIsConnect() {
-        if (fansIsConnect == null) {
-            fansIsConnect = new MutableLiveData<>();
-            fansIsConnect.setValue(false);
+    public MutableLiveData<Boolean> getFanIsConnect() {
+        if (fanIsConnect == null) {
+            fanIsConnect = new MutableLiveData<>();
+            fanIsConnect.setValue(false);
         }
-        return fansIsConnect;
+        return fanIsConnect;
     }
 
+    public MutableLiveData<Double> getWind() {
+        return wind;
+    }
 
     public MutableLiveData<String> getTempHumSensorIp() {
         return tempHumSensorIp;

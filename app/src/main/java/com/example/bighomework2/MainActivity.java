@@ -110,16 +110,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void switchFans(View view){
-        Boolean isConnect= dataViewModel.getFansIsConnect().getValue();
-        Boolean isOpen = dataViewModel.getFans().getValue();
+        Boolean isConnect= dataViewModel.getFanIsConnect().getValue();
+        Boolean isOpen = dataViewModel.getFanIsOpen().getValue();
         Const.linkage = false;
         if (isConnect) {
             if (isOpen) {
                 fanConnect.fanOff();
-                dataViewModel.getFans().postValue(false);
+                dataViewModel.getFanIsOpen().postValue(false);
             } else {
                 fanConnect.fanOn();
-                dataViewModel.getFans().postValue(true);
+                dataViewModel.getFanIsOpen().postValue(true);
             }
         }
     }
@@ -160,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
-                Boolean fanIsConnect = dataViewModel.getFansIsConnect().getValue();
+                Boolean fanIsConnect = dataViewModel.getFanIsConnect().getValue();
                 Boolean tempHumIsConnect = dataViewModel.getTempHumIsConnect().getValue();
                 Boolean pm25IsConnect = dataViewModel.getPm25IsConnect().getValue();
                 if (fanIsConnect && tempHumIsConnect && pm25IsConnect) {

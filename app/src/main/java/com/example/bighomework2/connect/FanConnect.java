@@ -34,7 +34,7 @@ public class FanConnect extends Thread {
         while (!exit) {
             // 如果连接成功
             if (fanConnect != null) {
-                dataViewModel.getFansIsConnect().postValue(true);
+                dataViewModel.getFanIsConnect().postValue(true);
             } else {
                 Log.d("abc", "doInBackground: 风扇连接失败");
                 Looper.prepare();
@@ -48,7 +48,7 @@ public class FanConnect extends Thread {
     }
 
     public void closeSocket() {
-        dataViewModel.getFansIsConnect().postValue(false);
+        dataViewModel.getFanIsConnect().postValue(false);
         try {
             if (fanConnect != null) {
                 fanConnect.close();
@@ -63,7 +63,7 @@ public class FanConnect extends Thread {
             if (fanConnect != null) {
                 try {
                     StreamUtil.writeCommand(fanConnect.getOutputStream(), Const.FAN_ON);
-                    dataViewModel.getFans().postValue(true);
+                    dataViewModel.getFanIsOpen().postValue(true);
                     Log.d("abc", "doInBackground: fan on");
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -77,7 +77,7 @@ public class FanConnect extends Thread {
             if (fanConnect != null) {
                 try {
                     StreamUtil.writeCommand(fanConnect.getOutputStream(), Const.FAN_OFF);
-                    dataViewModel.getFans().postValue(false);
+                    dataViewModel.getFanIsOpen().postValue(false);
                     Log.d("abc", "doInBackground: fan off");
                 } catch (IOException e) {
                     e.printStackTrace();
