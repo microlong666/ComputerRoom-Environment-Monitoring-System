@@ -10,9 +10,11 @@ public class Const {
     public static final String BLUE_CMD = "01 10 00 5a 00 02 04 00 00 00 01 b7 2c";
 
     // 联动设置
-    public static Double maxTem = 33.6d;
+    public static Double maxTem = 30d;
     public static Double maxHum = 60d;
+    public static Integer maxPm25 = 5;
     public static Boolean linkage = true;
+    public static Boolean alarm = true;
 
     // 温湿度
     public static String TEMHUM_CHK = "01 03 00 14 00 02 84 0f";
@@ -55,6 +57,6 @@ public class Const {
     public static Integer time = 500;
 
     // 设置项
-    public  static String[] setting = {"tempHumSensorIP", "tempHumSensorPort", "PM25SensorIP", "PM25SensorPort", "bodySensorIP", "bodySensorPort", "fanIP", "fanPort", "buzzerIP", "buzzerPort"};
+    public static String[] setting = {"tempHumSensorIP", "tempHumSensorPort", "PM25SensorIP", "PM25SensorPort", "bodySensorIP", "bodySensorPort", "fanIP", "fanPort", "buzzerIP", "buzzerPort", "collectionCycleTime"};
 
 }

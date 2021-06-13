@@ -8,6 +8,7 @@ import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.example.chainplus.connect.BodyConnect;
@@ -313,17 +314,12 @@ public class MainActivity extends AppCompatActivity {
         setSettingData("fanPort", dataViewModel.getFanPort().getValue());
         setSettingData("buzzerIP", dataViewModel.getBuzzerIP().getValue());
         setSettingData("buzzerPort", dataViewModel.getBuzzerPort().getValue());
+        setSettingData("collectionCycleTime", dataViewModel.getCollectionCycleTime().getValue());
 
+        // 收起键盘
+        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         Toast.makeText(this, "设置保存成功", Toast.LENGTH_SHORT).show();
-
-        // 返回
-        if (fragmentManager == null) {
-            fragmentManager = getSupportFragmentManager();
-        }
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        MineFragment fragment = new MineFragment();
-        fragmentTransaction.replace(R.id.fragmentContainerView, fragment);
-        fragmentTransaction.commit();
     }
 
     public Resources getColor() {
