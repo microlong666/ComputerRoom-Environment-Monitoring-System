@@ -2,21 +2,20 @@ package com.example.chainplus.fragment;
 
 import android.os.Build;
 import android.os.Bundle;
+
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.chainplus.R;
-import com.example.chainplus.databinding.FragmentConnectSettingBinding;
+import com.example.chainplus.databinding.FragmentLinkageSettingBinding;
 import com.example.chainplus.viewModel.DataViewModel;
 
-import androidx.annotation.RequiresApi;
-import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-
-
-public class ConnectSettingFragment extends Fragment {
+public class LinkageSettingFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -29,10 +28,10 @@ public class ConnectSettingFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        FragmentConnectSettingBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_connect_setting, container, false);
+        FragmentLinkageSettingBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_linkage_setting, container, false);
         DataViewModel data = new ViewModelProvider(getActivity(), new ViewModelProvider.AndroidViewModelFactory(getActivity().getApplication())).get(DataViewModel.class);
         binding.setSetting(data);
         binding.setLifecycleOwner(this);
-        return binding.getRoot();
+        return inflater.inflate(R.layout.fragment_linkage_setting, container, false);
     }
 }

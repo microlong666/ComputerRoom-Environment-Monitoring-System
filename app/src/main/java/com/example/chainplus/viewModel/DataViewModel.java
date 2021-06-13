@@ -36,9 +36,14 @@ public class DataViewModel extends ViewModel {
     private MutableLiveData<String> fanPort;
     private MutableLiveData<String> buzzerIP;
     private MutableLiveData<String> buzzerPort;
-
-    // others
     private MutableLiveData<String> collectionCycleTime;
+
+    // 联动设置
+    private MutableLiveData<Boolean> isLinkage;
+    private MutableLiveData<String> temperatureThreshold;
+    private MutableLiveData<String> humidityThreshold;
+    private MutableLiveData<String> pm25Threshold;
+    private MutableLiveData<Boolean> isOpenAlert;
 
     /**
      * 初始化数据
@@ -68,8 +73,13 @@ public class DataViewModel extends ViewModel {
         fanPort = new MutableLiveData<>(String.valueOf(Const.FAN_PORT));
         buzzerIP = new MutableLiveData<>(Const.RGB_BUZZER_IP);
         buzzerPort = new MutableLiveData<>(String.valueOf(Const.RGB_BUZZER_PORT));
-
         collectionCycleTime = new MutableLiveData<>(String.valueOf(Const.time));
+
+        isLinkage = new MutableLiveData<>(true);
+        temperatureThreshold = new MutableLiveData<>("60");
+        humidityThreshold = new MutableLiveData<>("60");
+        pm25Threshold = new MutableLiveData<>("220");
+        isOpenAlert = new MutableLiveData<>(true);
     }
 
     public MutableLiveData<Double> getTemperature() {
@@ -254,5 +264,45 @@ public class DataViewModel extends ViewModel {
 
     public void setCollectionCycleTime(MutableLiveData<String> collectionCycleTime) {
         this.collectionCycleTime = collectionCycleTime;
+    }
+
+    public MutableLiveData<Boolean> getIsLinkage() {
+        return isLinkage;
+    }
+
+    public void setIsLinkage(MutableLiveData<Boolean> isLinkage) {
+        this.isLinkage = isLinkage;
+    }
+
+    public MutableLiveData<String> getTemperatureThreshold() {
+        return temperatureThreshold;
+    }
+
+    public void setTemperatureThreshold(MutableLiveData<String> temperatureThreshold) {
+        this.temperatureThreshold = temperatureThreshold;
+    }
+
+    public MutableLiveData<String> getHumidityThreshold() {
+        return humidityThreshold;
+    }
+
+    public void setHumidityThreshold(MutableLiveData<String> humidityThreshold) {
+        this.humidityThreshold = humidityThreshold;
+    }
+
+    public MutableLiveData<String> getPm25Threshold() {
+        return pm25Threshold;
+    }
+
+    public void setPm25Threshold(MutableLiveData<String> pm25Threshold) {
+        this.pm25Threshold = pm25Threshold;
+    }
+
+    public MutableLiveData<Boolean> getIsOpenAlert() {
+        return isOpenAlert;
+    }
+
+    public void setIsOpenAlert(MutableLiveData<Boolean> isOpenAlert) {
+        this.isOpenAlert = isOpenAlert;
     }
 }

@@ -3,7 +3,6 @@ package com.example.chainplus;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,6 +17,7 @@ import com.example.chainplus.connect.TempHumConnect;
 import com.example.chainplus.databinding.ActivityMainBinding;
 import com.example.chainplus.fragment.ConnectSettingFragment;
 import com.example.chainplus.fragment.DataFragment;
+import com.example.chainplus.fragment.LinkageSettingFragment;
 import com.example.chainplus.fragment.MineFragment;
 import com.example.chainplus.util.Const;
 import com.example.chainplus.viewModel.DataViewModel;
@@ -268,11 +268,9 @@ public class MainActivity extends AppCompatActivity {
         }
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         if ("index".equals(fragment)) {
-            DataFragment dataFragment = new DataFragment();
-            fragmentTransaction.replace(R.id.fragmentContainerView, dataFragment).commit();
+            fragmentTransaction.replace(R.id.fragmentContainerView, new DataFragment()).commit();
         } else if ("mine".equals(fragment)) {
-            MineFragment mineFragment = new MineFragment();
-            fragmentTransaction.replace(R.id.fragmentContainerView, mineFragment).commit();
+            fragmentTransaction.replace(R.id.fragmentContainerView, new MineFragment()).commit();
         }
     }
 
@@ -284,9 +282,18 @@ public class MainActivity extends AppCompatActivity {
         if (fragmentManager == null) {
             fragmentManager = getSupportFragmentManager();
         }
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        ConnectSettingFragment fragment = new ConnectSettingFragment();
-        fragmentTransaction.replace(R.id.fragmentContainerView, fragment).addToBackStack(null).commit();
+        fragmentManager.beginTransaction().replace(R.id.fragmentContainerView, new ConnectSettingFragment()).addToBackStack(null).commit();
+    }
+
+    /**
+     * 跳转到联动设置界面
+     * @param view
+     */
+    public void toLinkageSetting(View view) {
+        if (fragmentManager == null) {
+            fragmentManager = getSupportFragmentManager();
+        }
+        fragmentManager.beginTransaction().replace(R.id.fragmentContainerView, new LinkageSettingFragment()).addToBackStack(null).commit();
     }
 
     /**
@@ -297,9 +304,7 @@ public class MainActivity extends AppCompatActivity {
         if (fragmentManager == null) {
             fragmentManager = getSupportFragmentManager();
         }
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        MineFragment fragment = new MineFragment();
-        fragmentTransaction.replace(R.id.fragmentContainerView, fragment).commit();
+        fragmentManager.beginTransaction().replace(R.id.fragmentContainerView, new MineFragment()).commit();
     }
 
     public void setConnect(View view) {
@@ -322,8 +327,18 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(this, "设置保存成功", Toast.LENGTH_SHORT).show();
     }
 
-    public Resources getColor() {
-        return getResources();
+    public void setLinkage(View view) {
+        // 保存设置
+        setSettingData("isLinkage", String.valueOf(dataViewModel.getIsLinkage().getValue()));
+        setSettingData("temperatureThreshold", dataViewModel.getTemperatureThreshold().getValue());
+        setSettingData("humidityThreshold", dataViewModel.getHumidityThreshold().getValue());
+        setSettingData("pm25Threshold", dataViewModel.getPm25Threshold().getValue());
+        setSettingData("isOpenAlert", String.valueOf(dataViewModel.getIsOpenAlert().getValue()));
+
+        // 收起键盘
+        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        Toast.makeText(this, "设置保存成功", Toast.LENGTH_SHORT).show();
     }
 
 }
