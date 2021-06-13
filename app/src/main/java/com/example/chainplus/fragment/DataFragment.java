@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.chainplus.R;
+import com.example.chainplus.databinding.FragmentDataBinding;
 import com.example.chainplus.viewModel.DataViewModel;
 
 import androidx.appcompat.widget.AppCompatImageView;
@@ -28,7 +29,7 @@ public class DataFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        com.example.chainplus.databinding.FragmentDataBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_data, container, false);
+        FragmentDataBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_data, container, false);
         DataViewModel data = new ViewModelProvider(getActivity(), new ViewModelProvider.AndroidViewModelFactory(getActivity().getApplication())).get(DataViewModel.class);
         binding.setData(data);
         binding.setLifecycleOwner(this);

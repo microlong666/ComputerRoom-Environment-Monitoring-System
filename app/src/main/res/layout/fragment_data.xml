@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <import type="com.example.chainplus.util.ColorUtil" />
         <import type="com.example.chainplus.util.StringUtil" />
         <import type="com.example.chainplus.util.ShapeUtil" />
         <variable
@@ -86,7 +87,8 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/colorAccent">
+                tools:background="@color/healthy"
+                android:background="@{ColorUtil.getColorFromHealth(data.health)}">
 
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guideline13"

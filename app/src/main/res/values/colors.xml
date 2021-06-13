@@ -10,4 +10,7 @@
     <color name="background">#F8F8F8</color>
     <color name="colorAccent">#34C759</color>
     <color name="unConnect">#aaaaaa</color>
+    <color name="healthy">#34C759</color>
+    <color name="notBad">#FF9500</color>
+    <color name="serious">#FF3B30</color>
 </resources>

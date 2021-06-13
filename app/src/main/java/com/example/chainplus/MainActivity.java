@@ -3,10 +3,10 @@ package com.example.chainplus;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -23,7 +23,6 @@ import com.example.chainplus.viewModel.DataViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -79,7 +78,8 @@ public class MainActivity extends AppCompatActivity {
         fanConnect.start();
 
         // 开启定时任务
-        startTimer();
+        startFastTimer();
+        startSlowTimer();
 
         // 设置点击事件
         BottomNavigationView bar = findViewById(R.id.bottomNavigation);
@@ -184,9 +184,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * 定时任务
+     * 定时任务(高速)
      */
-    private void startTimer() {
+    private void startFastTimer() {
         // 判定是否全部连接，如果是那么一键全部连接消失
         new Timer().schedule(new TimerTask() {
             @Override
@@ -201,6 +201,19 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }, 0, 50);
+    }
+
+    /**
+     * 定时任务(低速)
+     */
+    private void startSlowTimer() {
+        // 判定是否全部连接，如果是那么一键全部连接消失
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                dataViewModel.getHealth().postValue((int)(Math.random()*100));
+            }
+        }, 2000, 500);
     }
 
     /**
@@ -311,6 +324,10 @@ public class MainActivity extends AppCompatActivity {
         MineFragment fragment = new MineFragment();
         fragmentTransaction.replace(R.id.fragmentContainerView, fragment);
         fragmentTransaction.commit();
+    }
+
+    public Resources getColor() {
+        return getResources();
     }
 
 }
