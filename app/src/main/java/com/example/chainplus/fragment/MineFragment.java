@@ -1,6 +1,9 @@
 package com.example.chainplus.fragment;
 
+import android.content.ComponentName;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,6 +15,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.chainplus.AboutActivity;
 import com.example.chainplus.R;
 import com.example.chainplus.databinding.FragmentMineBinding;
 import com.example.chainplus.viewModel.DataViewModel;
@@ -102,10 +106,13 @@ public class MineFragment extends Fragment {
             if (position == 0){
                 Toast.makeText(getContext(), "已经是最新版本", Toast.LENGTH_SHORT).show();
             } else if (position == 1) {
-                // todo: 帮助和反馈
+                Uri uri = Uri.parse("https://github.com");
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                getActivity().startActivity(intent);
             } else if (position == 2) {
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                fragmentManager.beginTransaction().setCustomAnimations(R.anim.from_right, R.anim.out_left).replace(R.id.fragmentContainerView, new AboutFragment()).addToBackStack(null).commit();
+                Intent intent = new Intent();
+                intent.setComponent(new ComponentName(getActivity(), AboutActivity.class));
+                startActivity(intent);
             }
         });
 

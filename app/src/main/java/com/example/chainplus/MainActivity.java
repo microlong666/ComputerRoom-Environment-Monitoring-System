@@ -15,7 +15,6 @@ import com.example.chainplus.connect.BodyConnect;
 import com.example.chainplus.connect.FanConnect;
 import com.example.chainplus.connect.Pm25Connect;
 import com.example.chainplus.connect.TempHumConnect;
-import com.example.chainplus.fragment.AboutFragment;
 import com.example.chainplus.fragment.ConnectSettingFragment;
 import com.example.chainplus.fragment.DataFragment;
 import com.example.chainplus.fragment.LinkageSettingFragment;
@@ -301,16 +300,6 @@ public class MainActivity extends AppCompatActivity {
             fragmentManager = getSupportFragmentManager();
         }
         fragmentManager.beginTransaction().setCustomAnimations(R.anim.from_right, R.anim.out_left).replace(R.id.fragmentContainerView, new LinkageSettingFragment()).addToBackStack(null).commit();
-    }
-
-    /**
-     * 跳转到关于界面
-     */
-    public void toAbout(View view) {
-        if (fragmentManager == null) {
-            fragmentManager = getSupportFragmentManager();
-        }
-        fragmentManager.beginTransaction().setCustomAnimations(R.anim.from_right, R.anim.out_left).replace(R.id.fragmentContainerView, new AboutFragment()).addToBackStack(null).commit();
     }
 
     /**
