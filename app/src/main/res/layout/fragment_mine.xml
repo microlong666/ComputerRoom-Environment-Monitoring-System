@@ -107,6 +107,39 @@
 
         </androidx.cardview.widget.CardView>
 
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView7"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            app:cardCornerRadius="9dp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline12"
+            app:layout_constraintStart_toStartOf="@+id/guideline11"
+            app:layout_constraintTop_toBottomOf="@+id/cardView">
+
+            <ListView
+                android:id="@+id/settingMenu"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            app:cardCornerRadius="9dp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline12"
+            app:layout_constraintStart_toStartOf="@+id/guideline11"
+            app:layout_constraintTop_toBottomOf="@+id/cardView7" >
+
+            <ListView
+                android:id="@+id/otherMenu"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </androidx.cardview.widget.CardView>
+
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline11"
             android:layout_width="wrap_content"
@@ -121,34 +154,5 @@
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.95" />
 
-        <Button
-            android:id="@+id/toConnectSetting"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:onClick="toConnectSetting"
-            android:text="连接设置"
-            app:layout_constraintStart_toStartOf="@+id/guideline11"
-            app:layout_constraintTop_toBottomOf="@+id/cardView" />
-
-        <Button
-            android:id="@+id/toLinkageSetting"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:onClick="toLinkageSetting"
-            android:text="联动设置"
-            app:layout_constraintStart_toStartOf="@+id/toConnectSetting"
-            app:layout_constraintTop_toBottomOf="@+id/toConnectSetting" />
-
-        <Button
-            android:id="@+id/toAbout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:onClick="toAbout"
-            android:text="关于"
-            app:layout_constraintStart_toStartOf="@+id/toLinkageSetting"
-            app:layout_constraintTop_toBottomOf="@+id/toLinkageSetting" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
