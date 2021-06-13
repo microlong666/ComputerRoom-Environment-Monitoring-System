@@ -118,18 +118,23 @@ public class MainActivity extends AppCompatActivity {
                     .create()
                     .show();
         }
-        tempHumConnect.exit = true;
-        fanConnect.exit = true;
-        pm25Connect.exit = true;
-        bodyConnect.exit = true;
-        tempHumConnect = new TempHumConnect(this, dataViewModel);
-        tempHumConnect.start();
-        fanConnect = new FanConnect(this, dataViewModel);
-        fanConnect.start();
-        pm25Connect = new Pm25Connect(this, dataViewModel);
-        pm25Connect.start();
-        bodyConnect = new BodyConnect(this, dataViewModel);
-        bodyConnect.start();
+
+        if (!dataViewModel.getTempHumIsConnect().getValue()) {
+            tempHumConnect = new TempHumConnect(this, dataViewModel);
+            tempHumConnect.start();
+        }
+        if (!dataViewModel.getFanIsConnect().getValue()) {
+            fanConnect = new FanConnect(this, dataViewModel);
+            fanConnect.start();
+        }
+        if (!dataViewModel.getPm25IsConnect().getValue()) {
+            pm25Connect = new Pm25Connect(this, dataViewModel);
+            pm25Connect.start();
+        }
+        if (!dataViewModel.getBodyIsConnect().getValue()) {
+            bodyConnect = new BodyConnect(this, dataViewModel);
+            bodyConnect.start();
+        }
     }
 
     /**
@@ -224,7 +229,7 @@ public class MainActivity extends AppCompatActivity {
      * 使用SharedPreference数据替换ViewModel的数据
      */
     private void useLocalSetting() {
-        String setting[] = {"tempHumSensorIP", "tempHumSensorPort", "PM25SensorIP", "PM25SensorPort", "bodySensorIP", "bodySensorPort", "fanIP", "fanPort", "buzzerIP", "buzzerPort"};
+        String[] setting = Const.setting;
         for (int i = 0; i < setting.length; i++) {
             if (!"".equals(getSettingData(setting[i]))) {
                 try {

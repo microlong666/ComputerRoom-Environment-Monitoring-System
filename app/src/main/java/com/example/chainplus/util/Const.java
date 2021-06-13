@@ -54,4 +54,7 @@ public class Const {
     // 配置
     public static Integer time = 500;
 
+    // 设置项
+    public  static String[] setting = {"tempHumSensorIP", "tempHumSensorPort", "PM25SensorIP", "PM25SensorPort", "bodySensorIP", "bodySensorPort", "fanIP", "fanPort", "buzzerIP", "buzzerPort"};
+
 }
