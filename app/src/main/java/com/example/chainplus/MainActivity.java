@@ -275,31 +275,12 @@ public class MainActivity extends AppCompatActivity {
             fragmentManager = getSupportFragmentManager();
         }
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentManager.popBackStack();
         if ("index".equals(fragment)) {
             fragmentTransaction.replace(R.id.fragmentContainerView, new DataFragment()).commit();
         } else if ("mine".equals(fragment)) {
             fragmentTransaction.replace(R.id.fragmentContainerView, new MineFragment()).commit();
         }
-    }
-
-    /**
-     * 跳转到连接设置界面
-     */
-    public void toConnectSetting(View view) {
-        if (fragmentManager == null) {
-            fragmentManager = getSupportFragmentManager();
-        }
-        fragmentManager.beginTransaction().setCustomAnimations(R.anim.from_right, R.anim.out_left).replace(R.id.fragmentContainerView, new ConnectSettingFragment()).addToBackStack(null).commit();
-    }
-
-    /**
-     * 跳转到联动设置界面
-     */
-    public void toLinkageSetting(View view) {
-        if (fragmentManager == null) {
-            fragmentManager = getSupportFragmentManager();
-        }
-        fragmentManager.beginTransaction().setCustomAnimations(R.anim.from_right, R.anim.out_left).replace(R.id.fragmentContainerView, new LinkageSettingFragment()).addToBackStack(null).commit();
     }
 
     /**
@@ -309,7 +290,7 @@ public class MainActivity extends AppCompatActivity {
         if (fragmentManager == null) {
             fragmentManager = getSupportFragmentManager();
         }
-        fragmentManager.beginTransaction().setCustomAnimations(R.anim.from_left, R.anim.out_right).replace(R.id.fragmentContainerView, new MineFragment()).commit();
+        fragmentManager.popBackStack();
     }
 
     public void setConnect(View view) {

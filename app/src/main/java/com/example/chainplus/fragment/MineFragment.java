@@ -73,10 +73,10 @@ public class MineFragment extends Fragment {
         listView.setOnItemClickListener((parent, view, position, id) -> {
             if (position == 0){
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                fragmentManager.beginTransaction().setCustomAnimations(R.anim.from_right, R.anim.out_left).replace(R.id.fragmentContainerView, new ConnectSettingFragment()).addToBackStack(null).commit();
+                fragmentManager.beginTransaction().setCustomAnimations(R.anim.from_right, R.anim.out_left, R.anim.from_left, R.anim.out_right).replace(R.id.fragmentContainerView, new ConnectSettingFragment()).addToBackStack(null).commit();
             } else if (position == 1) {
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                fragmentManager.beginTransaction().setCustomAnimations(R.anim.from_right, R.anim.out_left).replace(R.id.fragmentContainerView, new LinkageSettingFragment()).addToBackStack(null).commit();
+                fragmentManager.beginTransaction().setCustomAnimations(R.anim.from_right, R.anim.out_left, R.anim.from_left, R.anim.out_right).replace(R.id.fragmentContainerView, new LinkageSettingFragment()).addToBackStack(null).commit();
             }
         });
 
