@@ -255,12 +255,10 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         if ("index".equals(fragment)) {
             DataFragment dataFragment = new DataFragment();
-            fragmentTransaction.replace(R.id.fragmentContainerView, dataFragment);
-            fragmentTransaction.commit();
+            fragmentTransaction.replace(R.id.fragmentContainerView, dataFragment).commit();
         } else if ("mine".equals(fragment)) {
             MineFragment mineFragment = new MineFragment();
-            fragmentTransaction.replace(R.id.fragmentContainerView, mineFragment);
-            fragmentTransaction.commit();
+            fragmentTransaction.replace(R.id.fragmentContainerView, mineFragment).commit();
         }
     }
 
@@ -274,8 +272,7 @@ public class MainActivity extends AppCompatActivity {
         }
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         ConnectSettingFragment fragment = new ConnectSettingFragment();
-        fragmentTransaction.replace(R.id.fragmentContainerView, fragment);
-        fragmentTransaction.commit();
+        fragmentTransaction.replace(R.id.fragmentContainerView, fragment).addToBackStack(null).commit();
     }
 
     /**
@@ -288,8 +285,7 @@ public class MainActivity extends AppCompatActivity {
         }
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         MineFragment fragment = new MineFragment();
-        fragmentTransaction.replace(R.id.fragmentContainerView, fragment);
-        fragmentTransaction.commit();
+        fragmentTransaction.replace(R.id.fragmentContainerView, fragment).commit();
     }
 
     public void setConnect(View view) {

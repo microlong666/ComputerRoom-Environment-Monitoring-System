@@ -37,6 +37,9 @@ public class DataViewModel extends ViewModel {
     private MutableLiveData<String> buzzerIP;
     private MutableLiveData<String> buzzerPort;
 
+    // others
+    private MutableLiveData<String> collectionCycleTime;
+
     /**
      * 初始化数据
      */
@@ -66,6 +69,7 @@ public class DataViewModel extends ViewModel {
         buzzerIP = new MutableLiveData<>(Const.RGB_BUZZER_IP);
         buzzerPort = new MutableLiveData<>(String.valueOf(Const.RGB_BUZZER_PORT));
 
+        collectionCycleTime = new MutableLiveData<>(String.valueOf(Const.time));
     }
 
     public MutableLiveData<Double> getTemperature() {
@@ -242,5 +246,13 @@ public class DataViewModel extends ViewModel {
 
     public void setBuzzerPort(MutableLiveData<String> buzzerPort) {
         this.buzzerPort = buzzerPort;
+    }
+
+    public MutableLiveData<String> getCollectionCycleTime() {
+        return collectionCycleTime;
+    }
+
+    public void setCollectionCycleTime(MutableLiveData<String> collectionCycleTime) {
+        this.collectionCycleTime = collectionCycleTime;
     }
 }
