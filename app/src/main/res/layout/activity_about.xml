@@ -15,7 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="60dp"
             android:clickable="true"
             android:focusable="true"
             android:onClick="back"
@@ -39,6 +39,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:text="All Rights Reserved."
+            android:layout_marginBottom="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -46,8 +47,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginBottom="150dp"
+            android:layout_marginStart="48dp"
+            android:layout_marginBottom="188dp"
             android:padding="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent">
@@ -58,7 +59,7 @@
                 android:layout_height="wrap_content"
                 android:text="链+"
                 android:textColor="#000000"
-                android:textSize="50sp"
+                android:textSize="48sp"
                 tools:ignore="MissingConstraints" />
 
             <TextView
@@ -66,7 +67,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Version 1.0"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 app:layout_constraintTop_toBottomOf="@+id/textView29"
                 tools:ignore="MissingConstraints" />
 
@@ -75,8 +76,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
-                android:text="UI: 刘澳秋"
-                android:textSize="20sp"
+                android:text="设计: 刘澳秋"
+                android:textSize="16sp"
                 app:layout_constraintTop_toBottomOf="@+id/textView27"
                 tools:ignore="MissingConstraints" />
 
@@ -86,7 +87,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
                 android:text="前端: 林昊彦"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 app:layout_constraintTop_toBottomOf="@+id/textView28"
                 tools:ignore="MissingConstraints" />
 
@@ -96,7 +97,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
                 android:text="后端: 张伟龙 冯文奥 庄小业"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 app:layout_constraintTop_toBottomOf="@+id/textView23"
                 tools:ignore="MissingConstraints" />
 
@@ -106,7 +107,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
                 android:text="测试: 李建文"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 app:layout_constraintTop_toBottomOf="@+id/textView24"
                 tools:ignore="MissingConstraints" />
 
@@ -117,7 +118,6 @@
             android:layout_width="wrap_content"
             android:layout_height="650dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_about_bg" />

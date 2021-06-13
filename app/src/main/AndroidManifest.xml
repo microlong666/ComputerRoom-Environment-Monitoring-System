@@ -17,7 +17,8 @@
         android:theme="@style/Theme.ChainPlus">
         <activity
             android:name=".AboutActivity"
-            android:theme="@style/Theme.ChainPlus" />
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait"
