@@ -18,7 +18,7 @@ public class AboutFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            getActivity().getWindow().setStatusBarColor(getActivity().getColor(R.color.background));
+            getActivity().getWindow().setStatusBarColor(getActivity().getColor(R.color.white));
         }
     }
 
