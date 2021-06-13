@@ -15,7 +15,6 @@ import com.example.chainplus.connect.BodyConnect;
 import com.example.chainplus.connect.FanConnect;
 import com.example.chainplus.connect.Pm25Connect;
 import com.example.chainplus.connect.TempHumConnect;
-import com.example.chainplus.databinding.ActivityMainBinding;
 import com.example.chainplus.fragment.AboutFragment;
 import com.example.chainplus.fragment.ConnectSettingFragment;
 import com.example.chainplus.fragment.DataFragment;
@@ -38,7 +37,6 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 
 public class MainActivity extends AppCompatActivity {
-    private ActivityMainBinding binding;
     private SharedPreferences sharedPreferences;
     private FragmentManager fragmentManager;
     private DataViewModel dataViewModel;
@@ -65,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         useLocalSetting();
 
         // 创建视图
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        DataBindingUtil.setContentView(this, R.layout.activity_main);
 
         // 创建对话框构造器
         dialogBuilder = new AlertDialog.Builder(this);
@@ -254,12 +252,12 @@ public class MainActivity extends AppCompatActivity {
      */
     private void useLocalSetting() {
         String[] setting = Const.setting;
-        for (int i = 0; i < setting.length; i++) {
-            if (!"".equals(getSettingData(setting[i]))) {
+        for (String s : setting) {
+            if (!"".equals(getSettingData(s))) {
                 try {
-                    Field f = DataViewModel.class.getDeclaredField(setting[i]);
+                    Field f = DataViewModel.class.getDeclaredField(s);
                     f.setAccessible(true);
-                    MutableLiveData<String> data = new MutableLiveData<>(getSettingData(setting[i]));
+                    MutableLiveData<String> data = new MutableLiveData<>(getSettingData(s));
                     f.set(dataViewModel, data);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -270,7 +268,6 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * 切换fragment
-     * @param fragment
      */
     private void switchToFragment(String fragment) {
         if (fragmentManager == null) {
@@ -286,7 +283,6 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * 跳转到连接设置界面
-     * @param view
      */
     public void toConnectSetting(View view) {
         if (fragmentManager == null) {
@@ -297,7 +293,6 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * 跳转到联动设置界面
-     * @param view
      */
     public void toLinkageSetting(View view) {
         if (fragmentManager == null) {
@@ -308,7 +303,6 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * 跳转到关于界面
-     * @param view
      */
     public void toAbout(View view) {
         if (fragmentManager == null) {
@@ -319,7 +313,6 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * 返回“我的”界面
-     * @param view
      */
     public void backToMind(View view) {
         if (fragmentManager == null) {

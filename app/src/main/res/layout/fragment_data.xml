@@ -548,6 +548,7 @@
             android:background="@drawable/btn_shape"
             android:onClick="oneClickConnect"
             android:text="连接"
+            android:textSize="16sp"
             android:theme="@style/ButtonStyle"
             android:visibility="@{StringUtil.getConnectVisible(data.connectVisibility)}"
             app:layout_constraintBottom_toBottomOf="parent"
