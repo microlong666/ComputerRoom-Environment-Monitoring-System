@@ -73,135 +73,29 @@
             app:layout_constraintGuide_percent="0.78" />
 
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="40dp"
-            app:cardCornerRadius="9dp"
-            app:layout_constraintBottom_toTopOf="@+id/guideline5"
-            app:layout_constraintEnd_toStartOf="@+id/guideline4"
-            app:layout_constraintStart_toStartOf="@+id/guideline1"
-            app:layout_constraintTop_toBottomOf="@+id/titleBottom">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:background="@color/healthy"
-                android:background="@{ColorUtil.getColorFromHealth(data.health)}">
-
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/guideline13"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    app:layout_constraintGuide_percent="0.85" />
-
-                <ImageView
-                    android:id="@+id/imageView4"
-                    android:layout_width="181dp"
-                    android:layout_height="181dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/circular_progress"
-                    app:layout_constraintEnd_toEndOf="@+id/circular_progress"
-                    app:layout_constraintStart_toStartOf="@+id/circular_progress"
-                    app:layout_constraintTop_toTopOf="@+id/circular_progress"
-                    app:srcCompat="@drawable/ic_white_oval" />
-
-                <View
-                    android:id="@+id/view"
-                    android:layout_width="0dp"
-                    android:layout_height="0.5dp"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginEnd="24dp"
-                    android:background="#B3FFFFFF"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/guideline13" />
-
-                <ImageView
-                    android:id="@+id/imageView3"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageView4"
-                    app:layout_constraintEnd_toEndOf="@+id/imageView4"
-                    app:layout_constraintStart_toStartOf="@+id/imageView4"
-                    app:layout_constraintTop_toTopOf="@+id/imageView4"
-                    app:layout_constraintVertical_bias="0.32"
-                    app:srcCompat="@drawable/ic_leaf"
-                    tools:tint="@color/healthy" />
-
-                <TextView
-                    android:id="@+id/textView32"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:fontFamily="sans-serif-medium"
-                    android:text="@{String.valueOf(data.health) + `%`}"
-                    android:textColor="@{ColorUtil.getColorFromHealth(data.health)}"
-                    android:textSize="24sp"
-                    app:layout_constraintEnd_toEndOf="@+id/imageView3"
-                    app:layout_constraintStart_toStartOf="@+id/imageView3"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView3"
-                    tools:text="85%"
-                    tools:textColor="@color/healthy" />
-
-                <com.mikhaellopez.circularprogressbar.CircularProgressBar
-                    android:id="@+id/circular_progress"
-                    android:layout_width="200dp"
-                    android:layout_height="200dp"
-                    android:layout_marginTop="24dp"
-                    app:cpb_background_progressbar_color="#55FFFFFF"
-                    app:cpb_background_progressbar_width="10dp"
-                    app:cpb_progress="0"
-                    app:cpb_progress_direction="to_left"
-                    app:cpb_progressbar_color="#A6FFFFFF"
-                    app:cpb_progressbar_width="10dp"
-                    app:cpb_round_border="true"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/textView30"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="环境指数"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
-                    app:layout_constraintBottom_toTopOf="@+id/guideline13"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/circular_progress" />
-
-                <TextView
-                    android:id="@+id/textView31"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@{StringUtil.getTipFromHealth(data.health)}"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/guideline13"
-                    tools:text="环境有些问题，还要保持健康哦~" />
-
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </androidx.cardview.widget.CardView>
-
         <TextView
             android:id="@+id/titleBottom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="2dp"
             android:text="@{StringUtil.getHasHumanString(data.hasHuman, data.bodyIsConnect)}"
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:textColor="#333"
             app:layout_constraintStart_toStartOf="@+id/guideline1"
             app:layout_constraintTop_toBottomOf="@+id/titleTop"
             tools:text="人已离开计算间" />
+
+        <TextView
+            android:id="@+id/titleTop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="计算间环境"
+            android:textColor="#333"
+            android:textSize="28sp"
+            app:layout_constraintStart_toStartOf="@+id/guideline1"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="计算间环境" />
 
 
         <androidx.cardview.widget.CardView
@@ -210,7 +104,7 @@
             android:layout_height="0dp"
             android:clickable="true"
             android:foreground="?android:attr/selectableItemBackgroundBorderless"
-            app:cardCornerRadius="9dp"
+            app:cardCornerRadius="12dp"
             android:onClick="switchTempHumConnect"
             app:layout_constraintBottom_toTopOf="@+id/guideline6"
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
@@ -288,7 +182,7 @@
             android:id="@+id/humidity"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:cardCornerRadius="9dp"
+            app:cardCornerRadius="12dp"
             android:clickable="true"
             android:onClick="switchTempHumConnect"
             android:foreground="?android:attr/selectableItemBackgroundBorderless"
@@ -368,7 +262,7 @@
             android:id="@+id/PM25"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:cardCornerRadius="9dp"
+            app:cardCornerRadius="12dp"
             android:clickable="true"
             android:onClick="switchPm25Connect"
             android:foreground="?android:attr/selectableItemBackgroundBorderless"
@@ -413,7 +307,7 @@
                     android:id="@+id/appCompatImageView7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="25dp"
+                    android:layout_marginStart="20dp"
                     android:src="@{ShapeUtil.getConnectShape(data.pm25IsConnect)}"
                     app:layout_constraintBottom_toBottomOf="@+id/textView10"
                     app:layout_constraintStart_toEndOf="@+id/textView10"
@@ -455,7 +349,7 @@
             android:focusable="true"
             android:foreground="?android:attr/selectableItemBackgroundBorderless"
             android:onClick="switchFans"
-            app:cardCornerRadius="9dp"
+            app:cardCornerRadius="12dp"
             app:layout_constraintBottom_toTopOf="@+id/guideline8"
             app:layout_constraintEnd_toStartOf="@+id/guideline4"
             app:layout_constraintStart_toStartOf="@+id/guideline3"
@@ -506,7 +400,7 @@
                     android:id="@+id/appCompatImageView5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="30dp"
+                    android:layout_marginStart="25dp"
                     android:src="@{ShapeUtil.getConnectShape(data.fanIsConnect)}"
                     app:layout_constraintBottom_toBottomOf="@+id/textView7"
                     app:layout_constraintStart_toEndOf="@+id/textView7"
@@ -528,17 +422,123 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 
-        <TextView
-            android:id="@+id/titleTop"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="计算间环境"
-            android:textSize="32sp"
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="11dp"
+            android:layout_marginBottom="38dp"
+            app:cardCornerRadius="12dp"
+            app:layout_constraintBottom_toTopOf="@+id/guideline5"
+            app:layout_constraintEnd_toStartOf="@+id/guideline4"
             app:layout_constraintStart_toStartOf="@+id/guideline1"
-            app:layout_constraintTop_toTopOf="parent"
-            android:textColor="#333"
-            tools:text="计算间环境" />
+            app:layout_constraintTop_toBottomOf="@+id/titleBottom">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:background="@color/healthy"
+                android:background="@{ColorUtil.getColorFromHealth(data.health)}">
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.85" />
+
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="181dp"
+                    android:layout_height="181dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/circular_progress"
+                    app:layout_constraintEnd_toEndOf="@+id/circular_progress"
+                    app:layout_constraintStart_toStartOf="@+id/circular_progress"
+                    app:layout_constraintTop_toTopOf="@+id/circular_progress"
+                    app:srcCompat="@drawable/ic_white_oval" />
+
+                <View
+                    android:id="@+id/view"
+                    android:layout_width="0dp"
+                    android:layout_height="0.5dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginEnd="24dp"
+                    android:background="#B3FFFFFF"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/guideline13" />
+
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+                    app:layout_constraintEnd_toEndOf="@+id/imageView4"
+                    app:layout_constraintStart_toStartOf="@+id/imageView4"
+                    app:layout_constraintTop_toTopOf="@+id/imageView4"
+                    app:layout_constraintVertical_bias="0.32"
+                    app:srcCompat="@drawable/ic_leaf"
+                    tools:tint="@color/healthy" />
+
+                <TextView
+                    android:id="@+id/textView32"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@{String.valueOf(data.health) + `%`}"
+                    android:textColor="@{ColorUtil.getColorFromHealth(data.health)}"
+                    android:textSize="24sp"
+                    app:layout_constraintEnd_toEndOf="@+id/imageView3"
+                    app:layout_constraintStart_toStartOf="@+id/imageView3"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView3"
+                    tools:text="85%"
+                    tools:textColor="@color/healthy" />
+
+                <com.mikhaellopez.circularprogressbar.CircularProgressBar
+                    android:id="@+id/circular_progress"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="34dp"
+                    app:cpb_background_progressbar_color="#55FFFFFF"
+                    app:cpb_background_progressbar_width="10dp"
+                    app:cpb_progress="0"
+                    app:cpb_progress_direction="to_left"
+                    app:cpb_progressbar_color="#A6FFFFFF"
+                    app:cpb_progressbar_width="10dp"
+                    app:cpb_round_border="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView30"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="环境指数"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toTopOf="@+id/guideline13"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/circular_progress" />
+
+                <TextView
+                    android:id="@+id/textView31"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{StringUtil.getTipFromHealth(data.health)}"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/guideline13"
+                    tools:text="环境有些问题，还要保持健康哦~" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
 
         <Button
             android:id="@+id/connect"
