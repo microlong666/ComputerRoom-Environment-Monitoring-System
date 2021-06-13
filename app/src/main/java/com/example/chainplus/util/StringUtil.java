@@ -96,4 +96,16 @@ public class StringUtil {
     public static boolean getChecked(String data) {
         return "true".equals(data);
     }
+
+    public static String getTipFromHealth(Integer health) {
+        if (health > 50) {
+            return "环境不错，继续保持哦~";
+        } else if (health > 20) {
+            return "环境有些问题，请多加注意~";
+        } else if (health > 0) {
+            return "环境不太健康，还请检查哦！";
+        } else {
+            return "未连接";
+        }
+    }
 }
