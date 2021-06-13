@@ -214,7 +214,7 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 dataViewModel.getHealth().postValue((int)(Math.random()*100));
             }
-        }, 2000, 500);
+        }, 1000, 1000);
     }
 
     /**

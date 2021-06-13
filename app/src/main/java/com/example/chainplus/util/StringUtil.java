@@ -1,5 +1,6 @@
 package com.example.chainplus.util;
 
+import android.graphics.Color;
 import android.view.View;
 
 public class StringUtil {
@@ -90,6 +91,18 @@ public class StringUtil {
             return View.VISIBLE;
         } else {
             return View.INVISIBLE;
+        }
+    }
+
+    public static String getTipFromHealth(Integer health) {
+        if (health > 50) {
+            return "环境不错，继续保持哦~";
+        } else if (health > 20) {
+            return "环境有些问题，请多加注意~";
+        } else if (health > 0) {
+            return "环境不太健康，还请检查哦！";
+        } else {
+            return "未连接";
         }
     }
 }
