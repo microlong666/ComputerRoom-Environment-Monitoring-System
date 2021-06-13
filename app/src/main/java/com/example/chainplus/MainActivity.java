@@ -8,6 +8,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.example.chainplus.connect.BodyConnect;
@@ -15,6 +16,7 @@ import com.example.chainplus.connect.FanConnect;
 import com.example.chainplus.connect.Pm25Connect;
 import com.example.chainplus.connect.TempHumConnect;
 import com.example.chainplus.databinding.ActivityMainBinding;
+import com.example.chainplus.fragment.AboutFragment;
 import com.example.chainplus.fragment.ConnectSettingFragment;
 import com.example.chainplus.fragment.DataFragment;
 import com.example.chainplus.fragment.LinkageSettingFragment;
@@ -69,14 +71,22 @@ public class MainActivity extends AppCompatActivity {
         dialogBuilder = new AlertDialog.Builder(this);
 
         // 启动时默认创建连接
-        bodyConnect = new BodyConnect(this, dataViewModel);
-        bodyConnect.start();
-        tempHumConnect = new TempHumConnect(this, dataViewModel);
-        tempHumConnect.start();
-        pm25Connect = new Pm25Connect(this, dataViewModel);
-        pm25Connect.start();
-        fanConnect = new FanConnect(this, dataViewModel);
-        fanConnect.start();
+        if (!dataViewModel.getTempHumIsConnect().getValue()) {
+            tempHumConnect = new TempHumConnect(this, dataViewModel);
+            tempHumConnect.start();
+        }
+        if (!dataViewModel.getFanIsConnect().getValue()) {
+            fanConnect = new FanConnect(this, dataViewModel);
+            fanConnect.start();
+        }
+        if (!dataViewModel.getPm25IsConnect().getValue()) {
+            pm25Connect = new Pm25Connect(this, dataViewModel);
+            pm25Connect.start();
+        }
+        if (!dataViewModel.getBodyIsConnect().getValue()) {
+            bodyConnect = new BodyConnect(this, dataViewModel);
+            bodyConnect.start();
+        }
 
         // 开启定时任务
         startFastTimer();
@@ -144,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
     public void switchFans(View view){
         Boolean isConnect= dataViewModel.getFanIsConnect().getValue();
         Boolean isOpen = dataViewModel.getFanIsOpen().getValue();
-        Const.linkage = false;
+        Const.linkage = "false";
         if (isConnect) {
             if (isOpen) {
                 fanConnect.fanOff();
@@ -249,7 +259,7 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     Field f = DataViewModel.class.getDeclaredField(setting[i]);
                     f.setAccessible(true);
-                    MutableLiveData<String> data = new MutableLiveData<String>(getSettingData(setting[i]));
+                    MutableLiveData<String> data = new MutableLiveData<>(getSettingData(setting[i]));
                     f.set(dataViewModel, data);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -282,7 +292,7 @@ public class MainActivity extends AppCompatActivity {
         if (fragmentManager == null) {
             fragmentManager = getSupportFragmentManager();
         }
-        fragmentManager.beginTransaction().replace(R.id.fragmentContainerView, new ConnectSettingFragment()).addToBackStack(null).commit();
+        fragmentManager.beginTransaction().setCustomAnimations(R.anim.from_right, R.anim.out_left).replace(R.id.fragmentContainerView, new ConnectSettingFragment()).addToBackStack(null).commit();
     }
 
     /**
@@ -293,7 +303,18 @@ public class MainActivity extends AppCompatActivity {
         if (fragmentManager == null) {
             fragmentManager = getSupportFragmentManager();
         }
-        fragmentManager.beginTransaction().replace(R.id.fragmentContainerView, new LinkageSettingFragment()).addToBackStack(null).commit();
+        fragmentManager.beginTransaction().setCustomAnimations(R.anim.from_right, R.anim.out_left).replace(R.id.fragmentContainerView, new LinkageSettingFragment()).addToBackStack(null).commit();
+    }
+
+    /**
+     * 跳转到关于界面
+     * @param view
+     */
+    public void toAbout(View view) {
+        if (fragmentManager == null) {
+            fragmentManager = getSupportFragmentManager();
+        }
+        fragmentManager.beginTransaction().setCustomAnimations(R.anim.from_right, R.anim.out_left).replace(R.id.fragmentContainerView, new AboutFragment()).addToBackStack(null).commit();
     }
 
     /**
@@ -304,7 +325,7 @@ public class MainActivity extends AppCompatActivity {
         if (fragmentManager == null) {
             fragmentManager = getSupportFragmentManager();
         }
-        fragmentManager.beginTransaction().replace(R.id.fragmentContainerView, new MineFragment()).commit();
+        fragmentManager.beginTransaction().setCustomAnimations(R.anim.from_left, R.anim.out_right).replace(R.id.fragmentContainerView, new MineFragment()).commit();
     }
 
     public void setConnect(View view) {
@@ -329,11 +350,16 @@ public class MainActivity extends AppCompatActivity {
 
     public void setLinkage(View view) {
         // 保存设置
-        setSettingData("isLinkage", String.valueOf(dataViewModel.getIsLinkage().getValue()));
+        Switch switch1 = findViewById(R.id.switch1);
+        Switch switch2 = findViewById(R.id.switch2);
+        setSettingData("isLinkage", String.valueOf(switch1.isChecked()));
         setSettingData("temperatureThreshold", dataViewModel.getTemperatureThreshold().getValue());
         setSettingData("humidityThreshold", dataViewModel.getHumidityThreshold().getValue());
         setSettingData("pm25Threshold", dataViewModel.getPm25Threshold().getValue());
-        setSettingData("isOpenAlert", String.valueOf(dataViewModel.getIsOpenAlert().getValue()));
+        setSettingData("isOpenAlert", String.valueOf(switch2.isChecked()));
+
+        dataViewModel.getIsLinkage().setValue(String.valueOf(switch1.isChecked()));
+        dataViewModel.getIsOpenAlert().setValue(String.valueOf(switch2.isChecked()));
 
         // 收起键盘
         InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);

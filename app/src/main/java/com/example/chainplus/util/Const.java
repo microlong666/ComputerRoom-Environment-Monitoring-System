@@ -13,8 +13,8 @@ public class Const {
     public static Double maxTem = 30d;
     public static Double maxHum = 60d;
     public static Integer maxPm25 = 5;
-    public static Boolean linkage = true;
-    public static Boolean alarm = true;
+    public static String linkage = "true";
+    public static String alert = "true";
 
     // 温湿度
     public static String TEMHUM_CHK = "01 03 00 14 00 02 84 0f";
@@ -57,6 +57,6 @@ public class Const {
     public static Integer time = 500;
 
     // 设置项
-    public static String[] setting = {"tempHumSensorIP", "tempHumSensorPort", "PM25SensorIP", "PM25SensorPort", "bodySensorIP", "bodySensorPort", "fanIP", "fanPort", "buzzerIP", "buzzerPort", "collectionCycleTime"};
+    public static String[] setting = {"tempHumSensorIP", "tempHumSensorPort", "PM25SensorIP", "PM25SensorPort", "bodySensorIP", "bodySensorPort", "fanIP", "fanPort", "buzzerIP", "buzzerPort", "collectionCycleTime", "isLinkage", "temperatureThreshold", "humidityThreshold", "pm25Threshold", "isOpenAlarm"};
 
 }

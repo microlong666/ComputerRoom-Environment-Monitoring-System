@@ -92,4 +92,8 @@ public class StringUtil {
             return View.INVISIBLE;
         }
     }
+
+    public static boolean getChecked(String data) {
+        return "true".equals(data);
+    }
 }

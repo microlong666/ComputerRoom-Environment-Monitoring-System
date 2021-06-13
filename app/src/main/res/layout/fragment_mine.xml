@@ -130,5 +130,25 @@
             android:text="连接设置"
             app:layout_constraintStart_toStartOf="@+id/guideline11"
             app:layout_constraintTop_toBottomOf="@+id/cardView" />
+
+        <Button
+            android:id="@+id/toLinkageSetting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:onClick="toLinkageSetting"
+            android:text="联动设置"
+            app:layout_constraintStart_toStartOf="@+id/toConnectSetting"
+            app:layout_constraintTop_toBottomOf="@+id/toConnectSetting" />
+
+        <Button
+            android:id="@+id/toAbout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:onClick="toAbout"
+            android:text="关于"
+            app:layout_constraintStart_toStartOf="@+id/toLinkageSetting"
+            app:layout_constraintTop_toBottomOf="@+id/toLinkageSetting" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

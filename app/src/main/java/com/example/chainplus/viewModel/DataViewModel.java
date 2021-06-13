@@ -39,11 +39,11 @@ public class DataViewModel extends ViewModel {
     private MutableLiveData<String> collectionCycleTime;
 
     // 联动设置
-    private MutableLiveData<Boolean> isLinkage;
+    private MutableLiveData<String> isLinkage;
     private MutableLiveData<String> temperatureThreshold;
     private MutableLiveData<String> humidityThreshold;
     private MutableLiveData<String> pm25Threshold;
-    private MutableLiveData<Boolean> isOpenAlert;
+    private MutableLiveData<String> isOpenAlert;
 
     /**
      * 初始化数据
@@ -75,11 +75,11 @@ public class DataViewModel extends ViewModel {
         buzzerPort = new MutableLiveData<>(String.valueOf(Const.RGB_BUZZER_PORT));
         collectionCycleTime = new MutableLiveData<>(String.valueOf(Const.time));
 
-        isLinkage = new MutableLiveData<>(true);
-        temperatureThreshold = new MutableLiveData<>("60");
-        humidityThreshold = new MutableLiveData<>("60");
-        pm25Threshold = new MutableLiveData<>("220");
-        isOpenAlert = new MutableLiveData<>(true);
+        isLinkage = new MutableLiveData<>(Const.linkage);
+        temperatureThreshold = new MutableLiveData<>(String.valueOf(Const.maxTem));
+        humidityThreshold = new MutableLiveData<>(String.valueOf(Const.maxHum));
+        pm25Threshold = new MutableLiveData<>(String.valueOf(Const.maxPm25));
+        isOpenAlert = new MutableLiveData<>(Const.alert);
     }
 
     public MutableLiveData<Double> getTemperature() {
@@ -266,11 +266,11 @@ public class DataViewModel extends ViewModel {
         this.collectionCycleTime = collectionCycleTime;
     }
 
-    public MutableLiveData<Boolean> getIsLinkage() {
+    public MutableLiveData<String> getIsLinkage() {
         return isLinkage;
     }
 
-    public void setIsLinkage(MutableLiveData<Boolean> isLinkage) {
+    public void setIsLinkage(MutableLiveData<String> isLinkage) {
         this.isLinkage = isLinkage;
     }
 
@@ -298,11 +298,11 @@ public class DataViewModel extends ViewModel {
         this.pm25Threshold = pm25Threshold;
     }
 
-    public MutableLiveData<Boolean> getIsOpenAlert() {
+    public MutableLiveData<String> getIsOpenAlert() {
         return isOpenAlert;
     }
 
-    public void setIsOpenAlert(MutableLiveData<Boolean> isOpenAlert) {
+    public void setIsOpenAlert(MutableLiveData<String> isOpenAlert) {
         this.isOpenAlert = isOpenAlert;
     }
 }

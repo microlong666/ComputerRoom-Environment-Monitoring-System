@@ -5,7 +5,6 @@
     app:layout_constraintCircleRadius="9dp">
 
     <data>
-
         <variable
             name="setting"
             type="com.example.chainplus.viewModel.DataViewModel" />
@@ -77,7 +76,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="32dp"
-            android:text="传感器IP:端口设置"
+            android:text="IP:端口设置"
             android:textColor="#000000"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -100,12 +99,18 @@
                 android:layout_height="match_parent"
                 android:padding="16dp">
 
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/guideline9"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_percent="0.4" />
+                <EditText
+                    android:id="@+id/tempHumSensorIp"
+                    android:layout_width="120dp"
+                    android:layout_height="40dp"
+                    android:ems="10"
+                    android:text="@={setting.tempHumSensorIP}"
+                    android:textAlignment="center"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/TempHumText"
+                    app:layout_constraintStart_toStartOf="@+id/guideline9"
+                    app:layout_constraintTop_toTopOf="@+id/TempHumText"
+                    tools:text="192.168.0.1" />
 
                 <TextView
                     android:id="@+id/TempHumText"
@@ -120,16 +125,18 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
-                    android:id="@+id/tempHumSensorIp"
-                    android:layout_width="120dp"
+                    android:id="@+id/tempHumSensorPort"
+                    android:layout_width="60dp"
                     android:layout_height="40dp"
+                    android:layout_marginStart="8dp"
                     android:ems="10"
-                    android:text="@={setting.tempHumSensorIP}"
+                    android:text="@={setting.tempHumSensorPort}"
+                    android:textAlignment="center"
                     android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/TempHumText"
-                    app:layout_constraintStart_toStartOf="@+id/guideline9"
-                    app:layout_constraintTop_toTopOf="@+id/TempHumText"
-                    tools:text="192.168.0.1" />
+                    app:layout_constraintBottom_toBottomOf="@+id/tempHumSensorIp"
+                    app:layout_constraintStart_toEndOf="@+id/textView17"
+                    app:layout_constraintTop_toTopOf="@+id/tempHumSensorIp"
+                    tools:text="4001" />
 
                 <TextView
                     android:id="@+id/textView17"
@@ -143,17 +150,17 @@
                     app:layout_constraintTop_toTopOf="@+id/tempHumSensorIp" />
 
                 <EditText
-                    android:id="@+id/tempHumSensorPort"
-                    android:layout_width="60dp"
+                    android:id="@+id/PM25SensorIp"
+                    android:layout_width="120dp"
                     android:layout_height="40dp"
-                    android:layout_marginStart="8dp"
                     android:ems="10"
-                    android:text="@={setting.tempHumSensorPort}"
+                    android:text="@={setting.PM25SensorIP}"
+                    android:textAlignment="center"
                     android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/tempHumSensorIp"
-                    app:layout_constraintStart_toEndOf="@+id/textView17"
-                    app:layout_constraintTop_toTopOf="@+id/tempHumSensorIp"
-                    tools:text="4001" />
+                    app:layout_constraintBottom_toBottomOf="@+id/PM25Text"
+                    app:layout_constraintStart_toStartOf="@+id/guideline9"
+                    app:layout_constraintTop_toTopOf="@+id/PM25Text"
+                    tools:text="192.168.0.1" />
 
                 <TextView
                     android:id="@+id/PM25Text"
@@ -168,16 +175,19 @@
                     app:layout_constraintTop_toBottomOf="@+id/TempHumText" />
 
                 <EditText
-                    android:id="@+id/PM25SensorIp"
-                    android:layout_width="120dp"
+                    android:id="@+id/PM25SensorPort"
+                    android:layout_width="60dp"
                     android:layout_height="40dp"
+                    android:layout_marginStart="8dp"
                     android:ems="10"
-                    android:text="@={setting.PM25SensorIP}"
+                    android:text="@={setting.PM25SensorPort}"
+                    android:textAlignment="center"
                     android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/PM25Text"
-                    app:layout_constraintStart_toStartOf="@+id/guideline9"
-                    app:layout_constraintTop_toTopOf="@+id/PM25Text"
-                    tools:text="192.168.0.1" />
+                    app:layout_constraintBottom_toBottomOf="@+id/PM25SensorIp"
+                    app:layout_constraintStart_toEndOf="@+id/textView19"
+                    app:layout_constraintTop_toTopOf="@+id/PM25SensorIp"
+                    app:layout_constraintVertical_bias="1.0"
+                    tools:text="4001" />
 
                 <TextView
                     android:id="@+id/textView19"
@@ -191,18 +201,17 @@
                     app:layout_constraintTop_toTopOf="@+id/PM25SensorIp" />
 
                 <EditText
-                    android:id="@+id/PM25SensorPort"
-                    android:layout_width="60dp"
+                    android:id="@+id/bodySensorIp"
+                    android:layout_width="120dp"
                     android:layout_height="40dp"
-                    android:layout_marginStart="8dp"
                     android:ems="10"
-                    android:text="@={setting.PM25SensorPort}"
+                    android:text="@={setting.bodySensorIP}"
+                    android:textAlignment="center"
                     android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/PM25SensorIp"
-                    app:layout_constraintStart_toEndOf="@+id/textView19"
-                    app:layout_constraintTop_toTopOf="@+id/PM25SensorIp"
-                    app:layout_constraintVertical_bias="1.0"
-                    tools:text="4001" />
+                    app:layout_constraintBottom_toBottomOf="@+id/bodyText"
+                    app:layout_constraintStart_toStartOf="@+id/guideline9"
+                    app:layout_constraintTop_toTopOf="@+id/bodyText"
+                    tools:text="192.168.0.1" />
 
                 <TextView
                     android:id="@+id/bodyText"
@@ -218,16 +227,19 @@
 
 
                 <EditText
-                    android:id="@+id/bodySensorIp"
-                    android:layout_width="120dp"
+                    android:id="@+id/bodySensorPort"
+                    android:layout_width="60dp"
                     android:layout_height="40dp"
+                    android:layout_marginStart="8dp"
                     android:ems="10"
-                    android:text="@={setting.bodySensorIP}"
+                    android:text="@={setting.bodySensorPort}"
+                    android:textAlignment="center"
                     android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/bodyText"
-                    app:layout_constraintStart_toStartOf="@+id/guideline9"
-                    app:layout_constraintTop_toTopOf="@+id/bodyText"
-                    tools:text="192.168.0.1" />
+                    app:layout_constraintBottom_toBottomOf="@+id/bodySensorIp"
+                    app:layout_constraintStart_toEndOf="@+id/textView21"
+                    app:layout_constraintTop_toTopOf="@+id/bodySensorIp"
+                    app:layout_constraintVertical_bias="1.0"
+                    tools:text="4001" />
 
                 <TextView
                     android:id="@+id/textView21"
@@ -241,18 +253,17 @@
                     app:layout_constraintTop_toTopOf="@+id/bodySensorIp" />
 
                 <EditText
-                    android:id="@+id/bodySensorPort"
-                    android:layout_width="60dp"
+                    android:id="@+id/fanIp"
+                    android:layout_width="120dp"
                     android:layout_height="40dp"
-                    android:layout_marginStart="8dp"
                     android:ems="10"
-                    android:text="@={setting.bodySensorPort}"
+                    android:text="@={setting.fanIP}"
+                    android:textAlignment="center"
                     android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/bodySensorIp"
-                    app:layout_constraintStart_toEndOf="@+id/textView21"
-                    app:layout_constraintTop_toTopOf="@+id/bodySensorIp"
-                    app:layout_constraintVertical_bias="1.0"
-                    tools:text="4001" />
+                    app:layout_constraintBottom_toBottomOf="@+id/fanText"
+                    app:layout_constraintStart_toStartOf="@+id/guideline9"
+                    app:layout_constraintTop_toTopOf="@+id/fanText"
+                    tools:text="192.168.0.1" />
 
                 <TextView
                     android:id="@+id/fanText"
@@ -267,16 +278,19 @@
                     app:layout_constraintTop_toBottomOf="@+id/bodyText" />
 
                 <EditText
-                    android:id="@+id/fanIp"
-                    android:layout_width="120dp"
+                    android:id="@+id/fanPort"
+                    android:layout_width="60dp"
                     android:layout_height="40dp"
+                    android:layout_marginStart="8dp"
                     android:ems="10"
-                    android:text="@={setting.fanIP}"
+                    android:text="@={setting.fanPort}"
+                    android:textAlignment="center"
                     android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/fanText"
-                    app:layout_constraintStart_toStartOf="@+id/guideline9"
-                    app:layout_constraintTop_toTopOf="@+id/fanText"
-                    tools:text="192.168.0.1" />
+                    app:layout_constraintBottom_toBottomOf="@+id/fanIp"
+                    app:layout_constraintStart_toEndOf="@+id/textView22"
+                    app:layout_constraintTop_toTopOf="@+id/fanIp"
+                    app:layout_constraintVertical_bias="1.0"
+                    tools:text="4001" />
 
                 <TextView
                     android:id="@+id/textView22"
@@ -290,18 +304,17 @@
                     app:layout_constraintTop_toTopOf="@+id/fanIp" />
 
                 <EditText
-                    android:id="@+id/fanPort"
-                    android:layout_width="60dp"
+                    android:id="@+id/buzzerIP"
+                    android:layout_width="120dp"
                     android:layout_height="40dp"
-                    android:layout_marginStart="8dp"
                     android:ems="10"
-                    android:text="@={setting.fanPort}"
+                    android:text="@={setting.buzzerIP}"
+                    android:textAlignment="center"
                     android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/fanIp"
-                    app:layout_constraintStart_toEndOf="@+id/textView22"
-                    app:layout_constraintTop_toTopOf="@+id/fanIp"
-                    app:layout_constraintVertical_bias="1.0"
-                    tools:text="4001" />
+                    app:layout_constraintBottom_toBottomOf="@+id/buzzerText"
+                    app:layout_constraintStart_toStartOf="@+id/guideline9"
+                    app:layout_constraintTop_toTopOf="@+id/buzzerText"
+                    tools:text="192.168.0.1" />
 
 
                 <TextView
@@ -317,16 +330,18 @@
                     app:layout_constraintTop_toBottomOf="@+id/fanText" />
 
                 <EditText
-                    android:id="@+id/buzzerIP"
-                    android:layout_width="120dp"
+                    android:id="@+id/buzzerPort"
+                    android:layout_width="60dp"
                     android:layout_height="40dp"
+                    android:layout_marginStart="8dp"
                     android:ems="10"
-                    android:text="@={setting.buzzerIP}"
+                    android:text="@={setting.buzzerPort}"
+                    android:textAlignment="center"
                     android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/buzzerText"
-                    app:layout_constraintStart_toStartOf="@+id/guideline9"
-                    app:layout_constraintTop_toTopOf="@+id/buzzerText"
-                    tools:text="192.168.0.1" />
+                    app:layout_constraintBottom_toBottomOf="@+id/buzzerIP"
+                    app:layout_constraintStart_toEndOf="@+id/textView25"
+                    app:layout_constraintTop_toTopOf="@+id/buzzerIP"
+                    tools:text="4001" />
 
                 <TextView
                     android:id="@+id/textView25"
@@ -339,18 +354,12 @@
                     app:layout_constraintStart_toEndOf="@+id/buzzerIP"
                     app:layout_constraintTop_toTopOf="@+id/buzzerIP" />
 
-                <EditText
-                    android:id="@+id/buzzerPort"
-                    android:layout_width="60dp"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="8dp"
-                    android:ems="10"
-                    android:text="@={setting.buzzerPort}"
-                    android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/buzzerIP"
-                    app:layout_constraintStart_toEndOf="@+id/textView25"
-                    app:layout_constraintTop_toTopOf="@+id/buzzerIP"
-                    tools:text="4001" />
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_end="208dp" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
@@ -411,6 +420,7 @@
                     android:ems="10"
                     android:inputType="textPersonName"
                     android:text="@={setting.collectionCycleTime}"
+                    android:textAlignment="center"
                     android:textColor="#000000"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="@+id/textView27"

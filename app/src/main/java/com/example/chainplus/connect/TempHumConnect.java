@@ -54,7 +54,7 @@ public class TempHumConnect extends Thread{
                     }
 
                     // 空调联动
-                    if (Const.linkage) {
+                    if (Boolean.getBoolean(Const.linkage)) {
                         if (dataViewModel.getTemperature().getValue() >= Const.maxTem || dataViewModel.getHumidity().getValue() >= Const.maxHum) {
                             // 风扇
                             StreamUtil.writeCommand(fanSocket.getOutputStream(), Const.FAN_ON);
@@ -65,7 +65,7 @@ public class TempHumConnect extends Thread{
                         }
                     }
                     // 警报联动
-                    if (Const.alarm) {
+                    if (Boolean.getBoolean(Const.alert)) {
                         if (dataViewModel.getTemperature().getValue() >= Const.maxTem || dataViewModel.getHumidity().getValue() >= Const.maxHum) {
                             StreamUtil.writeCommand(buzzerSocket.getOutputStream(), Const.RED_CMD);
                             Thread.sleep(200);

@@ -2,11 +2,6 @@ package com.example.chainplus.fragment;
 
 import android.os.Build;
 import android.os.Bundle;
-
-import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +9,10 @@ import android.view.ViewGroup;
 import com.example.chainplus.R;
 import com.example.chainplus.databinding.FragmentLinkageSettingBinding;
 import com.example.chainplus.viewModel.DataViewModel;
+
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 public class LinkageSettingFragment extends Fragment {
 
@@ -32,6 +31,6 @@ public class LinkageSettingFragment extends Fragment {
         DataViewModel data = new ViewModelProvider(getActivity(), new ViewModelProvider.AndroidViewModelFactory(getActivity().getApplication())).get(DataViewModel.class);
         binding.setSetting(data);
         binding.setLifecycleOwner(this);
-        return inflater.inflate(R.layout.fragment_linkage_setting, container, false);
+        return binding.getRoot();
     }
 }
