@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.wifi.WifiManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -21,6 +22,8 @@ import com.example.chainplus.util.Const;
 import com.example.chainplus.viewModel.DataViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -29,6 +32,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 
 public class MainActivity extends AppCompatActivity {
@@ -45,7 +49,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+
+        // 设置顶部状态栏字体颜色
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        }
 
         // 创建ViewModel
         dataViewModel = new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(getApplication())).get(DataViewModel.class);
@@ -54,9 +62,10 @@ public class MainActivity extends AppCompatActivity {
         // 使用已经保存的设置进行替换
         useLocalSetting();
 
-        // 创建试图
+        // 创建视图
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
+        // 创建对话框构造器
         dialogBuilder = new AlertDialog.Builder(this);
 
         // 启动时默认创建连接
@@ -124,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * 风扇开关点击事件
+     * 风扇开关和连接与断开切换
      */
     public void switchFans(View view){
         Boolean isConnect= dataViewModel.getFanIsConnect().getValue();
@@ -142,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * 温湿度连接点击事件
+     * 温湿度连接与断开切换
      */
     public void switchTempHumConnect(View view) {
         Boolean isConnect = dataViewModel.getTempHumIsConnect().getValue();
@@ -156,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * PM2.5连接点击事件
+     * PM2.5连接与断开切换
      */
     public void switchPm25Connect(View view) {
         Boolean isConnect = dataViewModel.getPm25IsConnect().getValue();
@@ -169,7 +178,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
+    /**
+     * 定时任务
+     */
     private void startTimer() {
         // 判定是否全部连接，如果是那么一键全部连接消失
         new Timer().schedule(new TimerTask() {
@@ -187,6 +198,9 @@ public class MainActivity extends AppCompatActivity {
         }, 0, 50);
     }
 
+    /**
+     * 读取SharedPreference的设置数据
+     */
     private String getSettingData(String key) {
         if (sharedPreferences == null) {
             sharedPreferences = getSharedPreferences("setting", Context.MODE_PRIVATE);
@@ -194,6 +208,9 @@ public class MainActivity extends AppCompatActivity {
         return sharedPreferences.getString(key, "");
     }
 
+    /**
+     * 设置数据写入SharedPreference
+     */
     private void setSettingData(String key, String value) {
         if (sharedPreferences == null) {
             sharedPreferences = getSharedPreferences("setting", Context.MODE_PRIVATE);
@@ -203,41 +220,29 @@ public class MainActivity extends AppCompatActivity {
         editor.apply();
     }
 
+    /**
+     * 使用SharedPreference数据替换ViewModel的数据
+     */
     private void useLocalSetting() {
-        Log.d("abc", "useLocalSetting: tempHumSensorIP"+getSettingData("tempHumSensorIP"));
-        if (!"".equals(getSettingData("tempHumSensorIP"))) {
-            dataViewModel.getTempHumSensorIP().setValue(getSettingData("tempHumSensorIP"));
-        }
-        if (!"".equals(getSettingData("tempHumSensorPort"))) {
-            dataViewModel.getTempHumSensorPort().setValue(getSettingData("tempHumSensorPort"));
-        }
-        if (!"".equals(getSettingData("PM25SensorIP"))) {
-            dataViewModel.getPM25SensorIP().setValue(getSettingData("PM25SensorIP"));
-        }
-        if (!"".equals(getSettingData("PM25SensorPort"))) {
-            dataViewModel.getPM25SensorPort().setValue(getSettingData("PM25SensorPort"));
-        }
-        if (!"".equals(getSettingData("bodySensorIP"))) {
-            dataViewModel.getBodySensorIP().setValue(getSettingData("bodySensorIP"));
-        }
-        if (!"".equals(getSettingData("bodySensorPort"))) {
-            dataViewModel.getBodySensorPort().setValue(getSettingData("bodySensorPort"));
-        }
-        if (!"".equals(getSettingData("fanIP"))) {
-            dataViewModel.getFanIP().setValue(getSettingData("fanIP"));
-        }
-        if (!"".equals(getSettingData("fanPort"))) {
-            dataViewModel.getFanPort().setValue(getSettingData("fanPort"));
-        }
-        if (!"".equals(getSettingData("buzzerIP"))) {
-            dataViewModel.getBuzzerIP().setValue(getSettingData("buzzerIP"));
-        }
-        if (!"".equals(getSettingData("buzzerPort"))) {
-            dataViewModel.getBuzzerPort().setValue(getSettingData("buzzerPort"));
+        String setting[] = {"tempHumSensorIP", "tempHumSensorPort", "PM25SensorIP", "PM25SensorPort", "bodySensorIP", "bodySensorPort", "fanIP", "fanPort", "buzzerIP", "buzzerPort"};
+        for (int i = 0; i < setting.length; i++) {
+            if (!"".equals(getSettingData(setting[i]))) {
+                try {
+                    Field f = DataViewModel.class.getDeclaredField(setting[i]);
+                    f.setAccessible(true);
+                    MutableLiveData<String> data = new MutableLiveData<String>(getSettingData(setting[i]));
+                    f.set(dataViewModel, data);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 
-    // 切换fragment
+    /**
+     * 切换fragment
+     * @param fragment
+     */
     private void switchToFragment(String fragment) {
         if (fragmentManager == null) {
             fragmentManager = getSupportFragmentManager();
@@ -254,6 +259,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * 跳转到连接设置界面
+     * @param view
+     */
     public void toConnectSetting(View view) {
         if (fragmentManager == null) {
             fragmentManager = getSupportFragmentManager();
@@ -264,6 +273,10 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
+    /**
+     * 返回“我的”界面
+     * @param view
+     */
     public void backToMind(View view) {
         if (fragmentManager == null) {
             fragmentManager = getSupportFragmentManager();
