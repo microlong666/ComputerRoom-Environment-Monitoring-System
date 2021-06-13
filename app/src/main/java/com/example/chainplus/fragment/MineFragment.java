@@ -1,5 +1,6 @@
 package com.example.chainplus.fragment;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +21,9 @@ public class MineFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            getActivity().getWindow().setStatusBarColor(getActivity().getColor(R.color.background));
+        }
     }
 
     @Override
