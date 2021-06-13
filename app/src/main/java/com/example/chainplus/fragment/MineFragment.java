@@ -27,6 +27,14 @@ public class MineFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            getActivity().getWindow().setStatusBarColor(getActivity().getColor(R.color.background));
+        }
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_mine, container, false);
