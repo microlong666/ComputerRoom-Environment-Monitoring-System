@@ -17,7 +17,7 @@ import java.net.Socket;
 /**
  * 用于连接并自动获取温湿度数据
  */
-public class TempHumConnect extends Thread{
+public class TempHumConnect extends Thread {
     public volatile boolean exit = false;
 
     private final DataViewModel dataViewModel;
@@ -54,8 +54,8 @@ public class TempHumConnect extends Thread{
                     }
 
                     // 空调联动
-                    if (Boolean.getBoolean(Const.linkage)) {
-                        if (dataViewModel.getTemperature().getValue() >= Const.maxTem || dataViewModel.getHumidity().getValue() >= Const.maxHum) {
+                    if (Boolean.parseBoolean(dataViewModel.getIsLinkage().getValue())) {
+                        if (dataViewModel.getTemperature().getValue() >= Double.parseDouble(dataViewModel.getTemperatureThreshold().getValue()) || dataViewModel.getHumidity().getValue() >= Double.parseDouble(dataViewModel.getHumidityThreshold().getValue())) {
                             // 风扇
                             StreamUtil.writeCommand(fanSocket.getOutputStream(), Const.FAN_ON);
                             dataViewModel.getFanIsOpen().postValue(true);
@@ -65,8 +65,8 @@ public class TempHumConnect extends Thread{
                         }
                     }
                     // 警报联动
-                    if (Boolean.getBoolean(Const.alert)) {
-                        if (dataViewModel.getTemperature().getValue() >= Const.maxTem || dataViewModel.getHumidity().getValue() >= Const.maxHum) {
+                    if (Boolean.parseBoolean(dataViewModel.getIsOpenAlert().getValue())) {
+                        if (dataViewModel.getTemperature().getValue() >= Double.parseDouble(dataViewModel.getTemperatureThreshold().getValue()) || dataViewModel.getHumidity().getValue() >= Double.parseDouble(dataViewModel.getHumidityThreshold().getValue())) {
                             StreamUtil.writeCommand(buzzerSocket.getOutputStream(), Const.RED_CMD);
                             Thread.sleep(200);
                             StreamUtil.writeCommand(buzzerSocket.getOutputStream(), Const.BUZZER_ON);
@@ -81,7 +81,7 @@ public class TempHumConnect extends Thread{
                     Toast.makeText(context, "温湿度传感器连接失败", Toast.LENGTH_SHORT).show();
                     Looper.loop();
                     looper.quit();
-                    return ;
+                    return;
                 }
             } catch (InterruptedException | IOException e) {
                 e.printStackTrace();

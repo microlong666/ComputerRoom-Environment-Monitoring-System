@@ -6,8 +6,6 @@ import android.content.SharedPreferences;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -18,9 +16,7 @@ import com.example.chainplus.connect.BodyConnect;
 import com.example.chainplus.connect.FanConnect;
 import com.example.chainplus.connect.Pm25Connect;
 import com.example.chainplus.connect.TempHumConnect;
-import com.example.chainplus.fragment.ConnectSettingFragment;
 import com.example.chainplus.fragment.DataFragment;
-import com.example.chainplus.fragment.LinkageSettingFragment;
 import com.example.chainplus.fragment.MineFragment;
 import com.example.chainplus.util.Const;
 import com.example.chainplus.util.Page;
@@ -49,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
     private Pm25Connect pm25Connect;
     private AlertDialog.Builder dialogBuilder;
     private long exitTime = 0;
+    private boolean fanManualOpen = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,23 +69,23 @@ public class MainActivity extends AppCompatActivity {
         // 创建对话框构造器
         dialogBuilder = new AlertDialog.Builder(this);
 
-//        // 启动时默认创建连接
-//        if (!dataViewModel.getTempHumIsConnect().getValue()) {
-//            tempHumConnect = new TempHumConnect(this, dataViewModel);
-//            tempHumConnect.start();
-//        }
-//        if (!dataViewModel.getFanIsConnect().getValue()) {
-//            fanConnect = new FanConnect(this, dataViewModel);
-//            fanConnect.start();
-//        }
-//        if (!dataViewModel.getPm25IsConnect().getValue()) {
-//            pm25Connect = new Pm25Connect(this, dataViewModel);
-//            pm25Connect.start();
-//        }
-//        if (!dataViewModel.getBodyIsConnect().getValue()) {
-//            bodyConnect = new BodyConnect(this, dataViewModel);
-//            bodyConnect.start();
-//        }
+        // 启动时默认创建连接
+        if (!dataViewModel.getTempHumIsConnect().getValue()) {
+            tempHumConnect = new TempHumConnect(this, dataViewModel);
+            tempHumConnect.start();
+        }
+        if (!dataViewModel.getFanIsConnect().getValue()) {
+            fanConnect = new FanConnect(this, dataViewModel);
+            fanConnect.start();
+        }
+        if (!dataViewModel.getPm25IsConnect().getValue()) {
+            pm25Connect = new Pm25Connect(this, dataViewModel);
+            pm25Connect.start();
+        }
+        if (!dataViewModel.getBodyIsConnect().getValue()) {
+            bodyConnect = new BodyConnect(this, dataViewModel);
+            bodyConnect.start();
+        }
 
         // 开启定时任务
         startFastTimer();
@@ -121,24 +118,17 @@ public class MainActivity extends AppCompatActivity {
             dataViewModel.getPosition().setValue(Page.MINE);
             return super.onKeyDown(keyCode, event);
         }
-        if(keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN)
-        {
-
-            if((System.currentTimeMillis()-exitTime) > 2000)  //System.currentTimeMillis()无论何时调用，肯定大于2000
-            {
-                Toast.makeText(getApplicationContext(), "再按一次退出程序",Toast.LENGTH_SHORT).show();
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+            if ((System.currentTimeMillis() - exitTime) > 2000) {
+                Toast.makeText(getApplicationContext(), "再次返回退出链+", Toast.LENGTH_SHORT).show();
                 exitTime = System.currentTimeMillis();
-            }
-            else
-            {
+            } else {
                 finish();
                 System.exit(0);
             }
-
             return true;
         }
         return super.onKeyDown(keyCode, event);
-
     }
 
 
@@ -180,17 +170,21 @@ public class MainActivity extends AppCompatActivity {
     /**
      * 风扇开关和连接与断开切换
      */
-    public void switchFans(View view){
-        Boolean isConnect= dataViewModel.getFanIsConnect().getValue();
+    public void switchFans(View view) {
+        Boolean isConnect = dataViewModel.getFanIsConnect().getValue();
         Boolean isOpen = dataViewModel.getFanIsOpen().getValue();
-        Const.linkage = "false";
         if (isConnect) {
+            if (Boolean.parseBoolean(dataViewModel.getIsLinkage().getValue())) {
+                dataViewModel.getIsLinkage().postValue("false");
+                Toast.makeText(this, "联动将自动关闭", Toast.LENGTH_LONG).show();
+            }
             if (isOpen) {
+                // 人工开启状态
+                fanManualOpen = false;
                 fanConnect.fanOff();
-                dataViewModel.getFanIsOpen().postValue(false);
             } else {
+                fanManualOpen = true;
                 fanConnect.fanOn();
-                dataViewModel.getFanIsOpen().postValue(true);
             }
         }
     }
@@ -251,7 +245,11 @@ public class MainActivity extends AppCompatActivity {
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
-                dataViewModel.getHealth().postValue((int)(Math.random()*100));
+                dataViewModel.getHealth().postValue((int) (Math.random() * 100));
+                // 人工介入且掉出阈值时自动关闭联动设备
+                if (!fanManualOpen && dataViewModel.getFanIsOpen().getValue() && dataViewModel.getTemperature().getValue() < Double.parseDouble(dataViewModel.getTemperatureThreshold().getValue()) && dataViewModel.getHumidity().getValue() < Double.parseDouble(dataViewModel.getHumidityThreshold().getValue())) {
+                    fanConnect.fanOff();
+                }
             }
         }, 1000, 1000);
     }
