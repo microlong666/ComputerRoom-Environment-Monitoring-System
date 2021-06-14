@@ -57,6 +57,6 @@ public class Const {
     public static Integer time = 500;
 
     // 设置项
-    public static String[] setting = {"tempHumSensorIP", "tempHumSensorPort", "PM25SensorIP", "PM25SensorPort", "bodySensorIP", "bodySensorPort", "fanIP", "fanPort", "buzzerIP", "buzzerPort", "collectionCycleTime", "isLinkage", "temperatureThreshold", "humidityThreshold", "pm25Threshold", "isOpenAlarm"};
+    public static String[] setting = {"tempHumSensorIP", "tempHumSensorPort", "PM25SensorIP", "PM25SensorPort", "bodySensorIP", "bodySensorPort", "fanIP", "fanPort", "buzzerIP", "buzzerPort", "collectionCycleTime", "isLinkage", "temperatureThreshold", "humidityThreshold", "pm25Threshold", "isOpenAlert"};
 
 }
