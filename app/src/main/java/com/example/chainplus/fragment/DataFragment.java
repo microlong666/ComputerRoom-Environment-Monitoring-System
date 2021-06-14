@@ -49,9 +49,9 @@ public class DataFragment extends Fragment {
                 binding.imageView3.setImageDrawable(drawable);
             }
         });
-        data.getTemperature().observe(getActivity(), aDouble -> binding.textView.setTextColor(ColorUtil.setTextColor(data.getTemperature().getValue(), "".equals(data.getTemperatureThreshold().getValue()) ? 1000 : Double.parseDouble(data.getTemperatureThreshold().getValue()))));
-        data.getTemperature().observe(getActivity(), aDouble -> binding.textView6.setTextColor(ColorUtil.setTextColor(data.getHumidity().getValue(), "".equals(data.getHumidityThreshold().getValue()) ? 1000 : Double.parseDouble(data.getHumidityThreshold().getValue()))));
-        data.getTemperature().observe(getActivity(), aInteger -> binding.textView12.setTextColor(ColorUtil.setTextColor(data.getPm25().getValue(), "".equals(data.getPm25Threshold().getValue()) ? 100 : Integer.parseInt(data.getPm25Threshold().getValue()))));
+        data.getTemperature().observe(getActivity(), aDouble -> binding.textView.setTextColor(ColorUtil.setTextColor(data.getTemperature().getValue(), "".equals(data.getTemperatureThreshold().getValue()) ? 1000 : Double.parseDouble(data.getTemperatureThreshold().getValue()), data.getTempHumIsConnect().getValue())));
+        data.getHumidity().observe(getActivity(), aDouble -> binding.textView6.setTextColor(ColorUtil.setTextColor(data.getHumidity().getValue(), "".equals(data.getHumidityThreshold().getValue()) ? 1000 : Double.parseDouble(data.getHumidityThreshold().getValue()), data.getTempHumIsConnect().getValue())));
+        data.getPm25().observe(getActivity(), aInteger -> binding.textView12.setTextColor(ColorUtil.setTextColor(data.getPm25().getValue(), "".equals(data.getPm25Threshold().getValue()) ? 100 : Integer.parseInt(data.getPm25Threshold().getValue()), data.getPm25IsConnect().getValue())));
 
         return binding.getRoot();
     }

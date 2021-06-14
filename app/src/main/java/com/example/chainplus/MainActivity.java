@@ -3,6 +3,7 @@ package com.example.chainplus;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.chainplus.connect.BodyConnect;
@@ -197,7 +199,11 @@ public class MainActivity extends AppCompatActivity {
         Boolean isConnect = dataViewModel.getTempHumIsConnect().getValue();
         if (isConnect) {
             tempHumConnect.exit = true;
-            dataViewModel.getTempHumIsConnect().setValue(false);
+            dataViewModel.getTempHumIsConnect().postValue(false);
+            TextView textView = findViewById(R.id.textView);
+            textView.setTextColor(Color.rgb(51, 51, 51));
+            textView = findViewById(R.id.textView6);
+            textView.setTextColor(Color.rgb(51, 51, 51));
         } else {
             tempHumConnect = new TempHumConnect(this, dataViewModel);
             tempHumConnect.start();
@@ -212,6 +218,8 @@ public class MainActivity extends AppCompatActivity {
         if (isConnect) {
             pm25Connect.exit = true;
             dataViewModel.getPm25IsConnect().postValue(false);
+            TextView textView = findViewById(R.id.textView12);
+            textView.setTextColor(Color.rgb(51, 51, 51));
         } else {
             pm25Connect = new Pm25Connect(this, dataViewModel);
             pm25Connect.start();

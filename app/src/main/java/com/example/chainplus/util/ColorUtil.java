@@ -17,7 +17,10 @@ public class ColorUtil {
         }
     }
 
-    public static Integer setTextColor(double value, double threshold) {
+    public static Integer setTextColor(double value, double threshold, boolean isConnect) {
+        if (!isConnect) {
+            return Color.rgb(51, 51, 51);
+        }
         if (value >= threshold) {
             return Color.rgb(255,59,48);
         } else {
@@ -25,7 +28,10 @@ public class ColorUtil {
         }
     }
 
-    public static Integer setTextColor(int value, int threshold) {
+    public static Integer setTextColor(int value, int threshold, boolean isConnect) {
+        if (!isConnect) {
+            return Color.rgb(51, 51, 51);
+        }
         if (value >= threshold) {
             return Color.rgb(255,59,48);
         } else {
