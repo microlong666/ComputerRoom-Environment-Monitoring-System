@@ -1,6 +1,7 @@
 package com.example.chainplus.viewModel;
 
 import com.example.chainplus.util.Const;
+import com.example.chainplus.util.Page;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -45,6 +46,8 @@ public class DataViewModel extends ViewModel {
     private MutableLiveData<String> pm25Threshold;
     private MutableLiveData<String> isOpenAlert;
 
+    private MutableLiveData<Page> position;
+
     /**
      * 初始化数据
      */
@@ -80,6 +83,8 @@ public class DataViewModel extends ViewModel {
         humidityThreshold = new MutableLiveData<>(String.valueOf(Const.maxHum));
         pm25Threshold = new MutableLiveData<>(String.valueOf(Const.maxPm25));
         isOpenAlert = new MutableLiveData<>(Const.alert);
+
+        position = new MutableLiveData<>(Page.INDEX);
     }
 
     public MutableLiveData<Double> getTemperature() {
@@ -304,5 +309,13 @@ public class DataViewModel extends ViewModel {
 
     public void setIsOpenAlert(MutableLiveData<String> isOpenAlert) {
         this.isOpenAlert = isOpenAlert;
+    }
+
+    public MutableLiveData<Page> getPosition() {
+        return position;
+    }
+
+    public void setPosition(MutableLiveData<Page> position) {
+        this.position = position;
     }
 }
