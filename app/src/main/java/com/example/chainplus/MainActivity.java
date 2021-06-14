@@ -6,6 +6,9 @@ import android.content.SharedPreferences;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Switch;
@@ -20,6 +23,7 @@ import com.example.chainplus.fragment.DataFragment;
 import com.example.chainplus.fragment.LinkageSettingFragment;
 import com.example.chainplus.fragment.MineFragment;
 import com.example.chainplus.util.Const;
+import com.example.chainplus.util.Page;
 import com.example.chainplus.viewModel.DataViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -44,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     private FanConnect fanConnect;
     private Pm25Connect pm25Connect;
     private AlertDialog.Builder dialogBuilder;
+    private long exitTime = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,23 +72,23 @@ public class MainActivity extends AppCompatActivity {
         // 创建对话框构造器
         dialogBuilder = new AlertDialog.Builder(this);
 
-        // 启动时默认创建连接
-        if (!dataViewModel.getTempHumIsConnect().getValue()) {
-            tempHumConnect = new TempHumConnect(this, dataViewModel);
-            tempHumConnect.start();
-        }
-        if (!dataViewModel.getFanIsConnect().getValue()) {
-            fanConnect = new FanConnect(this, dataViewModel);
-            fanConnect.start();
-        }
-        if (!dataViewModel.getPm25IsConnect().getValue()) {
-            pm25Connect = new Pm25Connect(this, dataViewModel);
-            pm25Connect.start();
-        }
-        if (!dataViewModel.getBodyIsConnect().getValue()) {
-            bodyConnect = new BodyConnect(this, dataViewModel);
-            bodyConnect.start();
-        }
+//        // 启动时默认创建连接
+//        if (!dataViewModel.getTempHumIsConnect().getValue()) {
+//            tempHumConnect = new TempHumConnect(this, dataViewModel);
+//            tempHumConnect.start();
+//        }
+//        if (!dataViewModel.getFanIsConnect().getValue()) {
+//            fanConnect = new FanConnect(this, dataViewModel);
+//            fanConnect.start();
+//        }
+//        if (!dataViewModel.getPm25IsConnect().getValue()) {
+//            pm25Connect = new Pm25Connect(this, dataViewModel);
+//            pm25Connect.start();
+//        }
+//        if (!dataViewModel.getBodyIsConnect().getValue()) {
+//            bodyConnect = new BodyConnect(this, dataViewModel);
+//            bodyConnect.start();
+//        }
 
         // 开启定时任务
         startFastTimer();
@@ -110,6 +115,31 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (dataViewModel.getPosition().getValue() == Page.LINK_SETTING || dataViewModel.getPosition().getValue() == Page.CONNECT_SETTING) {
+            dataViewModel.getPosition().setValue(Page.MINE);
+            return super.onKeyDown(keyCode, event);
+        }
+        if(keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN)
+        {
+
+            if((System.currentTimeMillis()-exitTime) > 2000)  //System.currentTimeMillis()无论何时调用，肯定大于2000
+            {
+                Toast.makeText(getApplicationContext(), "再按一次退出程序",Toast.LENGTH_SHORT).show();
+                exitTime = System.currentTimeMillis();
+            }
+            else
+            {
+                finish();
+                System.exit(0);
+            }
+
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+
+    }
 
 
     /**
@@ -276,10 +306,14 @@ public class MainActivity extends AppCompatActivity {
         }
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentManager.popBackStack();
-        if ("index".equals(fragment)) {
-            fragmentTransaction.replace(R.id.fragmentContainerView, new DataFragment()).commit();
-        } else if ("mine".equals(fragment)) {
-            fragmentTransaction.replace(R.id.fragmentContainerView, new MineFragment()).commit();
+        if ("index".equals(fragment) && dataViewModel.getPosition().getValue() != Page.INDEX) {
+            dataViewModel.getPosition().setValue(Page.INDEX);
+            fragmentTransaction.setCustomAnimations(R.anim.from_left, R.anim.out_right).replace(R.id.fragmentContainerView, new DataFragment()).commit();
+        } else if ("mine".equals(fragment) && dataViewModel.getPosition().getValue() == Page.INDEX) {
+            dataViewModel.getPosition().setValue(Page.MINE);
+            fragmentTransaction.setCustomAnimations(R.anim.from_right, R.anim.out_left).replace(R.id.fragmentContainerView, new MineFragment()).commit();
+        } else if ("index".equals(fragment)) {
+
         }
     }
 
@@ -291,6 +325,7 @@ public class MainActivity extends AppCompatActivity {
             fragmentManager = getSupportFragmentManager();
         }
         fragmentManager.popBackStack();
+        dataViewModel.getPosition().setValue(Page.MINE);
     }
 
     public void setConnect(View view) {

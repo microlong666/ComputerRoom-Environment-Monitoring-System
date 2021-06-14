@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.example.chainplus.AboutActivity;
 import com.example.chainplus.R;
 import com.example.chainplus.databinding.FragmentMineBinding;
+import com.example.chainplus.util.Page;
 import com.example.chainplus.viewModel.DataViewModel;
 
 import java.util.ArrayList;
@@ -72,9 +73,11 @@ public class MineFragment extends Fragment {
         listView.setAdapter(adapter);
         listView.setOnItemClickListener((parent, view, position, id) -> {
             if (position == 0){
+                data.getPosition().setValue(Page.CONNECT_SETTING);
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 fragmentManager.beginTransaction().setCustomAnimations(R.anim.from_right, R.anim.out_left, R.anim.from_left, R.anim.out_right).replace(R.id.fragmentContainerView, new ConnectSettingFragment()).addToBackStack(null).commit();
             } else if (position == 1) {
+                data.getPosition().setValue(Page.LINK_SETTING);
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 fragmentManager.beginTransaction().setCustomAnimations(R.anim.from_right, R.anim.out_left, R.anim.from_left, R.anim.out_right).replace(R.id.fragmentContainerView, new LinkageSettingFragment()).addToBackStack(null).commit();
             }
