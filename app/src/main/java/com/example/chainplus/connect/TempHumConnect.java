@@ -53,9 +53,11 @@ public class TempHumConnect extends Thread {
                         dataViewModel.getHumidity().postValue((int) (hum * 100) / 100.0);
                     }
 
+                    double temperatureThreshold = Double.parseDouble("".equals(dataViewModel.getTemperatureThreshold().getValue()) ? "1000" : dataViewModel.getTemperatureThreshold().getValue());
+                    double humidityThreshold = Double.parseDouble("".equals(dataViewModel.getHumidityThreshold().getValue()) ? "1000" : dataViewModel.getHumidityThreshold().getValue());
                     // 空调联动
                     if (Boolean.parseBoolean(dataViewModel.getIsLinkage().getValue())) {
-                        if (dataViewModel.getTemperature().getValue() >= Double.parseDouble(dataViewModel.getTemperatureThreshold().getValue()) || dataViewModel.getHumidity().getValue() >= Double.parseDouble(dataViewModel.getHumidityThreshold().getValue())) {
+                        if (dataViewModel.getTemperature().getValue() >= temperatureThreshold || dataViewModel.getHumidity().getValue() >= humidityThreshold) {
                             // 风扇
                             StreamUtil.writeCommand(fanSocket.getOutputStream(), Const.FAN_ON);
                             dataViewModel.getFanIsOpen().postValue(true);
@@ -66,7 +68,7 @@ public class TempHumConnect extends Thread {
                     }
                     // 警报联动
                     if (Boolean.parseBoolean(dataViewModel.getIsOpenAlert().getValue())) {
-                        if (dataViewModel.getTemperature().getValue() >= Double.parseDouble(dataViewModel.getTemperatureThreshold().getValue()) || dataViewModel.getHumidity().getValue() >= Double.parseDouble(dataViewModel.getHumidityThreshold().getValue())) {
+                        if (dataViewModel.getTemperature().getValue() >= temperatureThreshold || dataViewModel.getHumidity().getValue() >= humidityThreshold) {
                             StreamUtil.writeCommand(buzzerSocket.getOutputStream(), Const.RED_CMD);
                             Thread.sleep(200);
                             StreamUtil.writeCommand(buzzerSocket.getOutputStream(), Const.BUZZER_ON);

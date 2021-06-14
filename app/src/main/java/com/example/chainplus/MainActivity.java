@@ -19,6 +19,7 @@ import com.example.chainplus.connect.TempHumConnect;
 import com.example.chainplus.fragment.DataFragment;
 import com.example.chainplus.fragment.MineFragment;
 import com.example.chainplus.util.Const;
+import com.example.chainplus.util.IndexUtil;
 import com.example.chainplus.util.Page;
 import com.example.chainplus.viewModel.DataViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -245,9 +246,25 @@ public class MainActivity extends AppCompatActivity {
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
-                dataViewModel.getHealth().postValue((int) (Math.random() * 100));
+
+                // 温度指数更新
+                if (!dataViewModel.getTempHumIsConnect().getValue() || !dataViewModel.getPm25IsConnect().getValue()) {
+                    dataViewModel.getHealth().postValue(0);
+                } else {
+                    dataViewModel.getHealth().postValue((int) IndexUtil.getHealth(dataViewModel.getTemperature().getValue(),
+                            dataViewModel.getHumidity().getValue(), dataViewModel.getPm25().getValue(),
+                            Double.parseDouble("".equals(dataViewModel.getTemperatureThreshold().getValue()) ? "0" : dataViewModel.getTemperatureThreshold().getValue()),
+                            Double.parseDouble("".equals(dataViewModel.getPm25Threshold().getValue()) ? "0" : dataViewModel.getPm25Threshold().getValue())));
+                }
+
+                // 风量更新
+                dataViewModel.getWind().postValue(IndexUtil.getWind(dataViewModel.getTemperature().getValue()));
+
+                double temperatureThreshold = Double.parseDouble("".equals(dataViewModel.getTemperatureThreshold().getValue()) ? "1000" : dataViewModel.getTemperatureThreshold().getValue());
+                double humidityThreshold = Double.parseDouble("".equals(dataViewModel.getHumidityThreshold().getValue()) ? "1000" : dataViewModel.getHumidityThreshold().getValue());
+
                 // 人工介入且掉出阈值时自动关闭联动设备
-                if (!fanManualOpen && dataViewModel.getFanIsOpen().getValue() && dataViewModel.getTemperature().getValue() < Double.parseDouble(dataViewModel.getTemperatureThreshold().getValue()) && dataViewModel.getHumidity().getValue() < Double.parseDouble(dataViewModel.getHumidityThreshold().getValue())) {
+                if (!fanManualOpen && dataViewModel.getFanIsOpen().getValue() && dataViewModel.getTemperature().getValue() < temperatureThreshold && dataViewModel.getHumidity().getValue() < humidityThreshold) {
                     fanConnect.fanOff();
                 }
             }

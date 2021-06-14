@@ -1,7 +1,5 @@
 package com.example.chainplus.fragment;
 
-import android.graphics.Color;
-import android.graphics.ColorFilter;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -21,10 +19,7 @@ import androidx.databinding.BindingAdapter;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-
-import java.util.Objects;
 
 public class DataFragment extends Fragment {
 
@@ -43,20 +38,21 @@ public class DataFragment extends Fragment {
         DataViewModel data = new ViewModelProvider(getActivity(), new ViewModelProvider.AndroidViewModelFactory(getActivity().getApplication())).get(DataViewModel.class);
         binding.setData(data);
         binding.setLifecycleOwner(this);
-        data.getHealth().observe(getActivity(), new Observer<Integer>() {
-            @Override
-            public void onChanged(Integer integer) {
-                binding.circularProgress.setProgress((float)data.getHealth().getValue());
+        data.getHealth().observe(getActivity(), integer -> {
+            binding.circularProgress.setProgress((float) data.getHealth().getValue());
 
-                // 重绘图标，getActivity有可能是null
-                FragmentActivity context = getActivity();
-                if (context != null) {
-                    Drawable drawable = ContextCompat.getDrawable(requireActivity(), R.drawable.ic_leaf);
-                    drawable.setColorFilter(ColorUtil.getColorFromHealth(data.getHealth().getValue()), PorterDuff.Mode.SRC_ATOP);
-                    binding.imageView3.setImageDrawable(drawable);
-                }
+            // 重绘图标，getActivity有可能是null
+            FragmentActivity context = getActivity();
+            if (context != null) {
+                Drawable drawable = ContextCompat.getDrawable(requireActivity(), R.drawable.ic_leaf);
+                drawable.setColorFilter(ColorUtil.getColorFromHealth(data.getHealth().getValue()), PorterDuff.Mode.SRC_ATOP);
+                binding.imageView3.setImageDrawable(drawable);
             }
         });
+        data.getTemperature().observe(getActivity(), aDouble -> binding.textView.setTextColor(ColorUtil.setTextColor(data.getTemperature().getValue(), "".equals(data.getTemperatureThreshold().getValue()) ? 1000 : Double.parseDouble(data.getTemperatureThreshold().getValue()))));
+        data.getTemperature().observe(getActivity(), aDouble -> binding.textView6.setTextColor(ColorUtil.setTextColor(data.getHumidity().getValue(), "".equals(data.getHumidityThreshold().getValue()) ? 1000 : Double.parseDouble(data.getHumidityThreshold().getValue()))));
+        data.getTemperature().observe(getActivity(), aInteger -> binding.textView12.setTextColor(ColorUtil.setTextColor(data.getPm25().getValue(), "".equals(data.getPm25Threshold().getValue()) ? 100 : Integer.parseInt(data.getPm25Threshold().getValue()))));
+
         return binding.getRoot();
     }
 

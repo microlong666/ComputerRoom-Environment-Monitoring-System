@@ -28,9 +28,9 @@ public class StringUtil {
         }
     }
 
-    public static String getFanString(double data, Boolean isConnect, Boolean isOpen) {
+    public static String getWindString(double data, Boolean isConnect, Boolean isOpen) {
         if (isConnect && isOpen) {
-            return data + "m³/s";
+            return ((int) (data * 100)) / 100 + "m³/s";
         } else {
             return "--m³/s";
         }
@@ -98,9 +98,9 @@ public class StringUtil {
     }
 
     public static String getTipFromHealth(Integer health) {
-        if (health > 50) {
+        if (health > 70) {
             return "环境不错，继续保持哦~";
-        } else if (health > 20) {
+        } else if (health > 50) {
             return "环境有些问题，请多加注意~";
         } else if (health > 0) {
             return "环境不太健康，还请检查哦！";
